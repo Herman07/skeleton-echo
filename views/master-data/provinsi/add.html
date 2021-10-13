@@ -1,0 +1,58 @@
+{{define "content"}}
+<!-- Content Wrapper. Contains page content -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-default">
+            <!-- /.card-header -->
+            <form id="form-validate" method="POST" action="/inventaris/v1/create">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="provinsi">Provinsi</label>
+                                <input type="text" class="form-control" id="provinsi" name="provinsi"
+                                       placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label for="kecamatan">Kecamatan</label>
+                                <input type="text" class="form-control" id="kecamatan" name="kecamatan"
+                                       placeholder="Enter Kecamatan">
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="daerah">Nama Daerah</label>
+                                <input type="text" class="form-control" id="daerah" name="daerah"
+                                       placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label for="luas">Luas</label>
+                                <input type="text" class="form-control" id="luas" name="luas" placeholder="Enter email">
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                </div>
+                <!-- /.row -->
+            </form>
+        </div>
+
+        <!-- /.container-fluid -->
+    </div>
+</section>
+<!-- /.content -->
+<script type="javascript">
+
+</script>
+{{end}}
