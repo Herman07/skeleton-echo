@@ -1,46 +1,59 @@
 package main
 
 import (
-	"fmt"
-	"github.com/foolin/echo-template"
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
+	"encoding/gob"
+	echotemplate "github.com/foolin/goview/supports/echoview-v4"
+	"github.com/joho/godotenv"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
+	"log"
 	"net/http"
+	"skeleton-echo/config"
+	middlewareFunc "skeleton-echo/middleware"
+	"skeleton-echo/models"
 	"skeleton-echo/routers"
+	"skeleton-echo/utils/session"
 )
 
 func main() {
 	e := echo.New()
 
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
+	echo.NotFoundHandler = func(c echo.Context) error {
+		return c.Render(http.StatusNotFound, "auth/404.html", nil)
+	}
+
 	e.Renderer = echotemplate.Default()
 
-	e.Static("/skeleton/assets", "static/assets")
-	e.Static("/admin/template" , "static/assets/admin_template")
-
-	//register router
-	routers.Api(e)
-
-	//e = routers.Main()
-	e.GET("/page", func(c echo.Context) error {
-		//render only file, must full name with extension
-		return c.Render(http.StatusOK, "dashboard/dashboard", nil)
-	})
-	e.GET("/table", func(c echo.Context) error {
-		//render only file, must full name with extension
-		return c.Render(http.StatusOK, "table/table", nil)
-	})
-
-	dsn := "host=localhost user=postgres password=admin dbname=skeleton port=5432 sslmode=disable TimeZone=Asia/Shanghai"
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-
+	// load ENV
+	var err = godotenv.Load()
 	if err != nil {
-		panic("failed to connect database")
+		log.Fatal("ERROR ", err)
 	}
-	fmt.Println("Database Success :", db)
-	e.Logger.Fatal(e.Start(":1323"))
+	gob.Register(session.UserInfo{})
+	gob.Register(session.FlashMessage{})
+	gob.Register(models.Users{})
+	gob.Register(map[string]interface{}{})
+
+	// Load static dashboard
+	e.Static("/admin/templates", "static/assets/asset")
+	// Load static auth
+	e.Static("/login/template", "static/auth")
+
+	//DB Connected
+	db := config.Landscape()
+
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderAuthorization},
+		AllowMethods: []string{echo.GET, echo.HEAD, echo.PUT, echo.PATCH, echo.POST, echo.DELETE},
+	}))
+	session.Manager = session.NewSessionManager(middlewareFunc.NewCookieStore())
+
+	routers.Api(e,db)
+
+	//Port
+	e.Logger.Fatal(e.Start(":5000"))
 
 }

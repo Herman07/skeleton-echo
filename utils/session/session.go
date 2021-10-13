@@ -1,0 +1,88 @@
+package session
+
+import (
+	"fmt"
+	"github.com/gorilla/sessions"
+	"github.com/labstack/echo/v4"
+)
+
+const SessionId = "id"
+
+var Manager *ConfigSession
+
+type UserInfo struct {
+	Username string `json:"username" form:"username"`
+	TypeUser string `json:"type_user" form:"type_user"`
+	ID       string `json:"id" form:"id"`
+	Password string `json:"password" form:"password"`
+	Email    string `json:"email" form:"email"`
+}
+
+type FlashMessage struct {
+	Type    string
+	Message string
+	Data    interface{}
+}
+
+type ConfigSession struct {
+	store    *sessions.CookieStore
+	valueKey string
+}
+
+func NewSessionManager(store *sessions.CookieStore) *ConfigSession {
+	s := new(ConfigSession)
+	s.valueKey = "data"
+	s.store = store
+
+	return s
+}
+
+func (s *ConfigSession) Get(c echo.Context, name string) (interface{}, error) {
+	session, err := s.store.Get(c.Request(), name)
+	if err != nil {
+		return nil, err
+	}
+	if session == nil {
+		return nil, nil
+	}
+	if val, ok := session.Values[s.valueKey]; ok {
+		return val, nil
+	} else {
+		return nil, nil
+	}
+}
+
+func (s *ConfigSession) Set(c echo.Context, name string, value interface{}) error {
+	fmt.Println("name :", name, "value :",value)
+	session, _ := s.store.Get(c.Request(), name)
+	session.Values[s.valueKey] = value
+
+
+	err := session.Save(c.Request(), c.Response())
+	fmt.Println("save", err)
+	return err
+}
+
+func (s *ConfigSession) Delete(c echo.Context, name string) error {
+	session, err := s.store.Get(c.Request(), name)
+	if err != nil {
+		return err
+	}
+	session.Options.MaxAge = -1
+	return session.Save(c.Request(), c.Response())
+}
+
+func (s *ConfigSession) GetWithKeyValues(c echo.Context, name string, keyValue string) (interface{}, error) {
+	session, err := s.store.Get(c.Request(), name)
+	if err != nil {
+		return nil, err
+	}
+	if session == nil {
+		return nil, nil
+	}
+	if val, ok := session.Values[keyValue]; ok {
+		return val, nil
+	} else {
+		return nil, nil
+	}
+}
