@@ -1,17 +1,13 @@
 package models
 
-import "time"
-
 type Users struct {
-	ID        string    `gorm:"column:id;AUTO_INCREMENT" json:"id"`
-	Username  string    `gorm:"column:username" json:"username"`
-	Password  string    `gorm:"column:password" json:"password"`
-	Email     string    `gorm:"column:email" json:"email"`
-	TypeUser  string    `gorm:"column:type_user" json:"type_user"`
-	CreatedAt time.Time `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt time.Time `gorm:"column:updated_at" json:"updated_at"`
+	ID       string `gorm:"column:id_usergroup;AUTO_INCREMENT" json:"id_usergroup"`
+	Username string `gorm:"column:username" json:"username"`
+	Password string `gorm:"column:password" json:"password"`
+	Foto     string `gorm:"column:foto" json:"foto"`
+	TypeUser string `gorm:"column:user_type" json:"user_type"`
 }
 
 func (c *Users) TableName() string {
-	return "users"
+	return "user_group"
 }

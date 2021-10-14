@@ -22,7 +22,7 @@ func NewAuthRepository(db *gorm.DB) AuthRepository {
 
 func (r *authRepository)Login( username string) (*models.Users,error) {
 	var entity models.Users
-	err := r.DB.Table("users").Where("username = ?", username).First(&entity).Error
+	err := r.DB.Table("user_group").Where("username = ?", username).First(&entity).Error
 
 	return &entity, err
 

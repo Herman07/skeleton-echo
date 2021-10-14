@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"skeleton-echo/request"
@@ -44,15 +43,12 @@ func (c *FrontAuthController) Login(ctx echo.Context) error {
 	userInfo := session.UserInfo{
 		ID:       data.ID,
 		Username: data.Username,
-		Email:    data.Email,
 		TypeUser: data.TypeUser,
 	}
-	fmt.Println("masuk sini gak ", userInfo)
 	if err := session.Manager.Set(ctx, session.SessionId, &userInfo)
 	err != nil {
 		return ctx.Redirect(http.StatusFound, "/inventaris/v1/login")
 	}
-	fmt.Println("masuk sini gak ", dataReq)
 	return ctx.Redirect(http.StatusFound, "/inventaris/v1/admin")
 }
 func (c *FrontAuthController) Logout(ctx echo.Context) error {

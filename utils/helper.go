@@ -107,6 +107,6 @@ func GetUserInfoFromContext(ctx echo.Context, db *gorm.DB) (userModel models.Use
 	}
 	userInfo := result.(session.UserInfo)
 	fmt.Println("Isinya apa ",userInfo)
-	err = db.Model(models.Users{}).Preload(clause.Associations).Where("id =?", userInfo.ID).First(&userModel).Error
+	err = db.Model(models.Users{}).Preload(clause.Associations).Where("id_usergroup =?", userInfo.ID).First(&userModel).Error
 	return
 }

@@ -13,9 +13,8 @@ var Manager *ConfigSession
 type UserInfo struct {
 	Username string `json:"username" form:"username"`
 	TypeUser string `json:"type_user" form:"type_user"`
-	ID       string `json:"id" form:"id"`
+	ID       string `json:"id_usergroup" form:"id"`
 	Password string `json:"password" form:"password"`
-	Email    string `json:"email" form:"email"`
 }
 
 type FlashMessage struct {

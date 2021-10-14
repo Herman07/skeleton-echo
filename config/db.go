@@ -2,7 +2,7 @@ package config
 
 import (
 	"fmt"
-	"gorm.io/driver/postgres"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"os"
 	"strconv"
@@ -10,16 +10,15 @@ import (
 
 func Landscape() *gorm.DB {
 	var (
-		dbHost   = os.Getenv("DB_HOST")
 		port     = os.Getenv("DB_PORT")
 		user     = os.Getenv("DB_USERNAME")
 		password = os.Getenv("DB_PASSWORD")
 		database = os.Getenv("DB_DATABASE")
 	)
 
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Jakarta",
-		dbHost, user, password, database, port)
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
+		user, password,port, database )
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
 		panic(err)
