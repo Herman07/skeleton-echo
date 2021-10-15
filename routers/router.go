@@ -33,4 +33,13 @@ func Api(e *echo.Echo, db *gorm.DB) {
 	g.POST("/do-update/:id",dashboardController.DoUpdate)
 	g.DELETE("/delete/:id",dashboardController.Delete)
 
+
+	m := g.Group("/master-data", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
+	masterController := config.InjectMasterController(db)
+	p := m.Group("/provinsi", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
+	p.GET("",masterController.Index)
+	p.GET("/add",masterController.Store)
+	p.GET("/table",masterController.GetDetail)
+
+
 }

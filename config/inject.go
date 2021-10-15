@@ -19,3 +19,10 @@ func InjectDashboardController(db *gorm.DB) controllers.DashboardController {
 	dashboardController := controllers.NewDashboardController(dashboardService)
 	return dashboardController
 }
+
+func InjectMasterController(db *gorm.DB) controllers.MasterDataController {
+	masterRepository := repository.NewMasterDataRepository(db)
+	masterService := services.NewMasterDataService(masterRepository)
+	masterController := controllers.NewMasterDataController(masterService)
+	return masterController
+}

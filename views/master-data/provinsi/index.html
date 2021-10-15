@@ -8,7 +8,7 @@
                     <div class="card-header">
                         <div class="card">
                             <div class="card-header">
-                                <form method="GET" action="/inventaris/v1/add">
+                                <form method="GET" action="/provinsi/add">
                                     <button type="submit" class="btn btn-primary" class="text-right"
                                             style="float: right;">Tambah Data
                                     </button>
@@ -17,15 +17,11 @@
 
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="provinsi" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Provinsi</th>
-                                        <th>Kecamatan</th>
-                                        <th>Nama Daerah</th>
-                                        <th>Luas Daerah</th>
-                                        <th>CreatedAt</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -50,44 +46,68 @@
 <!-- /.content-wrapper -->
 
 <script type="text/javascript">
-    //Delete function datatable
-    function Delete(id) {
-        data = new FormData();
-        // data.append('csrf', $('meta[name="csrf-token"]').attr('content'));
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.value) {
-                $.ajax({
-                    url: '/inventaris/v1/delete/' + id,
-                    type: 'DELETE',
-                    data: data,
-                    processData: false,
-                    contentType: false,
-                    success: function (res) {
-                        Swal.fire(
-                            'Deleted!',
-                            'User has been deleted.',
-                            'success'
-                        );
-                        ;$('#example1').DataTable().ajax.reload();
-                    },
-                    error: function (res) {
-                        Swal.fire({
-                            type: 'warning',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                        })
-                    }
-                })
-            }
-        });
-    }
+    $(document).ready(function () {
+        $("#provinsi").DataTable({
+            dom: 'Bfrtip',
+            processing: true,
+            serverSide: true,
+            fixedColumns: true,
+            responsive: true,
+            lengthChange: false,
+            autoWidth: false,
+            fixedHeader: {
+                "header": false,
+                "footer": false
+            },
+            buttons: [
+                "copy", "csv", "excel", "pdf", "print"
+            ],
+            ajax: '/inventaris/v1/master-data/provinsi/table',
+            "columns": [
+                {data: 'id_prov', name: 'id_prov'},
+                {data: 'nama_prov', name: 'nama_prov'},
+                {data: 'action', searchable: false}
+            ],
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        function Delete(id) {
+            data = new FormData();
+            // data.append('csrf', $('meta[name="csrf-token"]').attr('content'));
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: '' + id,
+                        type: 'DELETE',
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        success: function (res) {
+                            Swal.fire(
+                                'Deleted!',
+                                'User has been deleted.',
+                                'success'
+                            );
+                            $('#example1').DataTable().ajax.reload();
+                        },
+                        error: function (res) {
+                            Swal.fire({
+                                type: 'warning',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                            })
+                        }
+                    })
+                }
+            });
+        }
+    });
 </script>
 {{end}}
