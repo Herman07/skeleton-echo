@@ -11,6 +11,7 @@ type KabDataRepository interface {
 	CountWhere(operation string, keyVal map[string]interface{}) (int64, error)
 	Create(entity models.MasterDataKab) (*models.MasterDataKab, error)
 	UpdateById(entity models.MasterDataKab)(*models.MasterDataKab, error)
+	FindById(id string) (*models.MasterDataKab, error)
 	Delete(models.MasterDataKab) error
 	DbInstance() *gorm.DB
 }
@@ -70,6 +71,11 @@ func (r kabdataRepository) Create(entity models.MasterDataKab) (*models.MasterDa
 
 func (r kabdataRepository) UpdateById(entity models.MasterDataKab)(*models.MasterDataKab, error){
 	err := r.DB.Model(&models.MasterDataKab{ID: entity.ID}).Updates(&entity).Error
+	return &entity, err
+}
+func (r kabdataRepository) FindById(id string) (*models.MasterDataKab, error) {
+	var entity models.MasterDataKab
+	err := r.DB.Table("kabupaten").Where("id_kab = ?", id).First(&entity).Error
 	return &entity, err
 }
 

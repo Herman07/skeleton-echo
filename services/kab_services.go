@@ -70,6 +70,13 @@ func (s *KabDataService) UpdateById(id string, dto request.KabReq) (*models.Mast
 	}
 	return data, err
 }
+func (s *KabDataService) FindById(id string) (*models.MasterDataKab, error) {
+	data, err := s.KabDataRepository.FindById(id)
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}
 
 func (s *KabDataService) Delete(id string) error {
 	entity := models.MasterDataKab{

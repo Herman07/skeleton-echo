@@ -71,6 +71,14 @@ func (s *KecDataService) UpdateById(id string, dto request.KecReq) (*models.Mast
 	return data, err
 }
 
+func (s *KecDataService) FindById(id string) (*models.MasterDataKec, error) {
+	data, err := s.KecDataRepository.FindById(id)
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}
+
 func (s *KecDataService) Delete(id string) error {
 	entity := models.MasterDataKec{
 		ID: id,

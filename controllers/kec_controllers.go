@@ -41,24 +41,22 @@ func (c *KecDataController) Store(ctx echo.Context) error {
 	return Render(ctx, "Home", "master-data/kecamatan/add", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
 }
 func (c *KecDataController) Update(ctx echo.Context) error {
-	//id := ctx.Param("id")
-	//_, err := c.service.FindById(id)
-	//if err != nil {
-	//	return c.InternalServerError(ctx, err)
-	//}
+	id := ctx.Param("id")
+	data, err := c.service.FindById(id)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
 
 	breadCrumbs := map[string]interface{}{
 		"menu": "Home",
 		"link": "/inventaris/v1/master-data/kec/update/:id",
 	}
-	//dataInventaris := models.Inventaris{
-	//	ID:         data.ID,
-	//	Provinsi:   data.Provinsi,
-	//	Kecamatan:  data.Kecamatan,
-	//	Daerah: data.Daerah,
-	//	Luas: data.Luas,
-	//}
-	return Render(ctx, "Home", "master-data/kecamatan/update", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
+	dataKec := models.MasterDataKec{
+		ID:        data.ID,
+		Kecamatan: data.Kecamatan,
+		IDKab:     data.IDKab,
+	}
+	return Render(ctx, "Home", "master-data/kecamatan/update", c.Menu, append(c.BreadCrumbs, breadCrumbs), dataKec)
 }
 
 func (c *KecDataController) GetDetail(ctx echo.Context) error {
@@ -71,7 +69,7 @@ func (c *KecDataController) GetDetail(ctx echo.Context) error {
 	orderName := ctx.Request().URL.Query().Get("columns[" + strconv.Itoa(order) + "][name]")
 	orderAscDesc := ctx.Request().URL.Query().Get("order[0][dir]")
 
-	recordTotal, recordFiltered, data ,err := c.service.QueryDatatable(search,orderAscDesc, orderName, length, start)
+	recordTotal, recordFiltered, data, err := c.service.QueryDatatable(search, orderAscDesc, orderName, length, start)
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, err.Error())
 	}
@@ -79,14 +77,14 @@ func (c *KecDataController) GetDetail(ctx echo.Context) error {
 	var action string
 	listOfData := make([]map[string]interface{}, len(data))
 	for k, v := range data {
-		action = `<a href="?` + (v.ID) + `" class="btn btn-success btn-bold btn-upper" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fas fa-edit"></i></a>
+		action = `<a data-toggle="modal" data-target="#modal-update" class="btn btn-success btn-bold btn-upper" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fas fa-edit"></i></a>
 		<a href="javascript:;" onclick="Delete('` + v.ID + `')" class="btn btn-danger btn-bold btn-upper" title="Delete" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fas fa-trash"></i></a>`
 		//time := v.CreatedAt
 		//createdAt = time.Format("2006-01-02")
 		listOfData[k] = map[string]interface{}{
-			"nama_kecamatan":    v.Kecamatan,
-			"id_kec":          v.ID,
-			"action": action,
+			"nama_kecamatan": v.Kecamatan,
+			"id_kec":         v.ID,
+			"action":         action,
 		}
 	}
 	result := models.ResponseDatatable{
@@ -133,5 +131,5 @@ func (c *KecDataController) Delete(ctx echo.Context) error {
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
-	return c.Ok(ctx,nil)
+	return c.Ok(ctx, nil)
 }

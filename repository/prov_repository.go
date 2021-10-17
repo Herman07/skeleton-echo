@@ -12,6 +12,7 @@ type MasterDataRepository interface {
 	Create(entity models.MasterDataProvinsi) (*models.MasterDataProvinsi, error)
 	UpdateById(entity models.MasterDataProvinsi)(*models.MasterDataProvinsi, error)
 	Delete(models.MasterDataProvinsi) error
+	FindById(id string) (*models.MasterDataProvinsi, error)
 	DbInstance() *gorm.DB
 }
 
@@ -70,6 +71,12 @@ func (r masterdataRepository) Create(entity models.MasterDataProvinsi) (*models.
 
 func (r masterdataRepository) UpdateById(entity models.MasterDataProvinsi)(*models.MasterDataProvinsi, error){
 	err := r.DB.Model(&models.MasterDataProvinsi{ID: entity.ID}).Updates(&entity).Error
+	return &entity, err
+}
+
+func (r masterdataRepository) FindById(id string) (*models.MasterDataProvinsi, error) {
+	var entity models.MasterDataProvinsi
+	err := r.DB.Table("provinsi").Where("id_prov = ?", id).First(&entity).Error
 	return &entity, err
 }
 

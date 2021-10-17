@@ -11,6 +11,7 @@ type KecDataRepository interface {
 	CountWhere(operation string, keyVal map[string]interface{}) (int64, error)
 	Create(entity models.MasterDataKec) (*models.MasterDataKec, error)
 	UpdateById(entity models.MasterDataKec)(*models.MasterDataKec, error)
+	FindById(id string) (*models.MasterDataKec, error)
 	Delete(models.MasterDataKec) error
 	DbInstance() *gorm.DB
 }
@@ -70,6 +71,12 @@ func (r kecdataRepository) Create(entity models.MasterDataKec) (*models.MasterDa
 
 func (r kecdataRepository) UpdateById(entity models.MasterDataKec)(*models.MasterDataKec, error){
 	err := r.DB.Model(&models.MasterDataKec{ID: entity.ID}).Updates(&entity).Error
+	return &entity, err
+}
+
+func (r kecdataRepository) FindById(id string) (*models.MasterDataKec, error) {
+	var entity models.MasterDataKec
+	err := r.DB.Table("kecamatan").Where("id_kec = ?", id).First(&entity).Error
 	return &entity, err
 }
 

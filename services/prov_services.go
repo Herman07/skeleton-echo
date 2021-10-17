@@ -72,6 +72,13 @@ func (s *MasterDataService) UpdateById(id string, dto request.ProvinsiReq) (*mod
 	}
 	return data, err
 }
+func (s *MasterDataService) FindById(id string) (*models.MasterDataProvinsi, error) {
+	data, err := s.MasterDataRepository.FindById(id)
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}
 
 func (s *MasterDataService) Delete(id string) error {
 	entity := models.MasterDataProvinsi{
