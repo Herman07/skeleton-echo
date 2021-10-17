@@ -40,6 +40,26 @@ func Api(e *echo.Echo, db *gorm.DB) {
 	p.GET("",masterController.Index)
 	p.GET("/add",masterController.Store)
 	p.GET("/table",masterController.GetDetail)
+	p.GET("/update/:id",masterController.Update)
+	p.POST("/update/:id",masterController.DoUpdate)
+	p.POST("/create",masterController.AddData)
 
+	kabController := config.InjectKabController(db)
+	kb := m.Group("/kab", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
+	kb.GET("",kabController.Index)
+	kb.GET("/add",kabController.Store)
+	kb.GET("/table",kabController.GetDetail)
+	kb.GET("/update/:id",kabController.Update)
+	kb.POST("/update/:id",kabController.DoUpdate)
+	kb.POST("/create",kabController.AddData)
 
+	kecController := config.InjectKecController(db)
+	kc := m.Group("/kec", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
+	kc.GET("",kecController.Index)
+	kc.GET("/add",kecController.Store)
+	kc.GET("/table",kecController.GetDetail)
+	kc.GET("/update/:id",kecController.Update)
+	kc.POST("/update/:id",kecController.DoUpdate)
+	kc.POST("/create",kecController.AddData)
 }
+

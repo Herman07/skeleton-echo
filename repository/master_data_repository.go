@@ -10,6 +10,8 @@ type MasterDataRepository interface {
 	Count() (int64, error)
 	CountWhere(operation string, keyVal map[string]interface{}) (int64, error)
 	Create(entity models.MasterDataProvinsi) (*models.MasterDataProvinsi, error)
+	UpdateById(entity models.MasterDataProvinsi)(*models.MasterDataProvinsi, error)
+	Delete(models.MasterDataProvinsi) error
 	DbInstance() *gorm.DB
 }
 
@@ -64,6 +66,15 @@ func (r masterdataRepository) CountWhere(operation string, keyVal map[string]int
 func (r masterdataRepository) Create(entity models.MasterDataProvinsi) (*models.MasterDataProvinsi, error) {
 	err := r.DB.Table("provinsi").Create(&entity).Error
 	return &entity, err
+}
+
+func (r masterdataRepository) UpdateById(entity models.MasterDataProvinsi)(*models.MasterDataProvinsi, error){
+	err := r.DB.Model(&models.MasterDataProvinsi{ID: entity.ID}).Updates(&entity).Error
+	return &entity, err
+}
+
+func (r masterdataRepository) Delete(entity models.MasterDataProvinsi) error {
+	return r.DB.Table("provinsi").Delete(&entity).Error
 }
 
 func (r *masterdataRepository) DbInstance() *gorm.DB {

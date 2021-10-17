@@ -26,3 +26,16 @@ func InjectMasterController(db *gorm.DB) controllers.MasterDataController {
 	masterController := controllers.NewMasterDataController(masterService)
 	return masterController
 }
+
+func InjectKabController(db *gorm.DB) controllers.KabDataController {
+	kabRepository := repository.NewKabDataRepository(db)
+	kabService := services.NewKabDataService(kabRepository)
+	kabController := controllers.NewKabDataController(kabService)
+	return kabController
+}
+func InjectKecController(db *gorm.DB) controllers.KecDataController {
+	kecRepository := repository.NewKecDataRepository(db)
+	kecService := services.NewKecDataService(kecRepository)
+	kecController := controllers.NewKecDataController(kecService)
+	return kecController
+}

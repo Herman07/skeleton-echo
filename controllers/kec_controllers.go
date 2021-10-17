@@ -10,37 +10,37 @@ import (
 	"strconv"
 )
 
-type MasterDataController struct {
+type KecDataController struct {
 	BaseFrontendController
 	Controller
-	service *services.MasterDataService
+	service *services.KecDataService
 }
 
-func NewMasterDataController(services *services.MasterDataService) MasterDataController {
-	return MasterDataController{
+func NewKecDataController(services *services.KecDataService) KecDataController {
+	return KecDataController{
 		service: services,
 		BaseFrontendController: BaseFrontendController{
-			Menu:        "Master Data",
+			Menu:        "Kecamatan Data",
 			BreadCrumbs: []map[string]interface{}{},
 		},
 	}
 }
-func (c *MasterDataController) Index(ctx echo.Context) error {
+func (c *KecDataController) Index(ctx echo.Context) error {
 	breadCrumbs := map[string]interface{}{
 		"menu": "Home",
-		"link": "/inventaris/v1/master-data",
+		"link": "/inventaris/v1/master-data/kec",
 	}
-	return Render(ctx, "Home", "master-data/provinsi/index", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
+	return Render(ctx, "Home", "master-data/kecamatan/index", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
 }
 
-func (c *MasterDataController) Store(ctx echo.Context) error {
+func (c *KecDataController) Store(ctx echo.Context) error {
 	breadCrumbs := map[string]interface{}{
 		"menu": "Home",
-		"link": "/inventaris/v1/master-data/add",
+		"link": "/inventaris/v1/master-data/kec/add",
 	}
-	return Render(ctx, "Home", "master-data/provinsi/add", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
+	return Render(ctx, "Home", "master-data/kecamatan/add", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
 }
-func (c *MasterDataController) Update(ctx echo.Context) error {
+func (c *KecDataController) Update(ctx echo.Context) error {
 	//id := ctx.Param("id")
 	//_, err := c.service.FindById(id)
 	//if err != nil {
@@ -49,7 +49,7 @@ func (c *MasterDataController) Update(ctx echo.Context) error {
 
 	breadCrumbs := map[string]interface{}{
 		"menu": "Home",
-		"link": "/inventaris/v1/update/:id",
+		"link": "/inventaris/v1/master-data/kec/update/:id",
 	}
 	//dataInventaris := models.Inventaris{
 	//	ID:         data.ID,
@@ -58,10 +58,10 @@ func (c *MasterDataController) Update(ctx echo.Context) error {
 	//	Daerah: data.Daerah,
 	//	Luas: data.Luas,
 	//}
-	return Render(ctx, "Home", "master-data/provinsi/update", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
+	return Render(ctx, "Home", "master-data/kecamatan/update", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
 }
 
-func (c *MasterDataController) GetDetail(ctx echo.Context) error {
+func (c *KecDataController) GetDetail(ctx echo.Context) error {
 
 	draw, err := strconv.Atoi(ctx.Request().URL.Query().Get("draw"))
 	start, err := strconv.Atoi(ctx.Request().URL.Query().Get("start"))
@@ -84,8 +84,8 @@ func (c *MasterDataController) GetDetail(ctx echo.Context) error {
 		//time := v.CreatedAt
 		//createdAt = time.Format("2006-01-02")
 		listOfData[k] = map[string]interface{}{
-			"nama_prov":    v.Provinsi,
-			"id_prov":          v.ID,
+			"nama_kecamatan":    v.Kecamatan,
+			"id_kec":          v.ID,
 			"action": action,
 		}
 	}
@@ -98,8 +98,8 @@ func (c *MasterDataController) GetDetail(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, &result)
 }
 
-func (c *MasterDataController) AddData(ctx echo.Context) error {
-	var entity request.ProvinsiReq
+func (c *KecDataController) AddData(ctx echo.Context) error {
+	var entity request.KecReq
 
 	if err := ctx.Bind(&entity); err != nil {
 		return ctx.JSON(400, echo.Map{"message": "error binding data"})
@@ -109,12 +109,12 @@ func (c *MasterDataController) AddData(ctx echo.Context) error {
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
-	return ctx.Redirect(302, "/inventaris/v1/master-data/provinsi")
+	return ctx.Redirect(302, "/inventaris/v1/master-data/kec")
 }
 
-func (c *MasterDataController) DoUpdate(ctx echo.Context) error {
-	var entity request.ProvinsiReq
-	id := ctx.Param("id_prov")
+func (c *KecDataController) DoUpdate(ctx echo.Context) error {
+	var entity request.KecReq
+	id := ctx.Param("id_kec")
 	if err := ctx.Bind(&entity); err != nil {
 		return ctx.JSON(400, echo.Map{"message": "error binding data"})
 	}
@@ -123,11 +123,11 @@ func (c *MasterDataController) DoUpdate(ctx echo.Context) error {
 		return c.InternalServerError(ctx, err)
 	}
 	fmt.Println(data)
-	return ctx.Redirect(302, "/inventaris/v1/master-data/provinsi")
+	return ctx.Redirect(302, "/inventaris/v1/master-data/kec")
 }
 
-func (c *MasterDataController) Delete(ctx echo.Context) error {
-	id := ctx.Param("id_prov")
+func (c *KecDataController) Delete(ctx echo.Context) error {
+	id := ctx.Param("id_kec")
 
 	err := c.service.Delete(id)
 	if err != nil {
