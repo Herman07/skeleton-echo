@@ -1,0 +1,116 @@
+{{define "content"}}
+<!-- Content Wrapper. Contains page content -->
+<!-- Main content -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Status Legal</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Status</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-default">
+            <!-- /.card-header -->
+            <form id="form-validate" method="POST" action="/inventaris/v1/create">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="tahun_pembentukan">Tahun Pembentukan</label>
+                                <input type="text" class="form-control" id="tahun_pembentukan" name="tahun_pembentukan"
+                                       placeholder="Masukkan Tahun Pembentukan">
+                            </div>
+                            <div class="form-group">
+                                <label for="lampiran_tahun_pembentukan">Lampiran Tahun Pembentukan</label>
+                                <input type="text" class="form-control" id="lampiran_tahun_pembentukan" name="lampiran_tahun_pembentukan"
+                                       placeholder="Masukan Lampiran">
+                            </div>
+                            <div class="form-group">
+                                <label for="diket_kep_dc">Lampiran Kepala Desa/Camat</label>
+                                <input type="text" class="form-control" id="diket_kep_dc" name="diket_kep_dc"
+                                       placeholder="Masukan Lampiran">
+                            </div>
+                            <div class="form-group">
+                                <label>Nomor SK Bupati</label>
+                                <select class="form-control select2bs4" style="width: 100%;">
+                                    <option selected="selected"></option>
+                                    <option>Ada</option>
+                                    <option>Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="lampiran_sk_bupati">Lampiran SK Bupati</label>
+                                <input type="text" class="form-control" id="lampiran_sk_bupati" name="lampiran_sk_bupati"
+                                       placeholder="Masukan Lampiran">
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Akte Notaris</label>
+                                <select class="form-control select2bs4" style="width: 100%;">
+                                    <option selected="selected"></option>
+                                    <option>Ada</option>
+                                    <option>Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="lampiran_akte_notaris">Lampiran Akte Notaris</label>
+                                <input type="text" class="form-control" id="lampiran_akte_notaris" name="lampiran_akte_notaris"
+                                       placeholder="Masukkan Lampiran">
+                            </div>
+                            <div class="form-group">
+                                <label>Nomor Pendaftaran</label>
+                                <select class="form-control select2bs4" style="width: 100%;">
+                                    <option selected="selected"></option>
+                                    <option>Ada</option>
+                                    <option>Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="lampiran_pendaftaran">Lampiran Pendaftaran</label>
+                                <input type="text" class="form-control" id="lampiran_pendaftaran" name="lampiran_pendaftaran"
+                                       placeholder="Masukkan Lampiran">
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" style="float: right;">Submit</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                </div>
+                <!-- /.row -->
+            </form>
+        </div>
+
+        <!-- /.container-fluid -->
+    </div>
+</section>
+<!-- /.content -->
+<script type="javascript">
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+    })
+</script>
+{{end}}

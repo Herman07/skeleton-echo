@@ -4,12 +4,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Kecamatan</h1>
+                <h1 class="m-0">Teknik Irigasi</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Kecamatan</li>
+                    <li class="breadcrumb-item active">Teknik Irigasi</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -31,11 +31,12 @@
 
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="kecamatan" class="table table-bordered table-striped">
+                                <table id="teknik_irigasi" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Provinsi</th>
+                                        <th>Operasi</th>
+                                        <th>Partisipatif</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -44,7 +45,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            {{include "master-data/kecamatan/modals"}}
+                            {{include "teknik-irigasi/modals"}}
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->
@@ -62,7 +63,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#kecamatan").DataTable({
+        $("#provinsi").DataTable({
             dom: 'Bfrtip',
             processing: true,
             serverSide: true,
@@ -77,10 +78,10 @@
             buttons: [
                 "copy", "csv", "excel", "pdf", "print"
             ],
-            ajax: '/inventaris/v1/master-data/kec/table',
+            ajax: '/inventaris/v1/master-data/provinsi/table',
             "columns": [
-                {data: 'id_kec', name: 'id_kec'},
-                {data: 'nama_kecamatan', name: 'nama_kecamatan'},
+                {data: 'id_prov', name: 'id_prov'},
+                {data: 'nama_prov', name: 'nama_prov'},
                 {data: 'action', searchable: false}
             ],
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');

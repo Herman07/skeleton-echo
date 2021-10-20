@@ -1,0 +1,167 @@
+{{define "content"}}
+<!-- Content Wrapper. Contains page content -->
+<!-- Main content -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Kepengurusan</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Kepengurusan</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-default">
+            <!-- /.card-header -->
+            <form id="form-validate" method="POST" action="/inventaris/v1/create">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Ketua</label>
+                                <select class="form-control select2bs4" style="width: 100%;" id="ketua">
+                                    <option selected="selected"></option>
+                                    <option>Laki-Laki</option>
+                                    <option>Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Wakil Ketua</label>
+                                <select class="form-control select2bs4" style="width: 100%;" id="wakil">
+                                    <option selected="selected"></option>
+                                    <option>Laki-Laki</option>
+                                    <option>Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Sekertaris</label>
+                                <select class="form-control select2bs4" style="width: 100%;" id="sekertaris">
+                                    <option selected="selected"></option>
+                                    <option>Laki-Laki</option>
+                                    <option>Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Bendahara</label>
+                                <select class="form-control select2bs4" style="width: 100%;" id="bendahara">
+                                    <option selected="selected"></option>
+                                    <option>Laki-Laki</option>
+                                    <option>Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Seksi Tenik</label>
+                                <select class="form-control select2bs4" style="width: 100%;" id="sek_teknik">
+                                    <option selected="selected"></option>
+                                    <option>Laki-Laki</option>
+                                    <option>Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Seksi O & P</label>
+                                <select class="form-control select2bs4" style="width: 100%;" id="sek_op">
+                                    <option selected="selected"></option>
+                                    <option>Laki-Laki</option>
+                                    <option>Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Seksi Bisnis</label>
+                                <select class="form-control select2bs4" style="width: 100%;" id="sek_bisnis">
+                                    <option selected="selected"></option>
+                                    <option>Laki-Laki</option>
+                                    <option>Perempuan</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="jumlah_anggota">Jumlah Anggota</label>
+                                <input type="text" class="form-control" id="jumlah_anggota" name="jumlah_anggota"
+                                       placeholder="Masukkan Jumlah" maxlength="10">
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="no_ad_rt">No ADRT</label>
+                                <input type="text" class="form-control" id="no_ad_rt" name="no_ad_rt"
+                                       placeholder="Masukkan Nomor" maxlength="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="lampiran_ad_rt">Lampiran ADRT</label>
+                                <input type="text" class="form-control" id="lampiran_ad_rt" name="lampiran_ad_rt"
+                                       placeholder="Masukkan Lampiran">
+                            </div>
+                            <div class="form-group">
+                                <label>Seketariat</label>
+                                <select class="form-control select2bs4" style="width: 100%;" id="seketariat">
+                                    <option selected="selected"></option>
+                                    <option>Ada</option>
+                                    <option>Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="lampiran_seketariat">Lampiran Seketariat</label>
+                                <input type="text" class="form-control" id="lampiran_seketariat" name="lampiran_seketariat"
+                                       placeholder="Masukkan Lampiran">
+                            </div>
+                            <div class="form-group">
+                                <label for="presentase_perempuan_p3a">Presentase Perempuan P3A</label>
+                                <input type="text" class="form-control" id="presentase_perempuan_p3a" name="presentase_perempuan_p3a"
+                                       placeholder="Masukkan Presentase" maxlength="3">
+                            </div>
+                            <div class="form-group">
+                                <label for="area_tesier">Area Tersier</label>
+                                <input type="text" class="form-control" id="area_tesier" name="area_tesier"
+                                       placeholder="Masukkan Area" maxlength="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="pengisian_buku">Pengisian Buku</label>
+                                <input type="text" class="form-control" id="pengisian_buku" name="pengisian_buku"
+                                       placeholder="Masukkan Data" maxlength="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="iuran">Iuran</label>
+                                <input type="text" class="form-control" id="iuran" name="iuran"
+                                       placeholder="Masukkan Iuran" maxlength="10">
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" style="float: right;">Submit</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                </div>
+                <!-- /.row -->
+            </form>
+        </div>
+
+        <!-- /.container-fluid -->
+    </div>
+</section>
+<!-- /.content -->
+<script type="javascript">
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+    })
+</script>
+{{end}}
