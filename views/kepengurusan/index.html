@@ -24,7 +24,7 @@
             <form id="form-validate" method="POST" action="/inventaris/v1/create">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label>Ketua</label>
                                 <select class="form-control select2bs4" style="width: 100%;" id="ketua">
@@ -88,18 +88,32 @@
                                        placeholder="Masukkan Jumlah" maxlength="10">
                             </div>
                             <!-- /.form-group -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-md-6">
+
                             <div class="form-group">
                                 <label for="no_ad_rt">No ADRT</label>
                                 <input type="text" class="form-control" id="no_ad_rt" name="no_ad_rt"
                                        placeholder="Masukkan Nomor" maxlength="10">
                             </div>
                             <div class="form-group">
-                                <label for="lampiran_ad_rt">Lampiran ADRT</label>
-                                <input type="text" class="form-control" id="lampiran_ad_rt" name="lampiran_ad_rt"
-                                       placeholder="Masukkan Lampiran">
+                                <label>Lampiran ADRT</label>
+                                <div class="profile-pic-wrapper" >
+                                    <div class="pic-holder">
+                                        <img id="profilePic" class="pic" src="/admin/templates/dist/img/image-not-found.jpg">
+                                        <label for="newProfilePhoto" class="upload-file-block">
+                                            <div class="text-center">
+                                                <div class="mb-2">
+                                                    <i class="fa fa-camera fa-2x"></i>
+                                                </div>
+                                                <div class="text-uppercase">
+                                                    Upload<br/> Lampiran
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <input class="uploadProfileInput" type="file" name="profile_pic"
+                                               id="newProfilePhoto" accept="image/*" style="display: none;"/>
+                                    </div>
+                                    </hr>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Seketariat</label>
@@ -110,9 +124,25 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="lampiran_seketariat">Lampiran Seketariat</label>
-                                <input type="text" class="form-control" id="lampiran_seketariat" name="lampiran_seketariat"
-                                       placeholder="Masukkan Lampiran">
+                                <label>Lampiran Seketariat</label>
+                                <div class="profile-pic-wrapper" >
+                                    <div class="pic-holder">
+                                        <img id="profilePic" class="pic" src="/admin/templates/dist/img/image-not-found.jpg">
+                                        <label for="newProfilePhoto" class="upload-file-block">
+                                            <div class="text-center">
+                                                <div class="mb-2">
+                                                    <i class="fa fa-camera fa-2x"></i>
+                                                </div>
+                                                <div class="text-uppercase">
+                                                    Upload<br/> Lampiran
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <input class="uploadProfileInput" type="file" name="profile_pic"
+                                               id="newProfilePhoto" accept="image/*" style="display: none;"/>
+                                    </div>
+                                    </hr>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="presentase_perempuan_p3a">Presentase Perempuan P3A</label>
@@ -136,7 +166,7 @@
                             </div>
                             <!-- /.form-group -->
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md">
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary" style="float: right;">Submit</button>
                             </div>
