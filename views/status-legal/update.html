@@ -1,0 +1,191 @@
+{{define "content"}}
+<!-- Content Wrapper. Contains page content -->
+<!-- Main content -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Update Status Legal</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Status</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="card card-default">
+            <form id="form-validate" method="POST" action="/inventaris/v1/master-data/status-legal/update">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="tahun_pembentukan">Tahun Pembentukan</label>
+                                <input type="text" class="form-control" id="tahun_pembentukan" name="tahun_pembentukan"
+                                       value="">
+                            </div>
+                            <div class="form-group">
+                                <label>Nomor SK Bupati</label>
+                                <select class="form-control select2bs4" id="select1" style="width: 100%;">
+                                    <option disabled selected>--Select option--</option>
+                                    <option value="0">Ada</option>
+                                    <option value="1">Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Akte Notaris</label>
+                                <select class="form-control select2bs4" id="select2" style="width: 100%;">
+                                    <option value=""></option>
+                                    <option value="0">Ada</option>
+                                    <option value="1">Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nomor Pendaftaran</label>
+                                <select class="form-control select2bs4" id="select3" style="width: 100%;">
+                                    <option value=""></option>
+                                    <option value="0">Ada</option>
+                                    <option value="1">Tidak Ada</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label>Lampiran Tahun Pembentukan</label>
+                                <div class="profile-pic-wrapper">
+                                    <div class="pic-holder">
+                                        <img id="profilePic" class="pic"
+                                             src="/admin/templates/dist/img/image-not-found.jpg">
+                                        <label for="lampiran_tahun_pembentukan" class="upload-file-block">
+                                            <div class="text-center">
+                                                <div class="mb-2">
+                                                    <i class="fa fa-camera fa-2x"></i>
+                                                </div>
+                                                <div class="text-uppercase">
+                                                    Upload<br/> Lampiran
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <input class="uploadProfileInput" type="file" name="lampiran_tahun_pembentukan"
+                                               id="lampiran_tahun_pembentukan" accept="image/*" style="display: none;" value=""/>
+                                    </div>
+                                    </hr>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label>Lampiran Kepala Desa/Camat</label>
+                                <div class="profile-pic-wrapper">
+                                    <div class="pic-holder">
+                                        <img id="profilePic" class="pic"
+                                             src="/admin/templates/dist/img/image-not-found.jpg">
+                                        <label for="diket_kap_dc" class="upload-file-block">
+                                            <div class="text-center">
+                                                <div class="mb-2">
+                                                    <i class="fa fa-camera fa-2x"></i>
+                                                </div>
+                                                <div class="text-uppercase">
+                                                    Upload<br/> Lampiran
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <input class="uploadProfileInput" type="file" name="diket_kap_dc"
+                                               id="diket_kap_dc" accept="image/*" style="display: none;" value=""/>
+                                    </div>
+                                    </hr>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4" id="div1">
+                            <div class="form-group">
+                                <label>Lampiran SK Bupati</label>
+                                <div class="profile-pic-wrapper">
+                                    <div class="pic-holder">
+                                        <img id="profilePic" class="pic"
+                                             src="/admin/templates/dist/img/image-not-found.jpg">
+                                        <label for="lampiran_sk_bupati" class="upload-file-block">
+                                            <div class="text-center">
+                                                <div class="mb-2">
+                                                    <i class="fa fa-camera fa-2x"></i>
+                                                </div>
+                                                <div class="text-uppercase">
+                                                    Upload<br/> Lampiran
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <input class="uploadProfileInput" type="file" name="lampiran_sk_bupati"
+                                               id="lampiran_sk_bupati" accept="image/*" style="display: none;" value=""/>
+                                    </div>
+                                    </hr>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4" id="div2">
+                            <div class="form-group">
+                                <label>Lampiran Akte Notaris</label>
+                                <div class="profile-pic-wrapper">
+                                    <div class="pic-holder">
+                                        <img id="profilePic" class="pic"
+                                             src="/admin/templates/dist/img/image-not-found.jpg">
+                                        <label for="lampiran_akte_bupati" class="upload-file-block">
+                                            <div class="text-center">
+                                                <div class="mb-2">
+                                                    <i class="fa fa-camera fa-2x"></i>
+                                                </div>
+                                                <div class="text-uppercase">
+                                                    Upload<br/> Lampiran
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <input class="uploadProfileInput" type="file" name="lampiran_akte_bupati"
+                                               id="lampiran_akte_bupati" accept="image/*" style="display: none;" value=""/>
+                                    </div>
+                                    </hr>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4" id="div3">
+                            <div class="form-group">
+                                <label>Lampiran Pendaftaran</label>
+                                <div class="profile-pic-wrapper">
+                                    <div class="pic-holder">
+                                        <img id="profilePic" class="pic"
+                                             src="/admin/templates/dist/img/image-not-found.jpg">
+                                        <label for="lampiran_pendaftaran" class="upload-file-block">
+                                            <div class="text-center">
+                                                <div class="mb-2">
+                                                    <i class="fa fa-camera fa-2x"></i>
+                                                </div>
+                                                <div class="text-uppercase">
+                                                    Upload<br/> Lampiran
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <input class="uploadProfileInput" type="file" name="lampiran_pendaftaran"
+                                               id="lampiran_pendaftaran" accept="image/*" style="display: none;" value=""/>
+                                    </div>
+                                    </hr>
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" style="float: right;">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+<script type="javascript">
+</script>
+{{end}}

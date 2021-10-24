@@ -2,10 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>AdminLTE 3 | Dashboard</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {{include "layouts/header"}}
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -21,29 +26,27 @@
         </ul>
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
-            <!-- Navbar Search -->
             <li class="nav-item dropdown">
-                <form class="nav-link" data-toggle="dropdown" method="POST" action="/logout">
-                    <input type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold" value="Sign Out">
-                </form>
+                <div class="nav-link" data-toggle="dropdown" data-offset="10px,0px">
+                    <img class="" alt="" src="/admin/templates/dist/img/default.jpg" style="height: 30px;width: 30px"/>
+                </div>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="#" class="dropdown-item">
-
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
+                    <a href="/inventaris/v1/master-data/users" class="dropdown-item">
                         <!-- Message Start -->
-
+                        <div class="media">
+                            <img src="/admin/templates/dist/img/default.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                            <div class="media-body">
+                                <h3 class="dropdown-item-title">
+                                    Admin
+                                </h3>
+                                <p class="text-sm">View Profile</p>
+                            </div>
+                        </div>
                         <!-- Message End -->
                     </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                    <a href="#" class="dropdown-item">
+                        <button class="btn btn-primary">Logout</button>
+                    </a>
                 </div>
             </li>
         </ul>

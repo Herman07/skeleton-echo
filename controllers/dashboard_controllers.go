@@ -52,7 +52,7 @@ func (c *DashboardController) GetDetail(ctx echo.Context) error {
 	orderName := ctx.Request().URL.Query().Get("columns[" + strconv.Itoa(order) + "][name]")
 	orderAscDesc := ctx.Request().URL.Query().Get("order[0][dir]")
 
-	recordTotal, recordFiltered, data ,err := c.service.QueryDatatable(search,orderAscDesc, orderName, length, start)
+	recordTotal, recordFiltered, data, err := c.service.QueryDatatable(search, orderAscDesc, orderName, length, start)
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, err.Error())
 	}
@@ -65,13 +65,16 @@ func (c *DashboardController) GetDetail(ctx echo.Context) error {
 		time := v.CreatedAt
 		createdAt = time.Format("2006-01-02")
 		listOfData[k] = map[string]interface{}{
-			"kecamatan":   v.Kecamatan,
-			"provinsi":    v.Provinsi,
-			"id":          v.ID,
-			"daerah": v.Daerah,
-			"luas":        v.Luas,
-			"created_at":  createdAt,
-			"action": action,
+			"id_p3a":              v.ID,
+			"no_urut":             v.NoUrut,
+			"nama_p3a":            v.NamaP3A,
+			"jumlah_p3a":          v.JumlahP3A,
+			"nama_daerah_irigasi": v.DaerahIrigasi,
+			"luas_wilayah":        v.LuasWilayah,
+			"luas_layanan_p3a":    v.LuasLayananP3A,
+			"keterangan":          v.Keterangan,
+			"created_at":          createdAt,
+			"action":              action,
 		}
 	}
 	result := models.ResponseDatatable{
@@ -127,11 +130,13 @@ func (c *DashboardController) Update(ctx echo.Context) error {
 		"link": "/inventaris/v1/update/:id",
 	}
 	dataInventaris := models.Inventaris{
-		ID:         data.ID,
-		Provinsi:   data.Provinsi,
-		Kecamatan:  data.Kecamatan,
-		Daerah: data.Daerah,
-		Luas: data.Luas,
+		ID:             data.ID,
+		NoUrut:         data.NoUrut,
+		NamaP3A:        data.NamaP3A,
+		JumlahP3A:      data.JumlahP3A,
+		DaerahIrigasi:  data.DaerahIrigasi,
+		LuasWilayah:    data.LuasWilayah,
+		LuasLayananP3A: data.LuasLayananP3A,
 	}
 	return Render(ctx, "Home", "update", c.Menu, append(c.BreadCrumbs, breadCrumbs), dataInventaris)
 }
@@ -157,5 +162,5 @@ func (c *DashboardController) Delete(ctx echo.Context) error {
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
-	return c.Ok(ctx,nil)
+	return c.Ok(ctx, nil)
 }

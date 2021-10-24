@@ -30,7 +30,7 @@ func NewDashboardRepository(db *gorm.DB) DashboardRepository {
 
 func (r *dashboardRepository) FindAllWhere(operation string, orderType string, orderBy string, limit int, offset int, keyVal map[string]interface{}) ([]models.Inventaris, error) {
 	var entity []models.Inventaris
-	res := r.DB.Table("inventaris").Order(orderBy + " " + orderType).Limit(limit).Offset(offset)
+	res := r.DB.Table("data_p3a").Order(orderBy + " " + orderType).Limit(limit).Offset(offset)
 
 	for k, v := range keyVal {
 		switch operation {
@@ -47,7 +47,7 @@ func (r *dashboardRepository) FindAllWhere(operation string, orderType string, o
 
 func (r dashboardRepository) Count() (int64, error) {
 	var count int64
-	err := r.DB.Table("inventaris").Count(&count).Error
+	err := r.DB.Table("data_p3a").Count(&count).Error
 	return count, err
 }
 func (r *dashboardRepository)GetData(dataReq models.Inventaris)(*models.Inventaris,error) {

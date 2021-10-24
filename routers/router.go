@@ -63,10 +63,10 @@ func Api(e *echo.Echo, db *gorm.DB) {
 
 	statusController := config.InjectStatusController(db)
 	//kc := m.Group("/kec", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
-	m.GET("/legal", statusController.Index)
-	//kc.GET("/add",kecController.Store)
-	//kc.GET("/table",kecController.GetDetail)
-	//kc.GET("/update/:id",kecController.Update)
+	m.GET("/status-legal", statusController.Index)
+	m.GET("/status-legal/tables", statusController.GetDetail)
+	m.GET("/status-legal/add", statusController.Store)
+	m.GET("/status-legal/update",statusController.Update)
 	//kc.POST("/update/:id",kecController.DoUpdate)
 	//kc.POST("/create",kecController.AddData)
 
@@ -83,10 +83,10 @@ func Api(e *echo.Echo, db *gorm.DB) {
 	//kc := m.Group("/kec", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
 	m.GET("/tk-irigasi", irigasiController.Index)
 	//kc.GET("/add",kecController.Store)
-	//kc.GET("/table",kecController.GetDetail)
-	//kc.GET("/update/:id",kecController.Update)
-	//kc.POST("/update/:id",kecController.DoUpdate)
-	//kc.POST("/create",kecController.AddData)
+	m.GET("/tk-irigasi/table",irigasiController.GetDetail)
+	m.GET("/tk-irigasi/update/:id",irigasiController.Update)
+	m.POST("/tk-irigasi/update/:id",irigasiController.DoUpdate)
+	m.POST("/tk-irigasi/create",irigasiController.AddData)
 
 	taniController := config.InjectPertanianController(db)
 	//kc := m.Group("/kec", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
@@ -97,4 +97,12 @@ func Api(e *echo.Echo, db *gorm.DB) {
 	//kc.POST("/update/:id",kecController.DoUpdate)
 	//kc.POST("/create",kecController.AddData)
 
+	usersController := config.InjectUsersController(db)
+	//kc := m.Group("/kec", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
+	m.GET("/users", usersController.Index)
+	//kc.GET("/add",kecController.Store)
+	//kc.GET("/table",kecController.GetDetail)
+	//kc.GET("/update/:id",kecController.Update)
+	//kc.POST("/update/:id",kecController.DoUpdate)
+	//kc.POST("/create",kecController.AddData)
 }

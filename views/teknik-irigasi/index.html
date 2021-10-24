@@ -63,7 +63,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#provinsi").DataTable({
+        $("#teknik_irigasi").DataTable({
             dom: 'Bfrtip',
             processing: true,
             serverSide: true,
@@ -78,10 +78,11 @@
             buttons: [
                 "copy", "csv", "excel", "pdf", "print"
             ],
-            ajax: '/inventaris/v1/master-data/provinsi/table',
+            ajax: '/inventaris/v1/master-data/tk-irigasi/table',
             "columns": [
-                {data: 'id_prov', name: 'id_prov'},
-                {data: 'nama_prov', name: 'nama_prov'},
+                {data: 'id_t_irigasi', name: 'id_t_irigasi'},
+                {data: 'operasi', name: 'operasi'},
+                {data: 'partisipatif', name: 'partisipatif'},
                 {data: 'action', searchable: false}
             ],
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');

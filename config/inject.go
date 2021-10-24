@@ -63,3 +63,10 @@ func InjectPertanianController(db *gorm.DB) controllers.TaniDataController {
 	taniController := controllers.NewTaniDataController(taniService)
 	return taniController
 }
+
+func InjectUsersController(db *gorm.DB) controllers.UsersDataController {
+	usersRepository := repository.NewUsersDataRepository(db)
+	usersService := services.NewUsersDataService(usersRepository)
+	usersController := controllers.NewUsersDataController(usersService)
+	return usersController
+}

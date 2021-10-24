@@ -1,7 +1,6 @@
 package services
 
 import (
-	"fmt"
 	"skeleton-echo/models"
 	"skeleton-echo/repository"
 	"skeleton-echo/request"
@@ -23,18 +22,25 @@ func (s *DashboardService) QueryDatatable(searchValue string,orderType string, o
 	strings.ToLower(searchValue)
 	if searchValue != "" {
 		recordFiltered, err = s.DashboardRepository.CountWhere("or", map[string]interface{}{
-			"provinsi LIKE ?": "%" + searchValue + "%" ,
-			"kecamatan LIKE ?":   "%" + searchValue + "%",
-			"daerah LIKE ?":   "%" + searchValue + "%",
-			"luas LIKE ?":   "%" + searchValue + "%",
+			"NomorUrut LIKE ?": "%" + searchValue + "%" ,
+			"NamaP3A LIKE ?":   "%" + searchValue + "%",
+			"JumlahP3A LIKE ?":   "%" + searchValue + "%",
+			"DaerahIrigasi LIKE ?":   "%" + searchValue + "%",
+			"LuasWilayah LIKE ?":   "%" + searchValue + "%",
+			"LuasLayananP3A LIKE ?":   "%" + searchValue + "%",
+			"Keterangan LIKE ?":   "%" + searchValue + "%",
+
 
 		})
 
-		data, err = s.DashboardRepository.FindAllWhere("or", orderType, "provinsi", limit, offset, map[string]interface{}{
-			"provinsi LIKE ?": "%" + searchValue + "%",
-			"kecamatan LIKE ?":   "%" + searchValue + "%",
-			"daerah LIKE ?":   "%" + searchValue + "%",
-			"luas LIKE ?":   "%" + searchValue + "%",
+		data, err = s.DashboardRepository.FindAllWhere("or", orderType, "NomorUrut", limit, offset, map[string]interface{}{
+			"NomorUrut LIKE ?": "%" + searchValue + "%" ,
+			"NamaP3A LIKE ?":   "%" + searchValue + "%",
+			"JumlahP3A LIKE ?":   "%" + searchValue + "%",
+			"DaerahIrigasi LIKE ?":   "%" + searchValue + "%",
+			"LuasWilayah LIKE ?":   "%" + searchValue + "%",
+			"LuasLayananP3A LIKE ?":   "%" + searchValue + "%",
+			"Keterangan LIKE ?":   "%" + searchValue + "%",
 
 		})
 		return recordTotal, recordFiltered, data, err
@@ -67,12 +73,13 @@ func (s *DashboardService) FindById(id string) (*models.Inventaris, error) {
 func (s *DashboardService) UpdateById(id string, dto request.RequestInventaris) (*models.Inventaris, error) {
 	entity := models.Inventaris{
 		ID:        id,
-		Kecamatan: dto.Kecamatan,
-		Provinsi:  dto.Provinsi,
-		Daerah:    dto.Daerah,
-		Luas:      dto.Luas,
+		NoUrut:   dto.NoUrut,
+		NamaP3A:  dto.NamaP3A,
+		JumlahP3A: dto.JumlahP3A,
+		DaerahIrigasi: dto.DaerahIrigasi,
+		LuasWilayah: dto.LuasWilayah,
+		LuasLayananP3A: dto.LuasLayananP3A,
 	}
-	fmt.Println("Isinya ", entity)
 
 	data, err := s.DashboardRepository.UpdateById(entity)
 
@@ -83,12 +90,20 @@ func (s *DashboardService) UpdateById(id string, dto request.RequestInventaris) 
 }
 func (s *DashboardService) Create(request request.RequestInventaris) (*models.Inventaris, error) {
 	entity := models.Inventaris{
-		Provinsi:  request.Provinsi,
-		Kecamatan: request.Kecamatan,
-		Daerah:    request.Daerah,
-		Luas:      request.Luas,
+		IDProv: request.IDProv,
+		IDKab: request.IDKab,
+		IDKec: request.IDKec,
+		IDStatusLegal: request.IDStatusLegal,
+		IDPengurus: request.IDPengurus,
+		IDIrigasi: request.IDIrigasi,
+		IDPertanian: request.IDPertanian,
+		NoUrut:   request.NoUrut,
+		NamaP3A:  request.NamaP3A,
+		JumlahP3A: request.JumlahP3A,
+		DaerahIrigasi: request.DaerahIrigasi,
+		LuasWilayah: request.LuasWilayah,
+		LuasLayananP3A: request.LuasLayananP3A,
 	}
-	fmt.Println("Isinya ", entity)
 	data, err := s.DashboardRepository.Create(entity)
 
 	if err != nil {

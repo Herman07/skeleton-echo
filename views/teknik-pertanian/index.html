@@ -78,10 +78,11 @@
             buttons: [
                 "copy", "csv", "excel", "pdf", "print"
             ],
-            ajax: '/inventaris/v1/master-data/provinsi/table',
+            ajax: '/inventaris/v1/master-data/tk-tani/table',
             "columns": [
-                {data: 'id_prov', name: 'id_prov'},
-                {data: 'nama_prov', name: 'nama_prov'},
+                {data: 'id_t_pertanian', name: 'id_t_pertanian'},
+                {data: 'pola_tanam', name: 'pola_tanam'},
+                {data: 'usaha_tani', name: 'usaha_tani'},
                 {data: 'action', searchable: false}
             ],
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
