@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"fmt"
 	"gorm.io/gorm"
 	"skeleton-echo/models"
 )
@@ -10,7 +11,7 @@ type IrigasiDataRepository interface {
 	Count() (int64, error)
 	CountWhere(operation string, keyVal map[string]interface{}) (int64, error)
 	Create(entity models.TeknikIrigasi) (*models.TeknikIrigasi, error)
-	UpdateById(entity models.TeknikIrigasi)(*models.TeknikIrigasi, error)
+	UpdateById(models.TeknikIrigasi)(*models.TeknikIrigasi, error)
 	Delete(irigasi models.TeknikIrigasi) error
 	FindById(id string) (*models.TeknikIrigasi, error)
 	DbInstance() *gorm.DB
@@ -70,6 +71,7 @@ func (r irigasidataRepository) Create(entity models.TeknikIrigasi) (*models.Tekn
 }
 
 func (r irigasidataRepository) UpdateById(entity models.TeknikIrigasi)(*models.TeknikIrigasi, error){
+	fmt.Println("Data Repo", entity)
 	err := r.DB.Model(&models.TeknikIrigasi{ID: entity.ID}).Updates(&entity).Error
 	return &entity, err
 }
@@ -81,7 +83,7 @@ func (r irigasidataRepository) FindById(id string) (*models.TeknikIrigasi, error
 }
 
 func (r irigasidataRepository) Delete(entity models.TeknikIrigasi) error {
-	return r.DB.Table("teknik_irigasi").Delete(&entity).Error
+	return r.DB.Delete(&entity).Error
 }
 
 func (r *irigasidataRepository) DbInstance() *gorm.DB {

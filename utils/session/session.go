@@ -1,7 +1,6 @@
 package session
 
 import (
-	"fmt"
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo/v4"
 )
@@ -12,8 +11,8 @@ var Manager *ConfigSession
 
 type UserInfo struct {
 	Username string `json:"username" form:"username"`
-	TypeUser string `json:"type_user" form:"type_user"`
-	ID       string `json:"id_usergroup" form:"id"`
+	TypeUser string `json:"type_users" form:"type_users"`
+	ID       string `json:"id_usergroup" form:"id_usergroup"`
 	Password string `json:"password" form:"password"`
 }
 
@@ -52,13 +51,11 @@ func (s *ConfigSession) Get(c echo.Context, name string) (interface{}, error) {
 }
 
 func (s *ConfigSession) Set(c echo.Context, name string, value interface{}) error {
-	fmt.Println("name :", name, "value :",value)
 	session, _ := s.store.Get(c.Request(), name)
 	session.Values[s.valueKey] = value
 
 
 	err := session.Save(c.Request(), c.Response())
-	fmt.Println("save", err)
 	return err
 }
 

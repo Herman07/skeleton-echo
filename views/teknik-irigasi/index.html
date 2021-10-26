@@ -86,10 +86,9 @@
                 {data: 'action', searchable: false}
             ],
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
+    })
         function Delete(id) {
             data = new FormData();
-            // data.append('csrf', $('meta[name="csrf-token"]').attr('content'));
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -101,7 +100,7 @@
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
-                        url: '' + id,
+                        url: '/inventaris/v1/master-data/tk-irigasi/delete/' + id,
                         type: 'DELETE',
                         data: data,
                         processData: false,
@@ -109,10 +108,10 @@
                         success: function (res) {
                             Swal.fire(
                                 'Deleted!',
-                                'User has been deleted.',
+                                'Data has been deleted.',
                                 'success'
                             );
-                            $('#example1').DataTable().ajax.reload();
+                            $('#teknik_irigasi').DataTable().ajax.reload();
                         },
                         error: function (res) {
                             Swal.fire({
@@ -125,6 +124,63 @@
                 }
             });
         }
-    });
+    function Edit(id_t_irigasi){
+        $.ajax({
+            url:'/inventaris/v1/master-data/tk-irigasi/update/' + id_t_irigasi,
+            type:"GET",
+            beforeSend:function (res){
+            },
+            success: function (res){
+                ResVal = res.Value
+
+                $('#id_t_irigasi').val(id_t_irigasi)
+                $('#operasi1').val(res.Operasi)
+                $('#partisipatif1').val(res.Partisipatif)
+
+            },
+            error: function (){
+                Swal.fire({
+                    type: 'warning',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                });
+
+            }
+        })
+    }
+    function submitEdit(){
+        id = $('#id_t_irigasi').val()
+        data = {
+            operasi : $('#operasi1').val(),
+            partisipatif : $('#partisipatif1').val(),
+        }
+        $.ajax({
+            url:"/inventaris/v1/master-data/tk-irigasi/updates/"+id,
+            data : data,
+            type:"POST",
+            beforeSend:function (res){
+            },
+            success: function (res){
+                Swal.fire(
+                    'Edit!',
+                    'telcoscore has been edit.',
+                    'success'
+                );
+                // location.reload()
+                alert("Success")
+            },
+            error: function (){
+                Swal.fire(
+                    'Edit!',
+                    'telcoscore has been edit.',
+                    'success'
+                );
+                alert("Error")
+            }
+
+        });
+
+
+    }
 </script>
 {{end}}

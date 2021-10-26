@@ -9,9 +9,9 @@ type StatusDataRepository interface {
 	FindAllWhere(operation string, orderType string, orderBy string, limit int, offset int, keyVal map[string]interface{}) ([]models.StatusLegal, error)
 	Count() (int64, error)
 	CountWhere(operation string, keyVal map[string]interface{}) (int64, error)
-	//Create(entity models.MasterDataProvinsi) (*models.MasterDataProvinsi, error)
-	//UpdateById(entity models.MasterDataProvinsi)(*models.MasterDataProvinsi, error)
-	//Delete(models.MasterDataProvinsi) error
+	Create(entity models.StatusLegal) (*models.StatusLegal, error)
+	UpdateById(entity models.StatusLegal)(*models.StatusLegal, error)
+	Delete(models.StatusLegal) error
 	FindById(id string) (*models.StatusLegal, error)
 	DbInstance() *gorm.DB
 }
@@ -63,26 +63,26 @@ func (r statusdataRepository) CountWhere(operation string, keyVal map[string]int
 	err := q.Count(&count).Error
 	return count, err
 }
-//
-//func (r masterdataRepository) Create(entity models.MasterDataProvinsi) (*models.MasterDataProvinsi, error) {
-//	err := r.DB.Table("provinsi").Create(&entity).Error
-//	return &entity, err
-//}
-//
-//func (r masterdataRepository) UpdateById(entity models.MasterDataProvinsi)(*models.MasterDataProvinsi, error){
-//	err := r.DB.Model(&models.MasterDataProvinsi{ID: entity.ID}).Updates(&entity).Error
-//	return &entity, err
-//}
-//
+
+func (r statusdataRepository) Create(entity models.StatusLegal) (*models.StatusLegal, error) {
+	err := r.DB.Table("status_legal").Create(&entity).Error
+	return &entity, err
+}
+
+func (r statusdataRepository) UpdateById(entity models.StatusLegal)(*models.StatusLegal, error){
+	err := r.DB.Model(&models.StatusLegal{ID: entity.ID}).Updates(&entity).Error
+	return &entity, err
+}
+
 func (r statusdataRepository) FindById(id string) (*models.StatusLegal, error) {
 	var entity models.StatusLegal
 	err := r.DB.Table("status_legal").Where("id_status_legal = ?", id).First(&entity).Error
 	return &entity, err
 }
-//
-//func (r masterdataRepository) Delete(entity models.MasterDataProvinsi) error {
-//	return r.DB.Table("provinsi").Delete(&entity).Error
-//}
+
+func (r statusdataRepository) Delete(entity models.StatusLegal) error {
+	return r.DB.Table("status_legal").Delete(&entity).Error
+}
 
 func (r *statusdataRepository) DbInstance() *gorm.DB {
 	return r.DB

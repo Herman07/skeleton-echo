@@ -32,31 +32,18 @@ func (c *IrigasiDataController) Index(ctx echo.Context) error {
 	}
 	return Render(ctx, "Home", "teknik-irigasi/index", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
 }
-
-//func (c *IrigasiDataController) Store(ctx echo.Context) error {
-//	breadCrumbs := map[string]interface{}{
-//		"menu": "Home",
-//		"link": "/inventaris/v1/master-data/tk-irigasi/add",
-//	}
-//	return Render(ctx, "Home", "teknik-irigasi/add", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
-//}
 func (c *IrigasiDataController) Update(ctx echo.Context) error {
 	id := ctx.Param("id")
 	data, err := c.service.FindById(id)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
-
-	breadCrumbs := map[string]interface{}{
-		"menu": "Home",
-		"link": "/inventaris/v1/master-data/kab/update/:id",
-	}
 	dataIrigasi := models.TeknikIrigasi{
-		ID:         data.ID,
-		Operasi:   data.Operasi,
-		Partisipatif:  data.Partisipatif,
+		ID:           data.ID,
+		Operasi:      data.Operasi,
+		Partisipatif: data.Partisipatif,
 	}
-	return Render(ctx, "Home", "teknik-irigasi/modals", c.Menu, append(c.BreadCrumbs, breadCrumbs), dataIrigasi)
+	return ctx.JSON(http.StatusOK, &dataIrigasi)
 }
 
 func (c *IrigasiDataController) GetDetail(ctx echo.Context) error {
@@ -69,7 +56,7 @@ func (c *IrigasiDataController) GetDetail(ctx echo.Context) error {
 	orderName := ctx.Request().URL.Query().Get("columns[" + strconv.Itoa(order) + "][name]")
 	orderAscDesc := ctx.Request().URL.Query().Get("order[0][dir]")
 
-	recordTotal, recordFiltered, data ,err := c.service.QueryDatatable(search,orderAscDesc, orderName, length, start)
+	recordTotal, recordFiltered, data, err := c.service.QueryDatatable(search, orderAscDesc, orderName, length, start)
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, err.Error())
 	}
@@ -77,15 +64,15 @@ func (c *IrigasiDataController) GetDetail(ctx echo.Context) error {
 	var action string
 	listOfData := make([]map[string]interface{}, len(data))
 	for k, v := range data {
-		action = `<a data-toggle="modal" data-target="#modal-update" class="btn btn-success btn-bold btn-upper" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fas fa-edit"></i></a>
+		action = `<a href="JavaScript:void(0);" onclick="Edit('` + v.ID + `')" data-toggle="modal" data-target="#modal-update" class="btn btn-success btn-bold btn-upper" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fas fa-edit"></i></a>
 		<a href="javascript:;" onclick="Delete('` + v.ID + `')" class="btn btn-danger btn-bold btn-upper" title="Delete" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fas fa-trash"></i></a>`
 		//time := v.CreatedAt
 		//createdAt = time.Format("2006-01-02")
 		listOfData[k] = map[string]interface{}{
-			"id_t_irigasi":    v.ID,
-			"operasi":          v.Operasi,
-			"partisipatif":          v.Partisipatif,
-			"action": action,
+			"id_t_irigasi": v.ID,
+			"operasi":      v.Operasi,
+			"partisipatif": v.Partisipatif,
+			"action":       action,
 		}
 	}
 	result := models.ResponseDatatable{
@@ -103,6 +90,7 @@ func (c *IrigasiDataController) AddData(ctx echo.Context) error {
 	if err := ctx.Bind(&entity); err != nil {
 		return ctx.JSON(400, echo.Map{"message": "error binding data"})
 	}
+
 	_, err := c.service.Create(entity)
 	//entity.CreatedAt = time.Now()
 	if err != nil {
@@ -112,8 +100,10 @@ func (c *IrigasiDataController) AddData(ctx echo.Context) error {
 }
 
 func (c *IrigasiDataController) DoUpdate(ctx echo.Context) error {
+	id := ctx.Param("id")
+
 	var entity request.TeknikIrigasiReq
-	id := ctx.Param("id_t_irigasi")
+
 	if err := ctx.Bind(&entity); err != nil {
 		return ctx.JSON(400, echo.Map{"message": "error binding data"})
 	}
@@ -122,15 +112,16 @@ func (c *IrigasiDataController) DoUpdate(ctx echo.Context) error {
 		return c.InternalServerError(ctx, err)
 	}
 	fmt.Println(data)
-	return ctx.Redirect(302, "/inventaris/v1/master-data/tk-irigasi")
+
+	return c.Ok(ctx, data)
 }
 
 func (c *IrigasiDataController) Delete(ctx echo.Context) error {
-	id := ctx.Param("id_t_irigasi")
+	id := ctx.Param("id")
 
 	err := c.service.Delete(id)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
-	return c.Ok(ctx,nil)
+	return c.Ok(ctx, nil)
 }

@@ -1,5 +1,10 @@
 package models
 
+import (
+	"github.com/google/uuid"
+	"gorm.io/gorm"
+)
+
 type StatusLegal struct {
 	ID                  string `gorm:"column:id_status_legal" json:"id_status_legal"`
 	TahunPembentukan    string `gorm:"column:tahun_pembentukan" json:"tahun_pembentukan"`
@@ -15,4 +20,9 @@ type StatusLegal struct {
 
 func (c *StatusLegal) TableName() string {
 	return "status_legal"
+}
+func (c *StatusLegal) BeforeCreate(tx *gorm.DB) (err error) {
+	c.ID = uuid.New().String()
+
+	return
 }

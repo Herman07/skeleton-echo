@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/base64"
 	"errors"
-	"fmt"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
@@ -106,7 +105,6 @@ func GetUserInfoFromContext(ctx echo.Context, db *gorm.DB) (userModel models.Use
 		panic(err)
 	}
 	userInfo := result.(session.UserInfo)
-	fmt.Println("Isinya apa ",userInfo)
 	err = db.Model(models.Users{}).Preload(clause.Associations).Where("id_usergroup =?", userInfo.ID).First(&userModel).Error
 	return
 }

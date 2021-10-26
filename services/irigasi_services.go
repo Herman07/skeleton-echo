@@ -1,6 +1,7 @@
 package services
 
 import (
+	"fmt"
 	"skeleton-echo/models"
 	"skeleton-echo/repository"
 	"skeleton-echo/request"
@@ -17,24 +18,22 @@ func NewIrigasiDataService(repository repository.IrigasiDataRepository) *Irigasi
 	}
 }
 
-func (s *IrigasiDataService) QueryDatatable(searchValue string,orderType string, orderBy string, limit int, offset int) (
+func (s *IrigasiDataService) QueryDatatable(searchValue string, orderType string, orderBy string, limit int, offset int) (
 	recordTotal int64, recordFiltered int64, data []models.TeknikIrigasi, err error) {
 	recordTotal, err = s.IrigasiDataRepository.Count()
 	strings.ToLower(searchValue)
 	if searchValue != "" {
 		recordFiltered, err = s.IrigasiDataRepository.CountWhere("or", map[string]interface{}{
 
-			"id_t_irigasi LIKE ?": "%" + searchValue + "%" ,
-			"operasi LIKE ?": "%" + searchValue + "%" ,
-			"partisipatif LIKE ?": "%" + searchValue + "%" ,
-
+			"id_t_irigasi LIKE ?": "%" + searchValue + "%",
+			"operasi LIKE ?":      "%" + searchValue + "%",
+			"partisipatif LIKE ?": "%" + searchValue + "%",
 		})
 
 		data, err = s.IrigasiDataRepository.FindAllWhere("or", orderType, "id_t_irigasi", limit, offset, map[string]interface{}{
-			"id_t_irigasi LIKE ?": "%" + searchValue + "%" ,
-			"operasi LIKE ?": "%" + searchValue + "%" ,
-			"partisipatif LIKE ?": "%" + searchValue + "%" ,
-
+			"id_t_irigasi LIKE ?": "%" + searchValue + "%",
+			"operasi LIKE ?":      "%" + searchValue + "%",
+			"partisipatif LIKE ?": "%" + searchValue + "%",
 		})
 		return recordTotal, recordFiltered, data, err
 	}
@@ -50,12 +49,11 @@ func (s *IrigasiDataService) QueryDatatable(searchValue string,orderType string,
 
 func (s *IrigasiDataService) Create(request request.TeknikIrigasiReq) (*models.TeknikIrigasi, error) {
 	entity := models.TeknikIrigasi{
-		Operasi:  request.Operasi,
+		Operasi:      request.Operasi,
 		Partisipatif: request.Partisipatif,
-		ID: request.ID,
+		ID:           request.ID,
 	}
 	data, err := s.IrigasiDataRepository.Create(entity)
-
 	if err != nil {
 		return nil, err
 	}
@@ -63,11 +61,11 @@ func (s *IrigasiDataService) Create(request request.TeknikIrigasiReq) (*models.T
 }
 func (s *IrigasiDataService) UpdateById(id string, dto request.TeknikIrigasiReq) (*models.TeknikIrigasi, error) {
 	entity := models.TeknikIrigasi{
-		ID:        id,
-		Operasi:  dto.Operasi,
+		ID:           id,
+		Operasi:      dto.Operasi,
 		Partisipatif: dto.Partisipatif,
 	}
-
+	fmt.Println("Service Data", entity)
 	data, err := s.IrigasiDataRepository.UpdateById(entity)
 
 	if err != nil {

@@ -31,7 +31,7 @@
 
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="teknik_irigasi" class="table table-bordered table-striped">
+                                <table id="teknik_pertanian" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
                                         <th>No</th>
@@ -46,24 +46,17 @@
                                 </table>
                             </div>
                             {{include "teknik-pertanian/modals"}}
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
                     </div>
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
             </div>
-            <!-- /.container-fluid -->
         </div>
     </div>
 </section>
-<!-- /.content -->
-<!-- /.content-wrapper -->
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#provinsi").DataTable({
+        $("#teknik_pertanian").DataTable({
             dom: 'Bfrtip',
             processing: true,
             serverSide: true,
@@ -86,45 +79,103 @@
                 {data: 'action', searchable: false}
             ],
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    })
 
-        function Delete(id) {
-            data = new FormData();
-            // data.append('csrf', $('meta[name="csrf-token"]').attr('content'));
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.value) {
-                    $.ajax({
-                        url: '' + id,
-                        type: 'DELETE',
-                        data: data,
-                        processData: false,
-                        contentType: false,
-                        success: function (res) {
-                            Swal.fire(
-                                'Deleted!',
-                                'User has been deleted.',
-                                'success'
-                            );
-                            $('#example1').DataTable().ajax.reload();
-                        },
-                        error: function (res) {
-                            Swal.fire({
-                                type: 'warning',
-                                title: 'Oops...',
-                                text: 'Something went wrong!',
-                            })
-                        }
-                    })
+    function Delete(id) {
+        data = new FormData();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: '/inventaris/v1/master-data/tk-tani/delete/' + id,
+                    type: 'DELETE',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (res) {
+                        Swal.fire(
+                            'Deleted!',
+                            'User has been deleted.',
+                            'success'
+                        );
+                        $('#teknik_pertanian').DataTable().ajax.reload();
+                    },
+                    error: function (res) {
+                        Swal.fire({
+                            type: 'warning',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                        })
+                    }
+                })
+            }
+        });
+    }
+        function Edit(id_t_irigasi) {
+            $.ajax({
+                url: '/inventaris/v1/master-data/tk-tani/update/' + id_t_pertanian,
+                type: "GET",
+                beforeSend: function (res) {
+                },
+                success: function (res) {
+                    ResVal = res.Value
+
+                    $('#id_t_pertanian').val(id_t_pertanian)
+                    $('#pola_tanam1').val(res.PolaTanam)
+                    $('#usaha_tani1').val(res.UsahaTani)
+
+                },
+                error: function () {
+                    Swal.fire({
+                        type: 'warning',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    });
+
                 }
-            });
+            })
         }
-    });
+
+        function submitEdit() {
+            id = $('#id_t_pertanian').val()
+            data = {
+                pola_tanam: $('#pola_tanam1').val(),
+                usaha_tani: $('#usaha_tani1').val(),
+            }
+            $.ajax({
+                url: "/inventaris/v1/master-data/tk-tani/updates/" + id,
+                data: data,
+                type: "POST",
+                beforeSend: function (res) {
+                },
+                success: function (res) {
+                    Swal.fire(
+                        'Edit!',
+                        'Data has been edit.',
+                        'success'
+                    );
+                    // location.reload()
+                    alert("Success")
+                },
+                error: function () {
+                    Swal.fire(
+                        'Edit!',
+                        'Data has been edit.',
+                        'Failed'
+                    );
+                    alert("Error")
+                }
+
+            });
+
+
+        }
 </script>
 {{end}}
