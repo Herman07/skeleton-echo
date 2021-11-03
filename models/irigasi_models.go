@@ -16,6 +16,5 @@ func (c *TeknikIrigasi) TableName() string {
 }
 func (c *TeknikIrigasi) BeforeCreate(tx *gorm.DB) (err error) {
 	c.ID = uuid.New().String()
-
 	return
 }

@@ -35,7 +35,7 @@ func main() {
 	gob.Register(map[string]interface{}{})
 
 	// Load static dashboard
-	e.Static("/admin/templates", "static/assets/asset")
+	e.Static("/inventaris", "static/assets")
 	// Load static auth
 	e.Static("/login/template", "static/auth")
 

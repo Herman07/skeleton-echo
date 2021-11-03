@@ -4,7 +4,6 @@ import (
 	"skeleton-echo/models"
 	"skeleton-echo/repository"
 	"skeleton-echo/request"
-	"strings"
 )
 
 type StatusDataService struct {
@@ -15,39 +14,6 @@ func NewStatusDataService(repository repository.StatusDataRepository) *StatusDat
 	return &StatusDataService{
 		StatusDataRepository: repository,
 	}
-}
-
-func (s *StatusDataService) QueryDatatable(searchValue string, orderType string, orderBy string, limit int, offset int) (
-	recordTotal int64, recordFiltered int64, data []models.StatusLegal, err error) {
-	recordTotal, err = s.StatusDataRepository.Count()
-	strings.ToLower(searchValue)
-	if searchValue != "" {
-		recordFiltered, err = s.StatusDataRepository.CountWhere("or", map[string]interface{}{
-
-			"id_status_legal LIKE ?":   "%" + searchValue + "%",
-			"tahun_pembentukan LIKE ?": "%" + searchValue + "%",
-			"sk_bupati LIKE ?":         "%" + searchValue + "%",
-			"akte_notaris LIKE ?":      "%" + searchValue + "%",
-			"no_pendaftaran LIKE ?":    "%" + searchValue + "%",
-		})
-
-		data, err = s.StatusDataRepository.FindAllWhere("or", orderType, "id_status_legal", limit, offset, map[string]interface{}{
-			"id_status_legal LIKE ?":   "%" + searchValue + "%",
-			"tahun_pembentukan LIKE ?": "%" + searchValue + "%",
-			"sk_bupati LIKE ?":         "%" + searchValue + "%",
-			"akte_notaris LIKE ?":      "%" + searchValue + "%",
-			"no_pendaftaran LIKE ?":    "%" + searchValue + "%",
-		})
-		return recordTotal, recordFiltered, data, err
-	}
-	recordFiltered, err = s.StatusDataRepository.CountWhere("or", map[string]interface{}{
-		"1 =?": 1,
-	})
-
-	data, err = s.StatusDataRepository.FindAllWhere("or", orderType, "id_status_legal", limit, offset, map[string]interface{}{
-		"1= ?": 1,
-	})
-	return recordTotal, recordFiltered, data, err
 }
 
 func (s *StatusDataService) Create(request request.StatusLegalReq) (*models.StatusLegal, error) {

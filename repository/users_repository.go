@@ -5,9 +5,6 @@ import (
 )
 
 type UsersDataRepository interface {
-	//FindAllWhere(operation string, orderType string, orderBy string, limit int, offset int, keyVal map[string]interface{}) ([]models.MasterDataProvinsi, error)
-	//Count() (int64, error)
-	//CountWhere(operation string, keyVal map[string]interface{}) (int64, error)
 	//Create(entity models.MasterDataProvinsi) (*models.MasterDataProvinsi, error)
 	//UpdateById(entity models.MasterDataProvinsi)(*models.MasterDataProvinsi, error)
 	//Delete(models.MasterDataProvinsi) error
@@ -25,44 +22,6 @@ func NewUsersDataRepository(db *gorm.DB) UsersDataRepository {
 		DB: db,
 	}
 }
-//func (r *masterdataRepository) FindAllWhere(operation string, orderType string, orderBy string, limit int, offset int, keyVal map[string]interface{}) ([]models.MasterDataProvinsi, error) {
-//	var entity []models.MasterDataProvinsi
-//	res := r.DB.Table("provinsi").Order(orderBy + " " + orderType).Limit(limit).Offset(offset)
-//
-//	for k, v := range keyVal {
-//		switch operation {
-//		case "and":
-//			res = res.Where(k, v)
-//		case "or":
-//			res = res.Or(k, v)
-//		}
-//	}
-//	err := res.Find(&entity).Error
-//	return entity, err
-//
-//}
-//func (r masterdataRepository) Count() (int64, error) {
-//	var count int64
-//	err := r.DB.Table("provinsi").Count(&count).Error
-//	return count, err
-//}
-//
-//func (r masterdataRepository) CountWhere(operation string, keyVal map[string]interface{}) (int64, error) {
-//	var count int64
-//	q := r.DB.Model(&models.MasterDataProvinsi{})
-//	for k, v := range keyVal {
-//		switch operation {
-//		case "and":
-//			q = q.Where(k, v)
-//		case "or":
-//			q = q.Or(k, v)
-//		}
-//	}
-//
-//	err := q.Count(&count).Error
-//	return count, err
-//}
-//
 //func (r masterdataRepository) Create(entity models.MasterDataProvinsi) (*models.MasterDataProvinsi, error) {
 //	err := r.DB.Table("provinsi").Create(&entity).Error
 //	return &entity, err

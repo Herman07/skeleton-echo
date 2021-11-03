@@ -1,5 +1,10 @@
 package models
 
+import (
+	"github.com/google/uuid"
+	"gorm.io/gorm"
+)
+
 type MasterDataKec struct {
 	ID        string `gorm:"column:id_kec" json:"id_kec"`
 	IDKab     string `gorm:"column:id_kapkc" json:"id_kapkc"`
@@ -8,4 +13,9 @@ type MasterDataKec struct {
 
 func (c *MasterDataKec) TableName() string {
 	return "kecamatan"
+}
+
+func (c *MasterDataKec) BeforeCreate(tx *gorm.DB) (err error) {
+	c.ID = uuid.New().String()
+	return
 }

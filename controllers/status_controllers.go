@@ -3,11 +3,9 @@ package controllers
 import (
 	"fmt"
 	"github.com/labstack/echo/v4"
-	"net/http"
 	"skeleton-echo/models"
 	"skeleton-echo/request"
 	"skeleton-echo/services"
-	"strconv"
 )
 
 type StatusDataController struct {
@@ -65,48 +63,6 @@ func (c *StatusDataController) Detail(ctx echo.Context) error {
 	}
 	return Render(ctx, "Home", "status-legal/update", c.Menu, append(c.BreadCrumbs, breadCrumbs), dataStatus)
 }
-
-//
-func (c *StatusDataController) GetDetail(ctx echo.Context) error {
-
-	draw, err := strconv.Atoi(ctx.Request().URL.Query().Get("draw"))
-	start, err := strconv.Atoi(ctx.Request().URL.Query().Get("start"))
-	search := ctx.Request().URL.Query().Get("search[value]")
-	length, err := strconv.Atoi(ctx.Request().URL.Query().Get("length"))
-	order, err := strconv.Atoi(ctx.Request().URL.Query().Get("order[0][column]"))
-	orderName := ctx.Request().URL.Query().Get("columns[" + strconv.Itoa(order) + "][name]")
-	orderAscDesc := ctx.Request().URL.Query().Get("order[0][dir]")
-
-	recordTotal, recordFiltered, data, err := c.service.QueryDatatable(search, orderAscDesc, orderName, length, start)
-	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, err.Error())
-	}
-	//var createdAt string
-	var action string
-	listOfData := make([]map[string]interface{}, len(data))
-	for k, v := range data {
-		action = `<a href="/inventaris/v1/master-data/status-legal/detail` + (v.ID) + `" class="btn btn-success btn-bold btn-upper" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fas fa-edit"></i></a>
-		<a href="javascript:;" onclick="Delete('` + v.ID + `')" class="btn btn-danger btn-bold btn-upper" title="Delete" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fas fa-trash"></i></a>`
-		//time := v.CreatedAt
-		//createdAt = time.Format("2006-01-02")
-		listOfData[k] = map[string]interface{}{
-			"id_status_legal":   v.ID,
-			"tahun_pembentukan": v.TahunPembentukan,
-			"no_sk_bupati":      v.SKBupati,
-			"akte_notaris":      v.AkteNotaris,
-			"no_pendaftaran":    v.NoPendaftaran,
-			"action":            action,
-		}
-	}
-	result := models.ResponseDatatable{
-		Draw:            draw,
-		RecordsTotal:    recordTotal,
-		RecordsFiltered: recordFiltered,
-		Data:            listOfData,
-	}
-	return ctx.JSON(http.StatusOK, &result)
-}
-
 
 func (c *StatusDataController) AddData(ctx echo.Context) error {
 	var entity request.StatusLegalReq

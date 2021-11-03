@@ -5,7 +5,6 @@ import (
 	"skeleton-echo/models"
 	"skeleton-echo/repository"
 	"skeleton-echo/request"
-	"strings"
 )
 
 type IrigasiDataService struct {
@@ -16,35 +15,6 @@ func NewIrigasiDataService(repository repository.IrigasiDataRepository) *Irigasi
 	return &IrigasiDataService{
 		IrigasiDataRepository: repository,
 	}
-}
-
-func (s *IrigasiDataService) QueryDatatable(searchValue string, orderType string, orderBy string, limit int, offset int) (
-	recordTotal int64, recordFiltered int64, data []models.TeknikIrigasi, err error) {
-	recordTotal, err = s.IrigasiDataRepository.Count()
-	strings.ToLower(searchValue)
-	if searchValue != "" {
-		recordFiltered, err = s.IrigasiDataRepository.CountWhere("or", map[string]interface{}{
-
-			"id_t_irigasi LIKE ?": "%" + searchValue + "%",
-			"operasi LIKE ?":      "%" + searchValue + "%",
-			"partisipatif LIKE ?": "%" + searchValue + "%",
-		})
-
-		data, err = s.IrigasiDataRepository.FindAllWhere("or", orderType, "id_t_irigasi", limit, offset, map[string]interface{}{
-			"id_t_irigasi LIKE ?": "%" + searchValue + "%",
-			"operasi LIKE ?":      "%" + searchValue + "%",
-			"partisipatif LIKE ?": "%" + searchValue + "%",
-		})
-		return recordTotal, recordFiltered, data, err
-	}
-	recordFiltered, err = s.IrigasiDataRepository.CountWhere("or", map[string]interface{}{
-		"1 =?": 1,
-	})
-
-	data, err = s.IrigasiDataRepository.FindAllWhere("or", orderType, "id_t_irigasi", limit, offset, map[string]interface{}{
-		"1= ?": 1,
-	})
-	return recordTotal, recordFiltered, data, err
 }
 
 func (s *IrigasiDataService) Create(request request.TeknikIrigasiReq) (*models.TeknikIrigasi, error) {
