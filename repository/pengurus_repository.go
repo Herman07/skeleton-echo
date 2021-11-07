@@ -2,10 +2,11 @@ package repository
 
 import (
 	"gorm.io/gorm"
+	"skeleton-echo/models"
 )
 
 type PengurusDataRepository interface {
-	//Create(entity models.MasterDataProvinsi) (*models.MasterDataProvinsi, error)
+	Create(entity models.Pengurus) (*models.Pengurus, error)
 	//UpdateById(entity models.MasterDataProvinsi)(*models.MasterDataProvinsi, error)
 	//Delete(models.MasterDataProvinsi) error
 	//FindById(id string) (*models.MasterDataProvinsi, error)
@@ -24,10 +25,10 @@ func NewPengurusDataRepository(db *gorm.DB) PengurusDataRepository {
 }
 
 //
-//func (r masterdataRepository) Create(entity models.MasterDataProvinsi) (*models.MasterDataProvinsi, error) {
-//	err := r.DB.Table("provinsi").Create(&entity).Error
-//	return &entity, err
-//}
+func (r pengurusdataRepository) Create(entity models.Pengurus) (*models.Pengurus, error) {
+	err := r.DB.Table("provinsi").Create(&entity).Error
+	return &entity, err
+}
 //
 //func (r masterdataRepository) UpdateById(entity models.MasterDataProvinsi)(*models.MasterDataProvinsi, error){
 //	err := r.DB.Model(&models.MasterDataProvinsi{ID: entity.ID}).Updates(&entity).Error

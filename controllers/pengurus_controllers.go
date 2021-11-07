@@ -2,6 +2,8 @@ package controllers
 
 import (
 	"github.com/labstack/echo/v4"
+	"net/http"
+	"skeleton-echo/request"
 	"skeleton-echo/services"
 )
 
@@ -53,19 +55,19 @@ func (c *PengurusDataController) Index(ctx echo.Context) error {
 //	}
 //	return Render(ctx, "Home", "master-data/kabupaten/update", c.Menu, append(c.BreadCrumbs, breadCrumbs), dataKab)
 //}
-//func (c *KabDataController) AddData(ctx echo.Context) error {
-//	var entity request.KabReq
-//
-//	if err := ctx.Bind(&entity); err != nil {
-//		return ctx.JSON(400, echo.Map{"message": "error binding data"})
-//	}
-//	_, err := c.service.Create(entity)
-//	//entity.CreatedAt = time.Now()
-//	if err != nil {
-//		return c.InternalServerError(ctx, err)
-//	}
-//	return ctx.Redirect(302, "/inventaris/v1/master-data/kab")
-//}
+func (c *PengurusDataController) Store(ctx echo.Context) error {
+	var entity request.PengurusReq
+
+	if err := ctx.Bind(&entity); err != nil {
+		return ctx.JSON(400, echo.Map{"message": "error binding data"})
+	}
+	_, err := c.service.Create(entity)
+	//entity.CreatedAt = time.Now()
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+	return ctx.Redirect(http.StatusTemporaryRedirect, "/")
+}
 //
 //func (c *KabDataController) DoUpdate(ctx echo.Context) error {
 //	var entity request.KabReq

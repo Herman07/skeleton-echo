@@ -79,10 +79,10 @@ func Api(e *echo.Echo, db *gorm.DB) {
 	//m.POST("/status-legal/create",kecController.AddData)
 	//m.DELETE("/status-legal/delete/:id", kecController.Delete)
 
-	//pengurusController := config.InjectPengurusController(db)
-	//kc := m.Group("/kec", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
+	pengurusController := config.InjectPengurusController(db)
+	pengurusGroup := m.Group("/pengurus", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
 	//m.GET("/kepengurus", pengurusController.Index)
-	//kc.GET("/add",kecController.Store)
+	pengurusGroup.GET("/add",pengurusController.Store)
 	//kc.GET("/table",kecController.GetDetail)
 	//kc.GET("/update/:id",kecController.Update)
 	//kc.POST("/update/:id",kecController.DoUpdate)
