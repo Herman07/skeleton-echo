@@ -8,10 +8,11 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"log"
 	"net/http"
+	"os"
 	"skeleton-echo/config"
 	middlewareFunc "skeleton-echo/middleware"
 	"skeleton-echo/models"
-	"skeleton-echo/routers"
+	"skeleton-echo/routes"
 	"skeleton-echo/utils/session"
 )
 
@@ -51,9 +52,9 @@ func main() {
 	}))
 	session.Manager = session.NewSessionManager(middlewareFunc.NewCookieStore())
 
-	routers.Api(e,db)
+	routes.Api(e,db)
 
 	//Port
-	e.Logger.Fatal(e.Start(":5000"))
+	e.Logger.Fatal(e.Start(":"+os.Getenv("APP_PORT")))
 
 }

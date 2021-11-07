@@ -3,10 +3,11 @@ package repository
 import (
 	"gorm.io/gorm"
 	"skeleton-echo/models"
+	"skeleton-echo/request"
 )
 
 type AuthRepository interface {
-	Login( username string) (*models.Users, error)
+	Login( req request.LoginRequest) (*models.Users, error)
 	DbInstance() *gorm.DB
 }
 
@@ -20,9 +21,9 @@ func NewAuthRepository(db *gorm.DB) AuthRepository {
 	}
 }
 
-func (r *authRepository)Login( username string) (*models.Users,error) {
+func (r *authRepository)Login( req request.LoginRequest) (*models.Users,error) {
 	var entity models.Users
-	err := r.DB.Table("user_group").Where("username = ?", username).First(&entity).Error
+	err := r.DB.Table("user_group").Where("username = ? AND password = ?", req.Username, req.Password).First(&entity).Error
 
 	return &entity, err
 

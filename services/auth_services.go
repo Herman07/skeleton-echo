@@ -3,6 +3,7 @@ package services
 import (
 	"skeleton-echo/models"
 	"skeleton-echo/repository"
+	"skeleton-echo/request"
 )
 
 type AuthService struct {
@@ -14,8 +15,8 @@ func NewAuthService(repositoris repository.AuthRepository) *AuthService {
 		authRepository: repositoris,
 	}
 }
-func (s *AuthService) Login(username string) (*models.Users, error) {
-	data, err := s.authRepository.Login(username)
+func (s *AuthService) Login(request request.LoginRequest) (*models.Users, error) {
+	data, err := s.authRepository.Login(request)
 	if err != nil{
 		return nil, err
 	} else {

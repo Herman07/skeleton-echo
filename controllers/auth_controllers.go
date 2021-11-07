@@ -36,7 +36,7 @@ func (c *FrontAuthController) Login(ctx echo.Context) error {
 	if err := ctx.Bind(&dataReq); err != nil {
 		return ctx.Redirect(http.StatusFound, "/inventaris/v1/login")
 	}
-	data, err := c.service.Login(dataReq.Username)
+	data, err := c.service.Login(dataReq)
 	if err != nil {
 		return ctx.JSON(400, echo.Map{"message": "Gagal Login"})
 	}
