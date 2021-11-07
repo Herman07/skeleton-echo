@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/foolin/goview/supports/echoview-v4"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"skeleton-echo/request"
@@ -24,12 +25,17 @@ func NewAuthController(services *services.AuthService) FrontAuthController {
 	}
 }
 func (c *FrontAuthController) Index(ctx echo.Context) error {
-	breadCrumbs := map[string]interface{}{
-		"menu": "Login",
-		"link": "/login",
+	data, _ := session.Manager.Get(ctx,session.SessionId)
+	if data == nil{
+		return echoview.Render(ctx, http.StatusOK, "auth/login.html", echo.Map{
+			"title":        "Login Page",
+			"flashMessage": session.GetFlashMessage(ctx),
+		})
 	}
-	return Render(ctx, "Login", "auth/login.html", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
+	return ctx.Redirect(http.StatusTemporaryRedirect, "/admin/v1/inventaris")
+
 }
+
 func (c *FrontAuthController) Login(ctx echo.Context) error {
 	var dataReq request.LoginRequest
 

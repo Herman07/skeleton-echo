@@ -10,8 +10,11 @@ import (
 )
 
 func Api(e *echo.Echo, db *gorm.DB) {
-	vGroup := e.Group("/inventaris", middleware.SessionMiddleware(session.Manager))
 	authorizationMiddleware := middleware.NewAuthorizationMiddleware(db)
+
+	adminGroup := e.Group("/admin", middleware.SessionMiddleware(session.Manager))
+	g := adminGroup.Group("/v1", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
+
 
 	e.GET("/", func(ctx echo.Context) error {
 		return ctx.Redirect(http.StatusTemporaryRedirect, "/login")
@@ -21,17 +24,20 @@ func Api(e *echo.Echo, db *gorm.DB) {
 	e.POST("/do-login", authController.Login)
 	e.POST("/logout", authController.Logout)
 
-	dashboardController := config.InjectDashboardController(db)
-	g := vGroup.Group("/v1", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
-	g.GET("/admin", dashboardController.Index)
-	//g.GET("/add", dashboardController.Add)
-	//g.POST("/create", dashboardController.AddData)
-	//g.GET("/tables", dashboardController.GetDetail)
-	//g.GET("/table", dashboardController.GetData)
-	//g.GET("/table/:id", dashboardController.Detail)
-	//g.GET("/update/:id", dashboardController.Update)
-	//g.POST("/do-update/:id", dashboardController.DoUpdate)
-	//g.DELETE("/delete/:id", dashboardController.Delete)
+	{
+		invenGroup := g.Group("/inventaris")
+		dashboardController := config.InjectDashboardController(db)
+		invenGroup.GET("", dashboardController.Index)
+		invenGroup.GET("/add", dashboardController.Add)
+		//g.POST("/create", dashboardController.AddData)
+		//g.GET("/tables", dashboardController.GetDetail)
+		//g.GET("/table", dashboardController.GetData)
+		//g.GET("/table/:id", dashboardController.Detail)
+		//g.GET("/update/:id", dashboardController.Update)
+		//g.POST("/do-update/:id", dashboardController.DoUpdate)
+		//g.DELETE("/delete/:id", dashboardController.Delete)
+	}
+
 
 	m := g.Group("/master-data", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
 	provController := config.InjectMasterController(db)

@@ -29,7 +29,7 @@ func NewDashboardController(services *services.DashboardService) DashboardContro
 func (c *DashboardController) Index(ctx echo.Context) error {
 	breadCrumbs := map[string]interface{}{
 		"menu": "Home",
-		"link": "/inventaris/v1/admin",
+		"link": "/admin/v1/inventaris",
 	}
 	return Render(ctx, "Home", "p3a/index", c.Menu, append(c.BreadCrumbs, breadCrumbs),nil)
 }
@@ -37,9 +37,9 @@ func (c *DashboardController) Index(ctx echo.Context) error {
 func (c *DashboardController) Add(ctx echo.Context) error {
 	breadCrumbs := map[string]interface{}{
 		"menu": "Home",
-		"link": "/inventaris/v1/add",
+		"link": "/admin/v1/inventaris/add",
 	}
-	return Render(ctx, "Home", "add", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
+	return Render(ctx, "Home", "p3a/create", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
 }
 
 func (c *DashboardController) GetDetail(ctx echo.Context) error {
