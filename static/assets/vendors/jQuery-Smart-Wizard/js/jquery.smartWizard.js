@@ -21,9 +21,9 @@ function SmartWizard(target, options) {
     this.elmStepContainer = $('<div></div>').addClass("stepContainer");
     this.loader = $('<div>Loading</div>').addClass("loader");
     this.buttons = {
-        next : $('<a>'+options.labelNext+'</a>').attr("href","#").addClass("buttonNext"),
-        previous : $('<a>'+options.labelPrevious+'</a>').attr("href","#").addClass("buttonPrevious"),
-        finish  : $('<a>'+options.labelFinish+'</a>').attr("href","#").addClass("buttonFinish")
+        next : $('<button>'+options.labelNext+'</button>').attr("type","button").addClass("buttonNext"),
+        previous : $('<button>'+options.labelPrevious+'</button>').attr("type","button").addClass("buttonPrevious"),
+        finish  : $('<button>'+options.labelFinish+'</button>').attr("type","button").attr("onclick","Finish()").addClass("buttonFinish")
     };
 
     /*
@@ -59,8 +59,21 @@ function SmartWizard(target, options) {
         this.contentWidth = $this.elmStepContainer.width();
 
         $($this.buttons.next).click(function() {
+            // var curStep = $(this).closest(".x_content"),
+            //     curInputs = curStep.find("input[type='text'],input[type='url'],input[type='file'],input[type='number'],select"),
+            //     isValid = true;
+            // $(".form-group").removeClass("has-error");
+            // for(var i=0; i<curInputs.length; i++){
+            //     if (!curInputs[i].validity.valid){
+            //         isValid = false;
+            //         $(curInputs[i]).closest(".form-group").addClass("has-error");
+            //         $(this).hasClass('buttonDisabled')
+            //     }
             $this.goForward();
+
+            // }
             return false;
+
         });
         $($this.buttons.previous).click(function() {
             $this.goBackward();

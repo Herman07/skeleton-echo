@@ -133,3 +133,12 @@ func (c *KabDataController) Delete(ctx echo.Context) error {
 	}
 	return c.Ok(ctx,nil)
 }
+func (c *KabDataController) FindByID(ctx echo.Context) error {
+	id := ctx.Param("id")
+
+	data , err := c.service.Find(id)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+	return c.Ok(ctx,data)
+}

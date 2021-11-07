@@ -11,9 +11,13 @@ type DashboardRepository interface {
 	GetData(dataReq models.Inventaris)(*models.Inventaris, error)
 	FindById(id string) (*models.Inventaris, error)
 	UpdateById(models.Inventaris)(*models.Inventaris, error)
-	Create(models.Inventaris) (*models.Inventaris, error)
 	Delete(models.Inventaris) error
 	CountWhere(operation string, keyVal map[string]interface{}) (int64, error)
+	Create(entity models.Inventaris) (*models.Inventaris, error)
+	Create2(entity models.Pengurus) (*models.Pengurus, error)
+	Create3(entity models.StatusLegal) (*models.StatusLegal, error)
+	Create4(entity models.TeknikIrigasi) (*models.TeknikIrigasi, error)
+	Create5(entity models.TeknikPertanian) (*models.TeknikPertanian, error)
 	DbInstance() *gorm.DB
 }
 
@@ -68,11 +72,6 @@ func (r dashboardRepository) UpdateById(entity models.Inventaris)(*models.Invent
 	return &entity, err
 }
 
-func (r dashboardRepository) Create(entity models.Inventaris) (*models.Inventaris, error) {
-	err := r.DB.Table("inventaris").Create(&entity).Error
-	return &entity, err
-}
-
 func (r dashboardRepository) Delete(entity models.Inventaris) error {
 	return r.DB.Table("inventaris").Delete(&entity).Error
 }
@@ -92,6 +91,29 @@ func (r dashboardRepository) CountWhere(operation string, keyVal map[string]inte
 	err := q.Count(&count).Error
 	return count, err
 }
+
+func (r dashboardRepository) Create(entity models.Inventaris) (*models.Inventaris, error) {
+	err := r.DB.Table("inventaris").Create(&entity).Error
+	return &entity, err
+}
+
+func (r dashboardRepository) Create2(entity models.Pengurus) (*models.Pengurus, error) {
+	err := r.DB.Table("kepengurusan").Create(&entity).Error
+	return &entity, err
+}
+func (r dashboardRepository) Create3(entity models.StatusLegal) (*models.StatusLegal, error) {
+	err := r.DB.Table("status_legal").Create(&entity).Error
+	return &entity, err
+}
+func (r dashboardRepository) Create4(entity models.TeknikIrigasi) (*models.TeknikIrigasi, error) {
+	err := r.DB.Table("teknik_irigasi").Create(&entity).Error
+	return &entity, err
+}
+func (r dashboardRepository) Create5(entity models.TeknikPertanian) (*models.TeknikPertanian, error) {
+	err := r.DB.Table("teknik_pertanian").Create(&entity).Error
+	return &entity, err
+}
+
 
 func (r *dashboardRepository) DbInstance() *gorm.DB {
 	return r.DB

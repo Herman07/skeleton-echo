@@ -87,6 +87,33 @@ func (s *DashboardService) UpdateById(id string, dto request.RequestInventaris) 
 	}
 	return data, err
 }
+func (s *DashboardService) Create1(request request.RequestInventaris) (*models.Pengurus, error) {
+	entity := models.Pengurus{
+		ID: request.IDPengurus,
+		Ketua: request.Ketua,
+		Wakil: request.Wakil,
+		Bendahara: request.Bendahara,
+		Sekretaris: request.Sekretaris,
+		SekTeknik: request.SekTeknik,
+		SekBisnis: request.SekBisnis,
+		SekOP: request.SekOP,
+		JumlahAnggota: request.JumlahAnggota,
+		Sekretariat: request.Sekretariat,
+		LampiranSekretariat: request.LampiranSekretariat,
+		ArealTersier: request.ArealTersier,
+		NoADRT: request.NoADRT,
+		LampiranADRT: request.LampiranADRT,
+		PresentasiPerempuanP3A: request.PresentasiPerempuanP3A,
+		PengisianBuku: request.PengisianBuku,
+		Iuran: request.Iuran,
+
+	}
+	data, err := s.DashboardRepository.Create2(entity)
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}
 func (s *DashboardService) Create(request request.RequestInventaris) (*models.Inventaris, error) {
 	entity := models.Inventaris{
 		IDProv:         request.IDProv,
@@ -104,13 +131,55 @@ func (s *DashboardService) Create(request request.RequestInventaris) (*models.In
 		LuasLayananP3A: request.LuasLayananP3A,
 	}
 	data, err := s.DashboardRepository.Create(entity)
-
 	if err != nil {
 		return nil, err
 	}
 	return data, err
 }
+func (s *DashboardService) Create2(request request.RequestInventaris) (*models.StatusLegal, error) {
+	entity := models.StatusLegal{
+		ID: request.IDStatus,
+		TahunPembentukan: request.TahunPembentukan,
+		LamTahunPembentukan: request.LamTahunPembentukan,
+		LamKplDesa: request.LamKplDesa,
+		SKBupati: request.SKBupati,
+		LamSKBupati: request.LamSKBupati,
+		AkteNotaris: request.AkteNotaris,
+		LamAkteNotaris: request.LamAkteNotaris,
+		NoPendaftaran: request.NoPendaftaran,
+		LamPendaftaran: request.LamPendaftaran,
+	}
 
+	data, err := s.DashboardRepository.Create3(entity)
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}
+func (s *DashboardService) Create3(request request.RequestInventaris) (*models.TeknikIrigasi, error) {
+	entity := models.TeknikIrigasi{
+		ID: request.IDIrigasi,
+		Operasi: request.Operasi,
+		Partisipatif: request.Partisipatif,
+	}
+	data, err := s.DashboardRepository.Create4(entity)
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}
+func (s *DashboardService) Create4(request request.RequestInventaris) (*models.TeknikPertanian, error) {
+	entity := models.TeknikPertanian{
+		ID: request.IDPertanian,
+		PolaTanam: request.PolaTanam,
+		UsahaTani: request.UsahaTani,
+	}
+	data, err := s.DashboardRepository.Create5(entity)
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}
 func (s *DashboardService) Delete(id string) error {
 	entity := models.Inventaris{
 		ID: id,

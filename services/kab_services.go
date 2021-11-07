@@ -89,3 +89,10 @@ func (s *KabDataService) Delete(id string) error {
 		return nil
 	}
 }
+func (s *KabDataService) Find(id string) (*[]models.MasterDataKab, error) {
+	data, err := s.KabDataRepository.FindByID(id)
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}

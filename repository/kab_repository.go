@@ -13,6 +13,7 @@ type KabDataRepository interface {
 	UpdateById(entity models.MasterDataKab)(*models.MasterDataKab, error)
 	FindById(id string) (*models.MasterDataKab, error)
 	Delete(models.MasterDataKab) error
+	FindByID(id string) (*[]models.MasterDataKab, error)
 	DbInstance() *gorm.DB
 }
 
@@ -82,7 +83,11 @@ func (r kabdataRepository) FindById(id string) (*models.MasterDataKab, error) {
 func (r kabdataRepository) Delete(entity models.MasterDataKab) error {
 	return r.DB.Table("kabupaten").Delete(&entity).Error
 }
-
+func (r kabdataRepository) FindByID(id string) (*[]models.MasterDataKab, error) {
+	var entity []models.MasterDataKab
+	err := r.DB.Table("kabupaten").Where("id_prov_fk = ?", id).Find(&entity).Error
+	return &entity, err
+}
 func (r *kabdataRepository) DbInstance() *gorm.DB {
 	return r.DB
 }

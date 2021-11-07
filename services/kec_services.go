@@ -90,3 +90,11 @@ func (s *KecDataService) Delete(id string) error {
 		return nil
 	}
 }
+
+func (s *KecDataService) Find(id string) (*[]models.MasterDataKec, error) {
+	data, err := s.KecDataRepository.FindByID(id)
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}

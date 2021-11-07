@@ -29,9 +29,9 @@ func NewDashboardController(services *services.DashboardService) DashboardContro
 func (c *DashboardController) Index(ctx echo.Context) error {
 	breadCrumbs := map[string]interface{}{
 		"menu": "Home",
-		"link": "/inventaris/v1/p3a",
+		"link": "/inventaris/v1/admin",
 	}
-	return Render(ctx, "Home", "p3a/index", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
+	return Render(ctx, "Home", "p3a/index", c.Menu, append(c.BreadCrumbs, breadCrumbs),nil)
 }
 
 func (c *DashboardController) Add(ctx echo.Context) error {
@@ -106,13 +106,28 @@ func (c *DashboardController) Detail(ctx echo.Context) error {
 
 func (c *DashboardController) AddData(ctx echo.Context) error {
 	var entity request.RequestInventaris
-
 	if err := ctx.Bind(&entity); err != nil {
 		return ctx.JSON(400, echo.Map{"message": "error binding data"})
 	}
 	_, err := c.service.Create(entity)
 	entity.CreatedAt = time.Now()
 	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+	_, err1 := c.service.Create1(entity)
+	if err1 != nil {
+		return c.InternalServerError(ctx, err)
+	}
+	_, err2 := c.service.Create2(entity)
+	if err2 != nil {
+		return c.InternalServerError(ctx, err)
+	}
+	_, err3 := c.service.Create3(entity)
+	if err3 != nil {
+		return c.InternalServerError(ctx, err)
+	}
+	_, err4 := c.service.Create4(entity)
+	if err4 != nil {
 		return c.InternalServerError(ctx, err)
 	}
 	return ctx.Redirect(302, "/inventaris/v1/admin")

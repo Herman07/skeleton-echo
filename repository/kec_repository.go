@@ -13,6 +13,7 @@ type KecDataRepository interface {
 	UpdateById(entity models.MasterDataKec)(*models.MasterDataKec, error)
 	FindById(id string) (*models.MasterDataKec, error)
 	Delete(models.MasterDataKec) error
+	FindByID(id string) (*[]models.MasterDataKec, error)
 	DbInstance() *gorm.DB
 }
 
@@ -82,6 +83,11 @@ func (r kecdataRepository) FindById(id string) (*models.MasterDataKec, error) {
 
 func (r kecdataRepository) Delete(entity models.MasterDataKec) error {
 	return r.DB.Table("kecamatan").Delete(&entity).Error
+}
+func (r kecdataRepository) FindByID(id string) (*[]models.MasterDataKec, error) {
+	var entity []models.MasterDataKec
+	err := r.DB.Table("kecamatan").Where("id_kab_fk = ?", id).Find(&entity).Error
+	return &entity, err
 }
 
 func (r *kecdataRepository) DbInstance() *gorm.DB {

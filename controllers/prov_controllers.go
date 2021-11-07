@@ -10,14 +10,14 @@ import (
 	"strconv"
 )
 
-type MasterDataController struct {
+type ProvDataController struct {
 	BaseFrontendController
 	Controller
-	service *services.MasterDataService
+	service *services.ProvDataService
 }
 
-func NewMasterDataController(services *services.MasterDataService) MasterDataController {
-	return MasterDataController{
+func NewProvDataController(services *services.ProvDataService) ProvDataController {
+	return ProvDataController{
 		service: services,
 		BaseFrontendController: BaseFrontendController{
 			Menu:        "Master Data",
@@ -25,7 +25,7 @@ func NewMasterDataController(services *services.MasterDataService) MasterDataCon
 		},
 	}
 }
-func (c *MasterDataController) Index(ctx echo.Context) error {
+func (c *ProvDataController) Index(ctx echo.Context) error {
 	breadCrumbs := map[string]interface{}{
 		"menu": "Home",
 		"link": "/inventaris/v1/master-data",
@@ -33,14 +33,14 @@ func (c *MasterDataController) Index(ctx echo.Context) error {
 	return Render(ctx, "Home", "master-data/provinsi/index", c.Menu, append(c.BreadCrumbs, breadCrumbs),nil)
 }
 
-func (c *MasterDataController) Store(ctx echo.Context) error {
+func (c *ProvDataController) Store(ctx echo.Context) error {
 	breadCrumbs := map[string]interface{}{
 		"menu": "Home",
 		"link": "/inventaris/v1/master-data/add",
 	}
 	return Render(ctx, "Home", "master-data/provinsi/add", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
 }
-func (c *MasterDataController) Update(ctx echo.Context) error {
+func (c *ProvDataController) Update(ctx echo.Context) error {
 	id := ctx.Param("id")
 	data, err := c.service.FindById(id)
 	if err != nil {
@@ -59,7 +59,7 @@ func (c *MasterDataController) Update(ctx echo.Context) error {
 	return Render(ctx, "Home", "master-data/provinsi/update", c.Menu, append(c.BreadCrumbs, breadCrumbs), dataProv)
 }
 
-func (c *MasterDataController) GetDetail(ctx echo.Context) error {
+func (c *ProvDataController) GetDetail(ctx echo.Context) error {
 
 	draw, err := strconv.Atoi(ctx.Request().URL.Query().Get("draw"))
 	start, err := strconv.Atoi(ctx.Request().URL.Query().Get("start"))
@@ -96,7 +96,7 @@ func (c *MasterDataController) GetDetail(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, &result)
 }
 
-func (c *MasterDataController) AddData(ctx echo.Context) error {
+func (c *ProvDataController) AddData(ctx echo.Context) error {
 	var entity request.ProvinsiReq
 
 	if err := ctx.Bind(&entity); err != nil {
@@ -110,7 +110,7 @@ func (c *MasterDataController) AddData(ctx echo.Context) error {
 	return ctx.Redirect(302, "/inventaris/v1/master-data/provinsi")
 }
 
-func (c *MasterDataController) DoUpdate(ctx echo.Context) error {
+func (c *ProvDataController) DoUpdate(ctx echo.Context) error {
 	var entity request.ProvinsiReq
 	id := ctx.Param("id_prov")
 	if err := ctx.Bind(&entity); err != nil {
@@ -124,12 +124,22 @@ func (c *MasterDataController) DoUpdate(ctx echo.Context) error {
 	return ctx.Redirect(302, "/inventaris/v1/master-data/provinsi")
 }
 
-func (c *MasterDataController) Delete(ctx echo.Context) error {
-	id := ctx.Param("id_prov")
+func (c *ProvDataController) Delete(ctx echo.Context) error {
+	id := ctx.Param("id")
 
 	err := c.service.Delete(id)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
 	return c.Ok(ctx,nil)
+}
+
+func (c *ProvDataController) FindByID(ctx echo.Context) error {
+	id := ctx.Param("id")
+
+	data , err := c.service.Find(id)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+	return c.Ok(ctx,data)
 }
