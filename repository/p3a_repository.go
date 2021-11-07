@@ -5,7 +5,7 @@ import (
 	"skeleton-echo/models"
 )
 
-type DashboardRepository interface {
+type P3Repository interface {
 	FindAllWhere(operation string, orderType string, orderBy string, limit int, offset int, keyVal map[string]interface{}) ([]models.Inventaris, error)
 	Count() (int64, error)
 	GetData(dataReq models.Inventaris)(*models.Inventaris, error)
@@ -14,25 +14,25 @@ type DashboardRepository interface {
 	Delete(models.Inventaris) error
 	CountWhere(operation string, keyVal map[string]interface{}) (int64, error)
 	Create(entity models.Inventaris) (*models.Inventaris, error)
-	Create2(entity models.Pengurus) (*models.Pengurus, error)
-	Create3(entity models.StatusLegal) (*models.StatusLegal, error)
-	Create4(entity models.TeknikIrigasi) (*models.TeknikIrigasi, error)
-	Create5(entity models.TeknikPertanian) (*models.TeknikPertanian, error)
+	CreateStatusLegal(entity models.StatusLegal) (*models.StatusLegal, error)
+	CreatePengurus(entity models.Pengurus) (*models.Pengurus, error)
+	CreateIrigasi(entity models.TeknikIrigasi) (*models.TeknikIrigasi, error)
+	CreatePertanian(entity models.TeknikPertanian) (*models.TeknikPertanian, error)
 	DbInstance() *gorm.DB
 }
 
 
-type dashboardRepository struct {
+type p3Repository struct {
 	*gorm.DB
 }
 
-func NewDashboardRepository(db *gorm.DB) DashboardRepository {
-	return &dashboardRepository{
+func NewP3Repository(db *gorm.DB) P3Repository {
+	return &p3Repository{
 		DB: db,
 	}
 }
 
-func (r *dashboardRepository) FindAllWhere(operation string, orderType string, orderBy string, limit int, offset int, keyVal map[string]interface{}) ([]models.Inventaris, error) {
+func (r *p3Repository) FindAllWhere(operation string, orderType string, orderBy string, limit int, offset int, keyVal map[string]interface{}) ([]models.Inventaris, error) {
 	var entity []models.Inventaris
 	res := r.DB.Table("data_p3a").Order(orderBy + " " + orderType).Limit(limit).Offset(offset)
 
@@ -49,34 +49,34 @@ func (r *dashboardRepository) FindAllWhere(operation string, orderType string, o
 
 }
 
-func (r dashboardRepository) Count() (int64, error) {
+func (r p3Repository) Count() (int64, error) {
 	var count int64
 	err := r.DB.Table("data_p3a").Count(&count).Error
 	return count, err
 }
-func (r *dashboardRepository)GetData(dataReq models.Inventaris)(*models.Inventaris,error) {
+func (r *p3Repository)GetData(dataReq models.Inventaris)(*models.Inventaris,error) {
 	data := models.Inventaris{}
 	err := r.DB.Table("inventaris").Find(&data).Error
 
 	return &data, err
 
 }
-func (r dashboardRepository) FindById(id string) (*models.Inventaris, error) {
+func (r p3Repository) FindById(id string) (*models.Inventaris, error) {
 	var entity models.Inventaris
 	err := r.DB.Table("inventaris").Where("id = ?", id).First(&entity).Error
 	return &entity, err
 }
 
-func (r dashboardRepository) UpdateById(entity models.Inventaris)(*models.Inventaris, error){
+func (r p3Repository) UpdateById(entity models.Inventaris)(*models.Inventaris, error){
 	err := r.DB.Model(&models.Inventaris{ID: entity.ID}).Updates(&entity).Error
 	return &entity, err
 }
 
-func (r dashboardRepository) Delete(entity models.Inventaris) error {
+func (r p3Repository) Delete(entity models.Inventaris) error {
 	return r.DB.Table("inventaris").Delete(&entity).Error
 }
 
-func (r dashboardRepository) CountWhere(operation string, keyVal map[string]interface{}) (int64, error) {
+func (r p3Repository) CountWhere(operation string, keyVal map[string]interface{}) (int64, error) {
 	var count int64
 	q := r.DB.Model(&models.Inventaris{})
 	for k, v := range keyVal {
@@ -92,30 +92,30 @@ func (r dashboardRepository) CountWhere(operation string, keyVal map[string]inte
 	return count, err
 }
 
-func (r dashboardRepository) Create(entity models.Inventaris) (*models.Inventaris, error) {
+func (r p3Repository) Create(entity models.Inventaris) (*models.Inventaris, error) {
 	err := r.DB.Table("inventaris").Create(&entity).Error
 	return &entity, err
 }
 
-func (r dashboardRepository) Create2(entity models.Pengurus) (*models.Pengurus, error) {
+func (r p3Repository) CreatePengurus(entity models.Pengurus) (*models.Pengurus, error) {
 	err := r.DB.Table("kepengurusan").Create(&entity).Error
 	return &entity, err
 }
-func (r dashboardRepository) Create3(entity models.StatusLegal) (*models.StatusLegal, error) {
+func (r p3Repository) CreateStatusLegal(entity models.StatusLegal) (*models.StatusLegal, error) {
 	err := r.DB.Table("status_legal").Create(&entity).Error
 	return &entity, err
 }
-func (r dashboardRepository) Create4(entity models.TeknikIrigasi) (*models.TeknikIrigasi, error) {
+func (r p3Repository) CreateIrigasi(entity models.TeknikIrigasi) (*models.TeknikIrigasi, error) {
 	err := r.DB.Table("teknik_irigasi").Create(&entity).Error
 	return &entity, err
 }
-func (r dashboardRepository) Create5(entity models.TeknikPertanian) (*models.TeknikPertanian, error) {
+func (r p3Repository) CreatePertanian(entity models.TeknikPertanian) (*models.TeknikPertanian, error) {
 	err := r.DB.Table("teknik_pertanian").Create(&entity).Error
 	return &entity, err
 }
 
 
-func (r *dashboardRepository) DbInstance() *gorm.DB {
+func (r *p3Repository) DbInstance() *gorm.DB {
 	return r.DB
 }
 

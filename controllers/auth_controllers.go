@@ -40,7 +40,7 @@ func (c *FrontAuthController) Login(ctx echo.Context) error {
 	var dataReq request.LoginRequest
 
 	if err := ctx.Bind(&dataReq); err != nil {
-		return ctx.Redirect(http.StatusFound, "/inventaris/v1/login")
+		return ctx.Redirect(http.StatusFound, "/admin/v1/inventaris")
 	}
 	data, err := c.service.Login(dataReq)
 	if err != nil {
@@ -55,7 +55,7 @@ func (c *FrontAuthController) Login(ctx echo.Context) error {
 	err != nil {
 		return ctx.Redirect(http.StatusFound, "/inventaris/v1/login")
 	}
-	return ctx.Redirect(http.StatusFound, "/inventaris/v1/admin")
+	return ctx.Redirect(http.StatusFound, "/admin/v1/inventaris")
 }
 func (c *FrontAuthController) Logout(ctx echo.Context) error {
 	err := session.Manager.Delete(ctx, session.SessionId)

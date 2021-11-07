@@ -1,24 +1,22 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"skeleton-echo/models"
 	"skeleton-echo/request"
 	"skeleton-echo/services"
 	"strconv"
-	"time"
 )
 
-type DashboardController struct {
+type P3Controller struct {
 	BaseFrontendController
 	Controller
-	service *services.DashboardService
+	service *services.P3Service
 }
 
-func NewDashboardController(services *services.DashboardService) DashboardController {
-	return DashboardController{
+func NewP3Controller(services *services.P3Service) P3Controller {
+	return P3Controller{
 		service: services,
 		BaseFrontendController: BaseFrontendController{
 			Menu:        "Dashboard",
@@ -26,7 +24,7 @@ func NewDashboardController(services *services.DashboardService) DashboardContro
 		},
 	}
 }
-func (c *DashboardController) Index(ctx echo.Context) error {
+func (c *P3Controller) Index(ctx echo.Context) error {
 	breadCrumbs := map[string]interface{}{
 		"menu": "Home",
 		"link": "/admin/v1/inventaris",
@@ -34,7 +32,7 @@ func (c *DashboardController) Index(ctx echo.Context) error {
 	return Render(ctx, "Home", "p3a/index", c.Menu, append(c.BreadCrumbs, breadCrumbs),nil)
 }
 
-func (c *DashboardController) Add(ctx echo.Context) error {
+func (c *P3Controller) Add(ctx echo.Context) error {
 	breadCrumbs := map[string]interface{}{
 		"menu": "Home",
 		"link": "/admin/v1/inventaris/add",
@@ -42,7 +40,7 @@ func (c *DashboardController) Add(ctx echo.Context) error {
 	return Render(ctx, "Home", "p3a/create", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
 }
 
-func (c *DashboardController) GetDetail(ctx echo.Context) error {
+func (c *P3Controller) GetDetail(ctx echo.Context) error {
 
 	draw, err := strconv.Atoi(ctx.Request().URL.Query().Get("draw"))
 	start, err := strconv.Atoi(ctx.Request().URL.Query().Get("start"))
@@ -85,97 +83,107 @@ func (c *DashboardController) GetDetail(ctx echo.Context) error {
 	}
 	return ctx.JSON(http.StatusOK, &result)
 }
-func (c *DashboardController) GetData(ctx echo.Context) error {
-	dataReq := models.Inventaris{}
+//func (c *P3Controller) GetData(ctx echo.Context) error {
+//	dataReq := models.Inventaris{}
+//
+//	data, err := c.service.GetAll(dataReq)
+//	if err != nil {
+//		return c.InternalServerError(ctx, err)
+//	}
+//
+//	return c.Ok(ctx, data)
+//}
+//func (c *P3Controller) Detail(ctx echo.Context) error {
+//	id := ctx.Param("id")
+//	data, err := c.service.FindById(id)
+//	if err != nil {
+//		return c.InternalServerError(ctx, err)
+//	}
+//	return c.Ok(ctx, data)
+//}
 
-	data, err := c.service.GetAll(dataReq)
-	if err != nil {
-		return c.InternalServerError(ctx, err)
-	}
-
-	return c.Ok(ctx, data)
-}
-func (c *DashboardController) Detail(ctx echo.Context) error {
-	id := ctx.Param("id")
-	data, err := c.service.FindById(id)
-	if err != nil {
-		return c.InternalServerError(ctx, err)
-	}
-	return c.Ok(ctx, data)
-}
-
-func (c *DashboardController) AddData(ctx echo.Context) error {
+func (c *P3Controller) AddData(ctx echo.Context) error {
 	var entity request.RequestInventaris
 	if err := ctx.Bind(&entity); err != nil {
 		return ctx.JSON(400, echo.Map{"message": "error binding data"})
 	}
-	_, err := c.service.Create(entity)
-	entity.CreatedAt = time.Now()
-	if err != nil {
-		return c.InternalServerError(ctx, err)
-	}
-	_, err1 := c.service.Create1(entity)
-	if err1 != nil {
-		return c.InternalServerError(ctx, err)
-	}
-	_, err2 := c.service.Create2(entity)
-	if err2 != nil {
-		return c.InternalServerError(ctx, err)
-	}
-	_, err3 := c.service.Create3(entity)
-	if err3 != nil {
-		return c.InternalServerError(ctx, err)
-	}
-	_, err4 := c.service.Create4(entity)
-	if err4 != nil {
-		return c.InternalServerError(ctx, err)
-	}
-	return ctx.Redirect(302, "/inventaris/v1/admin")
-}
 
-func (c *DashboardController) Update(ctx echo.Context) error {
-	id := ctx.Param("id")
-	data, err := c.service.FindById(id)
+	//Store Data Status Legal
+	statusLegal, err := c.service.CreateStatusLegal(entity)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
 
-	breadCrumbs := map[string]interface{}{
-		"menu": "Home",
-		"link": "/inventaris/v1/update/:id",
-	}
-	dataInventaris := models.Inventaris{
-		ID:             data.ID,
-		NoUrut:         data.NoUrut,
-		NamaP3A:        data.NamaP3A,
-		JumlahP3A:      data.JumlahP3A,
-		DaerahIrigasi:  data.DaerahIrigasi,
-		LuasWilayah:    data.LuasWilayah,
-		LuasLayananP3A: data.LuasLayananP3A,
-	}
-	return Render(ctx, "Home", "update", c.Menu, append(c.BreadCrumbs, breadCrumbs), dataInventaris)
-}
-
-func (c *DashboardController) DoUpdate(ctx echo.Context) error {
-	var entity request.RequestInventaris
-	id := ctx.Param("id")
-	if err := ctx.Bind(&entity); err != nil {
-		return ctx.JSON(400, echo.Map{"message": "error binding data"})
-	}
-	data, err := c.service.UpdateById(id, entity)
+	// Store Data Kepengurusan
+	pengurus , err := c.service.CreatePengurus(entity)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
-	fmt.Println(data)
-	return ctx.Redirect(302, "/inventaris/v1/admin")
-}
 
-func (c *DashboardController) Delete(ctx echo.Context) error {
-	id := ctx.Param("id")
-
-	err := c.service.Delete(id)
+	//Store Data Teknik Irigasi
+	irigasi, err := c.service.CreateIrigasi(entity)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
-	return c.Ok(ctx, nil)
+
+	//Store Data Teknik Pertanian
+	pertanian, err := c.service.CreatePertanian(entity)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+
+	//Store Data to Table p3a
+	p3a, err := c.service.CreateDataP3a(entity,statusLegal.ID,pengurus.ID,irigasi.ID,pertanian.ID)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+
+	return c.Ok(ctx, p3a)
 }
+
+//func (c *P3Controller) Update(ctx echo.Context) error {
+//	id := ctx.Param("id")
+//	data, err := c.service.FindById(id)
+//	if err != nil {
+//		return c.InternalServerError(ctx, err)
+//	}
+//
+//	breadCrumbs := map[string]interface{}{
+//		"menu": "Home",
+//		"link": "/inventaris/v1/update/:id",
+//	}
+//	dataInventaris := models.Inventaris{
+//		ID:             data.ID,
+//		NoUrut:         data.NoUrut,
+//		NamaP3A:        data.NamaP3A,
+//		JumlahP3A:      data.JumlahP3A,
+//		DaerahIrigasi:  data.DaerahIrigasi,
+//		LuasWilayah:    data.LuasWilayah,
+//		LuasLayananP3A: data.LuasLayananP3A,
+//	}
+//	return Render(ctx, "Home", "update", c.Menu, append(c.BreadCrumbs, breadCrumbs), dataInventaris)
+//}
+//
+//func (c *P3Controller) DoUpdate(ctx echo.Context) error {
+//	var entity request.RequestInventaris
+//	id := ctx.Param("id")
+//	if err := ctx.Bind(&entity); err != nil {
+//		return ctx.JSON(400, echo.Map{"message": "error binding data"})
+//	}
+//	data, err := c.service.UpdateById(id, entity)
+//	if err != nil {
+//		return c.InternalServerError(ctx, err)
+//	}
+//	fmt.Println(data)
+//	return ctx.Redirect(302, "/inventaris/v1/admin")
+//}
+
+//func (c *P3Controller) Delete(ctx echo.Context) error {
+//	id := ctx.Param("id")
+//
+//	err := c.service.Delete(id)
+//	if err != nil {
+//		return c.InternalServerError(ctx, err)
+//	}
+//	return c.Ok(ctx, nil)
+//}

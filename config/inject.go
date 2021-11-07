@@ -13,10 +13,10 @@ func InjectAuthController(db *gorm.DB) controllers.FrontAuthController {
 	authController := controllers.NewAuthController(authService)
 	return authController
 }
-func InjectDashboardController(db *gorm.DB) controllers.DashboardController {
-	dashboardRepository := repository.NewDashboardRepository(db)
-	dashboardService := services.NewDashboardService(dashboardRepository)
-	dashboardController := controllers.NewDashboardController(dashboardService)
+func InjectDashboardController(db *gorm.DB) controllers.P3Controller {
+	dashboardRepository := repository.NewP3Repository(db)
+	dashboardService := services.NewP3Service(dashboardRepository)
+	dashboardController := controllers.NewP3Controller(dashboardService)
 	return dashboardController
 }
 

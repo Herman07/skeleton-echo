@@ -29,7 +29,7 @@ func Api(e *echo.Echo, db *gorm.DB) {
 		dashboardController := config.InjectDashboardController(db)
 		invenGroup.GET("", dashboardController.Index)
 		invenGroup.GET("/add", dashboardController.Add)
-		//g.POST("/create", dashboardController.AddData)
+		g.POST("/store", dashboardController.AddData)
 		//g.GET("/tables", dashboardController.GetDetail)
 		//g.GET("/table", dashboardController.GetData)
 		//g.GET("/table/:id", dashboardController.Detail)

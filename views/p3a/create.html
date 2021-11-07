@@ -77,14 +77,14 @@
                                     </a>
                                 </li>
                             </ul>
-                            <div id="step-1">
-                                <form class="form-horizontal form-label-left" id="form">
+                            <form class="form-horizontal form-label-left" id="form" method="POST">
+                                <div id="step-1">
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Provinsi<span
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="prov" class="form-control" nama="nama_prov" required="required">
+                                            <select id="prov" class="form-control" name="nama_prov" >
                                             </select>
                                         </div>
                                     </div>
@@ -93,7 +93,8 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="kab" class="form-control" nama="nama_kab" required="required" onchange="GetValue()">
+                                            <select id="kab" class="form-control" name="nama_kab"
+                                                    onchange="GetValue()">
                                                 <option></option>
                                             </select>
                                         </div>
@@ -101,21 +102,21 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Kecamatan</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="kec" class="form-control" required="required" nama="nama_kecamatan">
+                                            <select id="kec" class="form-control"
+                                                    name="nama_kecamatan">
                                                 <option></option>
                                             </select>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                            <div id="step-2">
-                                <form class="form-horizontal form-label-left" id="form">
+                                </div>
+                                <div id="step-2">
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">No Urut <span
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" data-validate-length-range="5" required="required" nama="no_urut"
+                                            <input type="number" data-validate-length-range="5"
+                                                   name="no_urut"
                                                    class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
@@ -124,7 +125,8 @@
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" data-validate-length-range="5" required="required" nama="nama_p3a"
+                                            <input type="text" data-validate-length-range="5"
+                                                   name="nama_p3a"
                                                    class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
@@ -133,7 +135,7 @@
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" required="required" nama="nama_daerah_irigasi"
+                                            <input type="text"  name="nama_daerah_irigasi"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -142,7 +144,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" required="required" nama="luas_wilayah"
+                                            <input type="number"  name="luas_wilayah"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -151,7 +153,7 @@
                                         class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" required="required" nama="jumlah_p3a"
+                                            <input type="number"  name="jumlah_p3a"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -160,7 +162,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" required="required" nama="luas_layanan_p3a"
+                                            <input type="number"  name="luas_layanan_p3a"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -169,21 +171,19 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" required="required" nama="keterangan"
+                                            <input type="text"  name="keterangan"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                            <div id="step-3">
-                                <form class="form-horizontal form-label-left" id="form">
+                                </div>
+                                <div id="step-3">
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Tahun Pembentukan<span
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" maxlength="4" required="required"
-                                                   nama="tahun_pembentukan"
+                                            <input type="number" maxlength="4"
+                                                   name="tahun_pembentukan"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -192,7 +192,7 @@
                                             Pembentukan<span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" required="required" nama="lampiran_tahun_pembentukan"
+                                            <input type="file"  name="lampiran_tahun_pembentukan"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -201,7 +201,7 @@
                                             Daerah<span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" required="required" nama="diket_kep_dc"
+                                            <input type="file"  name="diket_kep_dc"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -210,7 +210,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select class="form-control" nama="no_sk_bupati">
+                                            <select class="form-control" name="no_sk_bupati">
                                                 <option>Ada</option>
                                                 <option>Tidak Ada</option>
                                             </select>
@@ -221,7 +221,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" required="required" nama="lampiran_sk_bupati"
+                                            <input type="file"  name="lampiran_sk_bupati"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -230,7 +230,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select class="form-control" nama="akte_notaris">
+                                            <select class="form-control" name="akte_notaris">
                                                 <option>Ada</option>
                                                 <option>Tidak Ada</option>
                                             </select>
@@ -241,7 +241,7 @@
                                             Notaris<span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" required="required" nama="lampiran_akte_notaris"
+                                            <input type="file"  name="lampiran_akte_notaris"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -250,7 +250,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select class="form-control" nama="no_pendaftaran">
+                                            <select class="form-control" name="no_pendaftaran">
                                                 <option>Ada</option>
                                                 <option>Tidak Ada</option>
                                             </select>
@@ -261,23 +261,21 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" required="required" nama="lampiran_pendaftaran"
+                                            <input type="file"  name="lampiran_pendaftaran"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                            <div id="step-4">
-                                <form class="form-horizontal form-label-left" id="form">
+                                </div>
+                                <div id="step-4">
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Ketua<span
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             M:
-                                            <input type="radio" class="flat" name="gender1" value="M" nama="ketua"
+                                            <input type="radio" class="flat" name="gender1" value="M" name="ketua"
                                                    required/> F:
-                                            <input type="radio" class="flat" name="gender1" value="F" nama="ketua"/>
+                                            <input type="radio" class="flat" name="gender1" value="F" name="ketua"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -286,9 +284,9 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             M:
-                                            <input type="radio" class="flat" name="gender2" value="M" nama="wakil"
+                                            <input type="radio" class="flat" name="gender2" value="M" name="wakil"
                                                    required/> F:
-                                            <input type="radio" class="flat" name="gender2" value="F" nama="wakil"
+                                            <input type="radio" class="flat" name="gender2" value="F" name="wakil"
                                                    required/>
                                         </div>
                                     </div>
@@ -298,9 +296,9 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             M:
-                                            <input type="radio" class="flat" name="gender3" value="M" nama="sekretarias"
+                                            <input type="radio" class="flat" name="gender3" value="M" name="sekretarias"
                                                    required/> F:
-                                            <input type="radio" class="flat" name="gender3" value="F" nama="sekretaris"
+                                            <input type="radio" class="flat" name="gender3" value="F" name="sekretaris"
                                                    required/>
                                         </div>
                                     </div>
@@ -310,9 +308,9 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             M:
-                                            <input type="radio" class="flat" name="gender4" value="M" nama="bendahara"
+                                            <input type="radio" class="flat" name="gender4" value="M" name="bendahara"
                                                    required/> F:
-                                            <input type="radio" class="flat" name="gender4" value="F" nama="bendahara"
+                                            <input type="radio" class="flat" name="gender4" value="F" name="bendahara"
                                                    required/>
                                         </div>
                                     </div>
@@ -322,9 +320,9 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             M:
-                                            <input type="radio" class="flat" name="gender5" value="M" nama="sek_teknik"
+                                            <input type="radio" class="flat" name="gender5" value="M" name="sek_teknik"
                                                    required/> F:
-                                            <input type="radio" class="flat" name="gender5" value="F" nama="sek_teknik"
+                                            <input type="radio" class="flat" name="gender5" value="F" name="sek_teknik"
                                                    required/>
                                         </div>
                                     </div>
@@ -334,9 +332,9 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             M:
-                                            <input type="radio" class="flat" name="gender6" value="M" nama="sek_op"
+                                            <input type="radio" class="flat" name="gender6" value="M" name="sek_op"
                                                    required/> F:
-                                            <input type="radio" class="flat" name="gender6" value="F" nama="sek_op"
+                                            <input type="radio" class="flat" name="gender6" value="F" name="sek_op"
                                                    required/>
                                         </div>
                                     </div>
@@ -346,9 +344,9 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             M:
-                                            <input type="radio" class="flat" name="gender7" value="M" nama="sek_bisnis"
+                                            <input type="radio" class="flat" name="gender7" value="M" name="sek_bisnis"
                                                    required/> F:
-                                            <input type="radio" class="flat" name="gender7" value="F" nama="sek_bisnis"
+                                            <input type="radio" class="flat" name="gender7" value="F" name="sek_bisnis"
                                                    required/>
                                         </div>
                                     </div>
@@ -357,7 +355,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" required="required" nama="jumlah_anggota"
+                                            <input type="number"  name="jumlah_anggota"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -366,7 +364,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" required="required" nama="no_ad_rt"
+                                            <input type="number"  name="no_ad_rt"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -375,7 +373,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" required="required" nama="lampiran_ad_rt"
+                                            <input type="file"  name="lampiran_ad_rt"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -384,7 +382,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select class="form-control" nama="sekretariat">
+                                            <select class="form-control" name="sekretariat">
                                                 <option>Ada</option>
                                                 <option>Tidak Ada</option>
                                             </select>
@@ -395,7 +393,7 @@
                                             Sekretariat<span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" required="required" nama="lamapiran_sekretariat"
+                                            <input type="file"  name="lamapiran_sekretariat"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -404,7 +402,7 @@
                                             P3A<span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" required="required" nama="presentase_perempuan_p3a"
+                                            <input type="number"  name="presentase_perempuan_p3a"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -413,7 +411,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" required="required" nama="areal_tersier"
+                                            <input type="number"  name="areal_tersier"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -422,7 +420,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" required="required" nama="pengisian_buku"
+                                            <input type="text"  name="pengisian_buku"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -431,21 +429,18 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" required="required" nama="iuran"
+                                            <input type="text"  name="iuran"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
-
-                                </form>
-                            </div>
-                            <div id="step-5">
-                                <form class="form-horizontal form-label-left" id="form">
+                                </div>
+                                <div id="step-5">
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Operasi<span
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" required="required" nama="operasi"
+                                            <input type="text"  name="operasi"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -454,21 +449,18 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" required="required" nama="partisipatif"
+                                            <input type="text"  name="partisipatif"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                            <div id="step-6">
-                                <form class="form-horizontal form-label-left">
-
+                                </div>
+                                <div id="step-6">
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Pola Tanam<span
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" required="required" nama="pola_tanam"
+                                            <input type="text"  name="pola_tanam"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -477,12 +469,12 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" required="required" nama="usaha_tani"
+                                            <input type="text"  name="usaha_tani"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                         <!-- End SmartWizard Content -->
                     </div>
@@ -496,15 +488,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#kec').select2({
+        $('#kec,#prov,#kab').select2({
             placeholder: "Select a value",
         })
-        $('#prov').select2({
-            placeholder: "Select a value",
-        });
-        $('#kab').select2({
-            placeholder: "Select a value",
-        });
     });
     $.ajax({
         url: '/prov/32',
@@ -559,10 +545,20 @@
             }
         })
     }
-    function Finish(){
-        data :{
 
-        }
+    function Finish() {
+        //Store Data P3
+        $.ajax({
+            url : "/admin/v1/p3/store",
+            data : $('#form').serialize(),
+            type: 'POST',
+            success:function (res){
+                alert("SUKSES INSERT DATA")
+            },
+            error: function (error){
+                alert(error)
+            }
+        })
     }
 </script>
 {{end}}

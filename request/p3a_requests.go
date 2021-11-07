@@ -3,8 +3,7 @@ package request
 import "time"
 
 type RequestInventaris struct {
-	ID                     string    `json:"id_p3a"`
-	IDProv                 string    `json:"id_prov_fk"`
+	IDProv                 string    `json:"id_prov_fk" param:"id_prov_fk"`
 	IDKab                  string    `json:"id_kab_fk"`
 	IDKec                  string    `json:"id_kec_fk"`
 	IDStatusLegal          string    `json:"id_status_legal_fk"`
