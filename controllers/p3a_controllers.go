@@ -54,14 +54,14 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, err.Error())
 	}
-	var createdAt string
+	//var createdAt string
 	var action string
 	listOfData := make([]map[string]interface{}, len(data))
 	for k, v := range data {
 		action = `<a href="/inventaris/v1/update/` + (v.ID) + `" class="btn btn-success btn-bold btn-upper" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fas fa-edit"></i></a>
 		<a href="javascript:;" onclick="Delete('` + v.ID + `')" class="btn btn-danger btn-bold btn-upper" title="Delete" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fas fa-trash"></i></a>`
-		time := v.CreatedAt
-		createdAt = time.Format("2006-01-02")
+		//time := v.CreatedAt
+		//createdAt = time.Format("2006-01-02")
 		listOfData[k] = map[string]interface{}{
 			"id_p3a":              v.ID,
 			"no_urut":             v.NoUrut,
@@ -71,7 +71,7 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 			"luas_wilayah":        v.LuasWilayah,
 			"luas_layanan_p3a":    v.LuasLayananP3A,
 			"keterangan":          v.Keterangan,
-			"created_at":          createdAt,
+			//"created_at":          createdAt,
 			"action":              action,
 		}
 	}

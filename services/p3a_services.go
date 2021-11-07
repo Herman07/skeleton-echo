@@ -90,7 +90,7 @@ func (s *P3Service) QueryDatatable(searchValue string, orderType string, orderBy
 
 func (s *P3Service) CreateStatusLegal(request request.RequestInventaris) (*models.StatusLegal, error) {
 	entity := models.StatusLegal{
-		ID:                  request.ID,
+		ID:                  request.IDStatusLegal,
 		TahunPembentukan:    request.TahunPembentukan,
 		LamTahunPembentukan: request.LamTahunPembentukan,
 		LamKplDesa:          request.LamKplDesa,
@@ -142,7 +142,7 @@ func (s *P3Service) CreateIrigasi(request request.RequestInventaris) (*models.Te
 	entity := models.TeknikIrigasi{
 		Operasi:      request.Operasi,
 		Partisipatif: request.Partisipatif,
-		ID:           request.ID,
+		ID:           request.IDIrigasi,
 	}
 	data, err := s.P3Repository.CreateIrigasi(entity)
 	if err != nil {
@@ -155,7 +155,7 @@ func (s *P3Service) CreatePertanian(request request.RequestInventaris) (*models.
 	entity := models.TeknikPertanian{
 		PolaTanam:  request.PolaTanam,
 		UsahaTani: request.UsahaTani,
-		ID: request.ID,
+		ID: request.IDPertanian,
 	}
 	data, err := s.P3Repository.CreatePertanian(entity)
 
@@ -180,6 +180,7 @@ func (s *P3Service) CreateDataP3a(request request.RequestInventaris,idStatusLega
 		DaerahIrigasi:  request.DaerahIrigasi,
 		LuasWilayah:    request.LuasWilayah,
 		LuasLayananP3A: request.LuasLayananP3A,
+		Keterangan: request.Keterangan,
 	}
 	data, err := s.P3Repository.Create(entity)
 	if err != nil {

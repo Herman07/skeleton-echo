@@ -3,7 +3,6 @@ package models
 import (
 	"github.com/google/uuid"
 	"gorm.io/gorm"
-	"time"
 )
 
 type Inventaris struct {
@@ -22,7 +21,6 @@ type Inventaris struct {
 	LuasWilayah            string `gorm:"column:luas_wilayah" json:"luas_wilayah"`
 	LuasLayananP3A         string `gorm:"column:luas_layanan_p3a" json:"luas_layanan_p3a"`
 	Keterangan             string `gorm:"column:keterangan" json:"keterangan"`
-	CreatedAt	time.Time `gorm:"column:created_at" json:"created_at"`
 }
 
 func (c *Inventaris) TableName() string {

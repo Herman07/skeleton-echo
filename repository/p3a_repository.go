@@ -56,14 +56,14 @@ func (r p3Repository) Count() (int64, error) {
 }
 func (r *p3Repository)GetData(dataReq models.Inventaris)(*models.Inventaris,error) {
 	data := models.Inventaris{}
-	err := r.DB.Table("inventaris").Find(&data).Error
+	err := r.DB.Table("data_p3a").Find(&data).Error
 
 	return &data, err
 
 }
 func (r p3Repository) FindById(id string) (*models.Inventaris, error) {
 	var entity models.Inventaris
-	err := r.DB.Table("inventaris").Where("id = ?", id).First(&entity).Error
+	err := r.DB.Table("data_p3a").Where("id = ?", id).First(&entity).Error
 	return &entity, err
 }
 
@@ -73,7 +73,7 @@ func (r p3Repository) UpdateById(entity models.Inventaris)(*models.Inventaris, e
 }
 
 func (r p3Repository) Delete(entity models.Inventaris) error {
-	return r.DB.Table("inventaris").Delete(&entity).Error
+	return r.DB.Table("data_p3a").Delete(&entity).Error
 }
 
 func (r p3Repository) CountWhere(operation string, keyVal map[string]interface{}) (int64, error) {
@@ -93,7 +93,7 @@ func (r p3Repository) CountWhere(operation string, keyVal map[string]interface{}
 }
 
 func (r p3Repository) Create(entity models.Inventaris) (*models.Inventaris, error) {
-	err := r.DB.Table("inventaris").Create(&entity).Error
+	err := r.DB.Table("data_p3a").Create(&entity).Error
 	return &entity, err
 }
 
