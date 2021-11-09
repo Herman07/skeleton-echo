@@ -1,12 +1,16 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/labstack/echo/v4"
+	"github.com/xuri/excelize/v2"
 	"net/http"
+	"os"
 	"skeleton-echo/models"
 	"skeleton-echo/request"
 	"skeleton-echo/services"
 	"strconv"
+	"time"
 )
 
 type P3Controller struct {
@@ -139,6 +143,141 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 	}
 
 	return c.Ok(ctx, p3a)
+}
+
+func (c *Controller) GenerateExcel(ctx echo.Context) error {
+	// Get Data Export
+	var data []models.Inventaris
+
+	//style := excelize.Style{
+	//	Border:        nil,
+	//	Fill:          excelize.Fill{},
+	//	Font:          nil,
+	//	Alignment:     nil,
+	//	Protection:    nil,
+	//	NumFmt:        0,
+	//	DecimalPlaces: 0,
+	//	CustomNumFmt:  nil,
+	//	Lang:          "",
+	//	NegRed:        false,
+	//}
+	f := excelize.NewFile()
+	_, _ = f.NewConditionalStyle("center")
+	style,_ := f.NewStyle(`
+		{
+			"alignment":{"horizontal":"center"
+		}, 
+        "fill": {
+				"type": "pattern",
+				"color": ["#E0EBF5"],
+				"pattern": 1
+			}`)
+
+	f.SetCellStyle("Sheet1", "A1", "AF100", style)
+
+
+	// Create a new sheet.
+	index := f.NewSheet("Data Export")
+	// Set value of a cell.
+	_ = f.SetCellValue("Sheet1", "A1", "No")
+	_ = f.SetCellValue("Sheet1", "B1", "Provinsi/Kabupaten")
+	_ = f.SetCellValue("Sheet1", "C1", "Kecamatan")
+	_ = f.SetCellValue("Sheet1", "D1", "Nama Daerah Imigrasi")
+	_ = f.SetCellValue("Sheet1", "E1", "Luas Wilayah (Ha)")
+	_ = f.SetCellValue("Sheet1", "F1", "Jumlah P3A")
+	_ = f.SetCellValue("Sheet1", "G1", "Nama P3A")
+	_ = f.SetCellValue("Sheet1", "H1", "Luas Layanan P3A (Ha)")
+
+	// Status Legal
+	_ = f.SetCellValue("Sheet1", "I1", "Status Legal P3A")
+	_ = f.SetCellValue("Sheet1", "I2", "Tahun Pembentukan")
+	_ = f.SetCellValue("Sheet1", "J2", "Diketahui Kepala Desa / Camat")
+	_ = f.SetCellValue("Sheet1", "K2", "SK Bupati")
+	_ = f.SetCellValue("Sheet1", "L2", "Akte Notaris")
+	_ = f.SetCellValue("Sheet1", "M2", "Terdaftar di Pengadilan Negeri / Kemenkum HAM")
+	_ = f.MergeCell("Sheet1", "I1", "M1")
+
+	// Kepengurusan
+	_ = f.SetCellValue("Sheet1", "N1", "Kepengurusan")
+	_ = f.SetCellValue("Sheet1", "N2", "Ketua")
+	_ = f.SetCellValue("Sheet1", "O2", "Wakil Ketua")
+	_ = f.SetCellValue("Sheet1", "P2", "Sekertaris")
+	_ = f.SetCellValue("Sheet1", "Q2", "Bendahara")
+	_ = f.SetCellValue("Sheet1", "R2", "Seksi (L/P)")
+	_ = f.SetCellValue("Sheet1", "U2", "Jumlah Anggota")
+	_ = f.SetCellValue("Sheet1", "N3", "L/P")
+	_ = f.SetCellValue("Sheet1", "O3", "L/P")
+	_ = f.SetCellValue("Sheet1", "P3", "L/P")
+	_ = f.SetCellValue("Sheet1", "Q3", "L/P")
+	_ = f.SetCellValue("Sheet1", "R3", "Teknik")
+	_ = f.SetCellValue("Sheet1", "S3", "O & P")
+	_ = f.SetCellValue("Sheet1", "T3", "Bisnis")
+	_ = f.MergeCell("Sheet1", "N1", "U1")
+	_ = f.MergeCell("Sheet1", "R2", "T2")
+	_ = f.MergeCell("Sheet1", "U2", "U3")
+
+	_ = f.SetCellValue("Sheet1", "V1", "AD/ART")
+	_ = f.SetCellValue("Sheet1", "W1", "Sekertariat")
+	_ = f.SetCellValue("Sheet1", "X1", "Persentase (%) perempuan")
+	_ = f.SetCellValue("Sheet1", "Y1", "areal tersier (ha)")
+	_ = f.SetCellValue("Sheet1", "Z1", "Pengisian Buku")
+	_ = f.SetCellValue("Sheet1", "AA1", "Iuran")
+
+
+	//Teknik irigasi
+	_ = f.SetCellValue("Sheet1", "AB1", "Teknik Irigasi")
+	_ = f.SetCellValue("Sheet1", "AB2", "Operasi")
+	_ = f.SetCellValue("Sheet1", "AC2", "Partisipatif")
+	_ = f.MergeCell("Sheet1", "AB1", "AC1")
+	_ = f.MergeCell("Sheet1", "AB2", "AB3")
+	_ = f.MergeCell("Sheet1", "AC2", "AC3")
+
+
+	//Teknik Pertanian
+	_ = f.SetCellValue("Sheet1", "AD1", "Teknik Pertanian")
+	_ = f.SetCellValue("Sheet1", "AD2", "Pola Tanam")
+	_ = f.SetCellValue("Sheet1", "AE2", "Usaha Tani")
+	_ = f.MergeCell("Sheet1", "AD1", "AE1")
+	_ = f.MergeCell("Sheet1", "AD2", "AD3")
+	_ = f.MergeCell("Sheet1", "AE2", "AE3")
+
+
+	// Keterangan
+	_ = f.SetCellValue("Sheet1", "AF1", "Keterangan")
+	_ = f.MergeCell("Sheet1", "AF1", "AF3")
+
+
+	// ROW MERGE
+	for i := 0;i<9;i++{
+		_ = f.MergeCell("Sheet1", string(rune('A' - 1 + i))+"1", string(rune('A' - 1 + i))+"3")
+	}
+
+	for i := 0;i<6;i++{
+		_ = f.MergeCell("Sheet1", string(rune('I' - 1 + i))+"2", string(rune('I' - 1 + i))+"3")
+	}
+
+	for i := 0;i<5;i++{
+		_ = f.MergeCell("Sheet1", string(rune('W' - 1 + i))+"1", string(rune('W' - 1 + i))+"3")
+	}
+	_ = f.MergeCell("Sheet1", "AA1", "AA3")
+
+
+	for i, v := range data{
+		_ = f.SetCellValue("Sheet1", "B"+strconv.Itoa(i), v.IDIrigasi)
+
+	}
+	// Set active sheet of the workbook.
+	f.SetActiveSheet(index)
+	// Save spreadsheet by the given path.
+	t := time.Now()
+	name := "Report - "+t.Format("2006-01-02")+".xlsx"
+	if err := f.SaveAs(name); err != nil {
+		fmt.Println(err)
+	}
+	//Delete File
+	defer os.Remove(name)
+
+	return ctx.File(name)
 }
 
 //func (c *P3Controller) Update(ctx echo.Context) error {

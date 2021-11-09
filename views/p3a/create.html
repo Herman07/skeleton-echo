@@ -551,7 +551,7 @@
         let lampthn = document.getElementById("lampiran_tahun_pembentukan").files[0];
         alert(lampthn)
         $.ajax({
-            url : "/admin/v1/store",
+            url : "/admin/v1/inventaris/store",
             data : $('#form').serialize(),
             type: 'POST',
             success:function (res){
