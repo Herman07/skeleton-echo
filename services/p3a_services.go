@@ -90,7 +90,6 @@ func (s *P3Service) QueryDatatable(searchValue string, orderType string, orderBy
 
 func (s *P3Service) CreateStatusLegal(request request.RequestInventaris) (*models.StatusLegal, error) {
 	entity := models.StatusLegal{
-		ID:                  request.IDStatusLegal,
 		TahunPembentukan:    request.TahunPembentukan,
 		LamTahunPembentukan: request.LamTahunPembentukan,
 		LamKplDesa:          request.LamKplDesa,
@@ -189,14 +188,14 @@ func (s *P3Service) CreateDataP3a(request request.RequestInventaris,idStatusLega
 	return data, err
 }
 
-//func (s *P3Service) Delete(id string) error {
-//	entity := models.Inventaris{
-//		ID: id,
-//	}
-//	err := s.P3Repository.Delete(entity)
-//	if err != nil {
-//		return err
-//	} else {
-//		return nil
-//	}
-//}
+func (s *P3Service) Delete(id string) error {
+	entity := models.Inventaris{
+		ID: id,
+	}
+	err := s.P3Repository.Delete(entity)
+	if err != nil {
+		return err
+	} else {
+		return nil
+	}
+}

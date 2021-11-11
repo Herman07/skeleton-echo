@@ -62,8 +62,8 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 	var action string
 	listOfData := make([]map[string]interface{}, len(data))
 	for k, v := range data {
-		action = `<a href="/inventaris/v1/update/` + (v.ID) + `" class="btn btn-success btn-bold btn-upper" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fas fa-edit"></i></a>
-		<a href="javascript:;" onclick="Delete('` + v.ID + `')" class="btn btn-danger btn-bold btn-upper" title="Delete" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fas fa-trash"></i></a>`
+		action = `<a href="/inventaris/v1/update/` + (v.ID) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fas fa-edit"></i></a>
+		<button onclick="Delete('` + v.ID + `')" class="btn btn-danger" title="Delete" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fas fa-trash"></i></button>`
 		//time := v.CreatedAt
 		//createdAt = time.Format("2006-01-02")
 		listOfData[k] = map[string]interface{}{
@@ -111,6 +111,13 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 	if err := ctx.Bind(&entity); err != nil {
 		return ctx.JSON(400, echo.Map{"message": "error binding data"})
 	}
+	fmt.Println("Bupati",entity.LamSKBupati)
+	fmt.Println("Tahun Pembentukan",entity.LamTahunPembentukan)
+	fmt.Println("Akte",entity.LamAkteNotaris)
+	fmt.Println("Kepala Daerah",entity.LamKplDesa)
+	fmt.Println("No Pendaftaran",entity.LamPendaftaran)
+	fmt.Println("Seketariat",entity.LampiranSekretariat)
+	fmt.Println("ADART",entity.LampiranADRT)
 
 	//Store Data Status Legal
 	statusLegal, err := c.service.CreateStatusLegal(entity)
@@ -317,12 +324,12 @@ func (c *Controller) GenerateExcel(ctx echo.Context) error {
 //	return ctx.Redirect(302, "/inventaris/v1/admin")
 //}
 
-//func (c *P3Controller) Delete(ctx echo.Context) error {
-//	id := ctx.Param("id")
-//
-//	err := c.service.Delete(id)
-//	if err != nil {
-//		return c.InternalServerError(ctx, err)
-//	}
-//	return c.Ok(ctx, nil)
-//}
+func (c *P3Controller) Delete(ctx echo.Context) error {
+	id := ctx.Param("id")
+
+	err := c.service.Delete(id)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+	return c.Ok(ctx, nil)
+}

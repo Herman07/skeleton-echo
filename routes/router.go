@@ -31,12 +31,13 @@ func Api(e *echo.Echo, db *gorm.DB) {
 		invenGroup.GET("/add", dashboardController.Add)
 		invenGroup.POST("/store", dashboardController.AddData)
 		e.GET("/admin/v1/inventaris/generate", dashboardController.GenerateExcel)
-		//g.GET("/tables", dashboardController.GetDetail)
+		invenGroup.GET("/tables", dashboardController.GetDetail)
+		invenGroup.DELETE("/delete/:id", dashboardController.Delete)
 		//g.GET("/table", dashboardController.GetData)
 		//g.GET("/table/:id", dashboardController.Detail)
 		//g.GET("/update/:id", dashboardController.Update)
 		//g.POST("/do-update/:id", dashboardController.DoUpdate)
-		//g.DELETE("/delete/:id", dashboardController.Delete)
+
 	}
 
 

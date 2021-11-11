@@ -16,6 +16,5 @@ require (
 	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5
 	gopkg.in/go-playground/validator.v9 v9.31.0
 	gorm.io/driver/mysql v1.1.2
-	gorm.io/driver/postgres v1.1.0 // indirect
 	gorm.io/gorm v1.21.13
 )

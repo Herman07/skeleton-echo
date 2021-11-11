@@ -20,8 +20,13 @@
                                cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th style="text-align: center">No</th>
-                                <th style="text-align: center">Kabupaten</th>
+                                <th style="text-align: center">No Urut</th>
+                                <th style="text-align: center">Nama P3A</th>
+                                <th style="text-align: center">Jumlah P3A</th>
+                                <th style="text-align: center">Nama Daerah Irigasi</th>
+                                <th style="text-align: center">Luas Wilayah</th>
+                                <th style="text-align: center">Luas Layanan P3A</th>
+                                <th style="text-align: center">Keterangan</th>
                                 <th style="text-align: center">Action</th>
                             </tr>
                             </tbody>
@@ -54,13 +59,18 @@
             buttons: [
                 "copy", "csv", "excel", "pdf", "print"
             ],
-            ajax: '/admin/v1/master-data/kab/table',
+            ajax: '/admin/v1/inventaris/tables',
             "columns": [
-                {data: 'id_kab', name: 'id_kab',"className": "text-center"},
-                {data: 'nama_kab', name: 'nama_kab',"className": "text-center"},
+                {data: 'no_urut', name: 'no_urut',"className": "text-center"},
+                {data: 'nama_p3a', name: 'nama_p3a',"className": "text-center"},
+                {data: 'jumlah_p3a', name: 'jumlah_p3a',"className": "text-center"},
+                {data: 'nama_daerah_irigasi', name: 'nama_daerah_irigasi',"className": "text-center"},
+                {data: 'luas_wilayah', name: 'luas_wilayah',"className": "text-center"},
+                {data: 'luas_layanan_p3a', name: 'luas_layanan_p3a',"className": "text-center"},
+                {data: 'keterangan', name: 'keterangan',"className": "text-center"},
                 {data: 'action', searchable: false,"className": "text-center"}
             ],
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        }).buttons().container().appendTo('#datatables .col-md-6:eq(0)');
 
         function Delete(id) {
             data = new FormData();
@@ -76,7 +86,7 @@
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
-                        url: '' + id,
+                        url: '/admin/v1/inventaris/delete/' + id,
                         type: 'DELETE',
                         data: data,
                         processData: false,
