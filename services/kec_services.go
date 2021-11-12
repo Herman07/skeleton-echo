@@ -48,6 +48,7 @@ func (s *KecDataService) QueryDatatable(searchValue string,orderType string, ord
 func (s *KecDataService) Create(request request.KecReq) (*models.MasterDataKec, error) {
 	entity := models.MasterDataKec{
 		Kecamatan:  request.Nama,
+		IDKab: request.IDKab,
 		ID: request.ID,
 	}
 	data, err := s.KecDataRepository.Create(entity)

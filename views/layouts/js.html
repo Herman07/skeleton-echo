@@ -29,5 +29,110 @@
 <script src="/style/vendors/pdfmake/build/pdfmake.min.js"></script>
 <script src="/style/vendors/pdfmake/build/vfs_fonts.js"></script>
 <script src="/style/vendors/select2/dist/js/select2.min.js"></script>
-
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript">
+    function Hapus(id) {
+        data = new FormData();
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            buttons : ['Cancel' , true]
+        }).then(function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url: '/kab/' + id +'/delete',
+                    type: 'DELETE',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (res) {
+                        swal(
+                            'Deleted!',
+                            'User has been deleted.',
+                            'success'
+                        );
+                        $('#kabupaten').DataTable().ajax.reload();
+                    },
+                    error: function (res) {
+                        swal({
+                            type: 'warning',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                        })
+                    }
+                })
+            }
+        });
+    }
+    function Deletede(id) {
+        console.log(id)
+        data = new FormData();
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            buttons:['Cancel',true],
+        }).then(function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url: '/kec/' + id + '/delete',
+                    type: 'DELETE',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (res) {
+                        swal(
+                            'Deleted!',
+                            'User has been deleted.',
+                            'success'
+                        );
+                        $('#kecamatan').DataTable().ajax.reload();
+                    },
+                    error: function (res) {
+                        swal({
+                            type: 'warning',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                        })
+                    }
+                })
+            }
+        });
+    }
+    function Deleted(id) {
+        data = new FormData();
+        console.log(id)
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            buttons:['Cancel',true],
+        }).then(function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url: '/prov/' + id +'/delete',
+                    type: 'DELETE',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (res) {
+                        swal(
+                            'Deleted!',
+                            'User has been deleted.',
+                            'success'
+                        );
+                        $('#provinsi').DataTable().ajax.reload();
+                    },
+                    error: function (res) {
+                        swal({
+                            type: 'warning',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                        })
+                    }
+                })
+            }
+        });
+    }
+</script>
