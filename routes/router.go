@@ -50,7 +50,7 @@ func Api(e *echo.Echo, db *gorm.DB) {
 	p.GET("/update/:id", provController.Update)
 	e.POST("/prov/doupdate/:id", provController.DoUpdate)
 	e.POST("/prov/add", provController.AddData)
-	e.GET("/prov/getall",provController.FindByID)
+	e.POST("/prov/:id",provController.FindByID)
 	e.DELETE("/prov/:id/delete",provController.Delete)
 
 

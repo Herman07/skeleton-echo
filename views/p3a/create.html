@@ -556,6 +556,10 @@
         reader.onerror = error => reject(error);
     });
     async function Finish() {
+        // $("#form").valid();
+        var prov = "&id_prov_fk=" + document.getElementById('prov').value;
+        var kab = "&id_kab_fk=" + document.getElementById('kab').value;
+        var kec = "&id_kec_fk=" + document.getElementById('kec').value;
         const lampthn = document.querySelector('#lampiran_tahun_pembentukan').files[0];
         const lampklp = document.querySelector('#diket_kep_dc').files[0];
         const lampskbup = document.querySelector('#lampiran_sk_bupati').files[0];
@@ -580,7 +584,7 @@
         console.log(pic)
         $.ajax({
             url: "/admin/v1/inventaris/store",
-            data: $("#form").serialize() + pic + pic1 + pic2 + pic3 + pic4 + pic5 + pic6,
+            data: $("#form").serialize() + pic + pic1 + pic2 + pic3 + pic4 + pic5 + pic6 + prov + kab + kec,
             type: 'POST',
             // contentType: 'multipart/form-data',
             success: function (res) {

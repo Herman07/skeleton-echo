@@ -3,9 +3,9 @@ package request
 import "time"
 
 type RequestInventaris struct {
-	IDProv                 string    `json:"id_prov_fk" param:"id_prov_fk"`
-	IDKab                  string    `json:"id_kab_fk" param:"id_kab_fk"`
-	IDKec                  string    `json:"id_kec_fk" param:"id_kec_fk"`
+	IDProv                 string    `json:"id_prov_fk" form:"id_prov_fk" param:"id_prov_fk"`
+	IDKab                  string    `json:"id_kab_fk" form:"id_kab_fk" param:"id_kab_fk"`
+	IDKec                  string    `json:"id_kec_fk" form:"id_kec_fk" param:"id_kec_fk"`
 	IDStatusLegal          string    `json:"id_status_legal_fk" param:"id_status_legal_fk"`
 	IDPengurus             string    `json:"id_kepengurusan_fk" param:"id_kepengurusan_fk"`
 	IDIrigasi              string    `json:"id_teknik_irigasi_fk" param:"id_teknik_irigasi_fk"`
