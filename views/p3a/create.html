@@ -586,6 +586,7 @@
             url: "/admin/v1/inventaris/store",
             data: $("#form").serialize() + pic + pic1 + pic2 + pic3 + pic4 + pic5 + pic6 + prov + kab + kec,
             type: 'POST',
+            cache: false,
             // contentType: 'multipart/form-data',
             success: function (res) {
                 alert("SUKSES INSERT DATA")
