@@ -3,7 +3,9 @@ package controllers
 import (
 	"fmt"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/gommon/log"
 	"github.com/xuri/excelize/v2"
+	"io"
 	"net/http"
 	"os"
 	"skeleton-echo/models"
@@ -109,24 +111,39 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 func (c *P3Controller) AddData(ctx echo.Context) error {
 	var entity request.RequestInventaris
 	if err := ctx.Bind(&entity); err != nil {
-		return ctx.JSON(400, echo.Map{"message": "error binding data"})
+		log.Error("[Error] ", err)
+		//return ctx.JSON(500, echo.Map{"message": "error binding data"})
 	}
-	fmt.Println("Bupati",entity.LamSKBupati)
-	fmt.Println("Tahun Pembentukan",entity.LamTahunPembentukan)
-	fmt.Println("Akte",entity.LamAkteNotaris)
-	fmt.Println("Kepala Daerah",entity.LamKplDesa)
-	fmt.Println("No Pendaftaran",entity.LamPendaftaran)
-	fmt.Println("Seketariat",entity.LampiranSekretariat)
-	fmt.Println("ADART",entity.LampiranADRT)
+
+	name := []string{"lampiran_tahun_pembentukan","diket_kep_dc","lampiran_sk_bupati","lampiran_akte_notaris","lampiran_pendaftaran","lampiran_ad_art","lampiran_sekretariat"}
+	var namaFile []string
+	for i := range name{
+		file, _ := ctx.FormFile(name[i])
+
+		src, _ := file.Open()
+		defer src.Close()
+
+		// Destination
+		t := time.Now()
+		nama := "static/image/"+name[i]+"_"+t.Format(time.RFC3339)+"_"+file.Filename
+		dst, _ := os.Create(nama)
+		defer dst.Close()
+
+		// Copy
+		_, _ = io.Copy(dst, src);
+		i++
+		namaFile = append(namaFile, nama)
+	}
+
 
 	//Store Data Status Legal
-	statusLegal, err := c.service.CreateStatusLegal(entity)
+	statusLegal, err := c.service.CreateStatusLegal(entity, namaFile)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
 
 	// Store Data Kepengurusan
-	pengurus , err := c.service.CreatePengurus(entity)
+	pengurus , err := c.service.CreatePengurus(entity, namaFile)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
@@ -144,12 +161,12 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 	}
 
 	//Store Data to Table p3a
-	p3a, err := c.service.CreateDataP3a(entity,statusLegal.ID,pengurus.ID,irigasi.ID,pertanian.ID)
+	_, err = c.service.CreateDataP3a(entity,statusLegal.ID,pengurus.ID,irigasi.ID,pertanian.ID)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
 
-	return c.Ok(ctx, p3a)
+	return ctx.Redirect(http.StatusFound, "/admin/v1/inventaris")
 }
 
 func (c *Controller) GenerateExcel(ctx echo.Context) error {

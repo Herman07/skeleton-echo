@@ -1,7 +1,5 @@
 package request
 
-import "time"
-
 type RequestInventaris struct {
 	IDProv                 string    `json:"id_prov_fk" form:"id_prov_fk" param:"id_prov_fk"`
 	IDKab                  string    `json:"id_kab_fk" form:"id_kab_fk" param:"id_kab_fk"`
@@ -17,7 +15,6 @@ type RequestInventaris struct {
 	LuasWilayah            string    `json:"luas_wilayah" form:"luas_wilayah" param:"luas_wilayah"`
 	LuasLayananP3A         string    `json:"luas_layanan_p3a" form:"luas_layanan_p3a" param:"luas_layanan_p3a"`
 	Keterangan             string    `json:"keterangan" form:"keterangan" param:"keterangan"`
-	CreatedAt              time.Time `json:"created_at"`
 	IDStatus               string    `json:"id_status_legal" param:"id_status_legal"`
 	TahunPembentukan       string    `json:"tahun_pembentukan" form:"tahun_pembentukan" param:"tahun_pembentukan"`
 	LamTahunPembentukan    string    `json:"lampiran_tahun_pembentukan" form:"lampiran_tahun_pembentukan" param:"lampiran_tahun_pembentukan"`
@@ -38,7 +35,7 @@ type RequestInventaris struct {
 	SekBisnis              string    `json:"sek_bisnis" form:"sek_bisnis" param:"sek_bisnis"`
 	JumlahAnggota          string    `json:"jumlah_anggota" form:"jumlah_anggota" param:"jumlah_anggota"`
 	NoADRT                 string    `json:"no_ad_art" form:"no_ad_art" param:"no_ad_art"`
-	LampiranADRT           string    `json:"lampiran_ad_at" form:"lampiran_ad_art" param:"lampiran_ad_art"`
+	LampiranADRT           string    `json:"lampiran_ad_art" form:"lampiran_ad_art" param:"lampiran_ad_art"`
 	Sekretariat            string    `json:"sekretariat" form:"sekretariat" param:"sekretariat"`
 	LampiranSekretariat    string    `json:"lampiran_sekretariat" form:"lampiran_sekretariat" param:"lampiran_sekretariat"`
 	PresentasiPerempuanP3A string    `json:"persentase_perempuan_p3a" form:"persentase_perempuan_p3a" param:"persentase_perempuan_p3a"`

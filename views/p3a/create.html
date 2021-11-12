@@ -16,6 +16,8 @@
                     <div class="x_title">
                         <div class="clearfix"></div>
                     </div>
+                    <form class="form-horizontal form-label-left" id="form" method="POST" action="/admin/v1/inventaris/store"
+                          enctype="multipart/form-data">
                     <div class="x_content">
 
 
@@ -77,8 +79,7 @@
                                     </a>
                                 </li>
                             </ul>
-                            <form class="form-horizontal form-label-left" id="form" method="POST"
-                                  enctype="multipart/form-data">
+
                                 <div id="step-1">
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Provinsi<span
@@ -395,7 +396,7 @@
                                             Sekretariat<span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" name="lamapiran_sekretariat" id="lamapiran_sekretariat" data-max-size="2048"
+                                            <input type="file" name="lampiran_sekretariat" id="lampiran_sekretariat" data-max-size="2048"
                                                    class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
@@ -477,10 +478,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
                         </div>
                         <!-- End SmartWizard Content -->
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -555,47 +556,49 @@
         reader.onload = () => resolve(reader.result);
         reader.onerror = error => reject(error);
     });
-    async function Finish() {
-        // $("#form").valid();
-        var prov = "&id_prov_fk=" + document.getElementById('prov').value;
-        var kab = "&id_kab_fk=" + document.getElementById('kab').value;
-        var kec = "&id_kec_fk=" + document.getElementById('kec').value;
-        const lampthn = document.querySelector('#lampiran_tahun_pembentukan').files[0];
-        const lampklp = document.querySelector('#diket_kep_dc').files[0];
-        const lampskbup = document.querySelector('#lampiran_sk_bupati').files[0];
-        const lampakte = document.querySelector('#lampiran_akte_notaris').files[0];
-        const lampdaftar = document.querySelector('#lampiran_pendaftaran').files[0];
-        const lampsekret = document.querySelector('#lamapiran_sekretariat').files[0];
-        const lampadart = document.querySelector('#lampiran_ad_art').files[0];
-        var image = "&lampiran_tahun_pembentukan=" + await toBase64(lampthn)
-        var image1 = "&diket_kep_dc=" + await toBase64(lampklp)
-        var image2 = "&lampiran_sk_bupati=" + await toBase64(lampskbup)
-        var image3 = "&lampiran_akte_notaris=" + await toBase64(lampakte)
-        var image4 = "&lampiran_pendaftaran=" + await toBase64(lampdaftar)
-        var image5 = "&lamapiran_sekretariat=" + await toBase64(lampsekret)
-        var image6 = "&lampiran_ad_art=" + await toBase64(lampadart)
-        var pic = image.replace("data:image/jpeg;base64,", "");
-        var pic1 = image1.replace("data:image/jpeg;base64,", "");
-        var pic2 = image2.replace("data:image/jpeg;base64,", "");
-        var pic3 = image3.replace("data:image/jpeg;base64,", "");
-        var pic4 = image4.replace("data:image/jpeg;base64,", "");
-        var pic5 = image5.replace("data:image/jpeg;base64,", "");
-        var pic6 = image6.replace("data:image/jpeg;base64,", "");
-        console.log(pic)
-        $.ajax({
-            url: "/admin/v1/inventaris/store",
-            data: $("#form").serialize() + pic + pic1 + pic2 + pic3 + pic4 + pic5 + pic6 + prov + kab + kec,
-            type: 'POST',
-            cache: false,
-            // contentType: 'multipart/form-data',
-            success: function (res) {
-                alert("SUKSES INSERT DATA")
-                console.log(res)
-            },
-            error: function (error) {
-                alert("Error", error)
-            }
-        })
-    }
+    //  function Finish() {
+    //     // $("#form").valid();
+    //     var prov = "&id_prov_fk=" + document.getElementById('prov').value;
+    //     var kab = "&id_kab_fk=" + document.getElementById('kab').value;
+    //     var kec = "&id_kec_fk=" + document.getElementById('kec').value;
+    //     // const lampthn = document.querySelector('#lampiran_tahun_pembentukan').files[0];
+    //     // const lampklp = document.querySelector('#diket_kep_dc').files[0];
+    //     // const lampskbup = document.querySelector('#lampiran_sk_bupati').files[0];
+    //     // const lampakte = document.querySelector('#lampiran_akte_notaris').files[0];
+    //     // const lampdaftar = document.querySelector('#lampiran_pendaftaran').files[0];
+    //     // const lampsekret = document.querySelector('#lamapiran_sekretariat').files[0];
+    //     // const lampadart = document.querySelector('#lampiran_ad_art').files[0];
+    //     // var image = "&lampiran_tahun_pembentukan=" + await toBase64(lampthn)
+    //     // var image1 = "&diket_kep_dc=" + await toBase64(lampklp)
+    //     // var image2 = "&lampiran_sk_bupati=" + await toBase64(lampskbup)
+    //     // var image3 = "&lampiran_akte_notaris=" + await toBase64(lampakte)
+    //     // var image4 = "&lampiran_pendaftaran=" + await toBase64(lampdaftar)
+    //     // var image5 = "&lamapiran_sekretariat=" + await toBase64(lampsekret)
+    //     // var image6 = "&lampiran_ad_art=" + await toBase64(lampadart)
+    //     // var pic = image.replace("data:image/jpeg;base64,", "");
+    //     // var pic1 = image1.replace("data:image/jpeg;base64,", "");
+    //     // var pic2 = image2.replace("data:image/jpeg;base64,", "");
+    //     // var pic3 = image3.replace("data:image/jpeg;base64,", "");
+    //     // var pic4 = image4.replace("data:image/jpeg;base64,", "");
+    //     // var pic5 = image5.replace("data:image/jpeg;base64,", "");
+    //     // var pic6 = image6.replace("data:image/jpeg;base64,", "");
+    //
+    //     datas = $("#form").serialize() + prov + kab + kec
+    //     console.log(datas)
+    //     $.ajax({
+    //         url: "/admin/v1/inventaris/store",
+    //         data: datas,
+    //         type: 'POST',
+    //         cache: false,
+    //         // contentType: 'multipart/form-data',
+    //         success: function (res) {
+    //             alert("SUKSES INSERT DATA")
+    //             console.log(res)
+    //         },
+    //         error: function (error) {
+    //             alert("Error", error)
+    //         }
+    //     })
+    // }
 </script>
 {{end}}

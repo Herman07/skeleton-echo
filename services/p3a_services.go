@@ -88,17 +88,17 @@ func (s *P3Service) QueryDatatable(searchValue string, orderType string, orderBy
 //	return data, err
 //}
 
-func (s *P3Service) CreateStatusLegal(request request.RequestInventaris) (*models.StatusLegal, error) {
+func (s *P3Service) CreateStatusLegal(request request.RequestInventaris, namaFile []string) (*models.StatusLegal, error) {
 	entity := models.StatusLegal{
 		TahunPembentukan:    request.TahunPembentukan,
-		LamTahunPembentukan: request.LamTahunPembentukan,
-		LamKplDesa:          request.LamKplDesa,
+		LamTahunPembentukan: namaFile[0],
+		LamKplDesa:          namaFile[1],
 		SKBupati:            request.SKBupati,
-		LamSKBupati:         request.LamSKBupati,
+		LamSKBupati:         namaFile[2],
 		AkteNotaris:         request.AkteNotaris,
-		LamAkteNotaris:      request.LamAkteNotaris,
+		LamAkteNotaris:      namaFile[3],
 		NoPendaftaran:       request.NoPendaftaran,
-		LamPendaftaran:      request.LamPendaftaran,
+		LamPendaftaran:      namaFile[4],
 	}
 	data, err := s.P3Repository.CreateStatusLegal(entity)
 
@@ -109,7 +109,7 @@ func (s *P3Service) CreateStatusLegal(request request.RequestInventaris) (*model
 }
 
 
-func (s *P3Service) CreatePengurus(request request.RequestInventaris) (*models.Pengurus, error) {
+func (s *P3Service) CreatePengurus(request request.RequestInventaris, namaFile []string) (*models.Pengurus, error) {
 	entity := models.Pengurus{
 		Ketua:                  request.Ketua,
 		Wakil:                  request.Wakil,
@@ -120,9 +120,9 @@ func (s *P3Service) CreatePengurus(request request.RequestInventaris) (*models.P
 		SekBisnis:              request.SekBisnis,
 		JumlahAnggota:          request.JumlahAnggota,
 		NoADRT:                 request.NoADRT,
-		LampiranADRT:           request.LampiranADRT,
+		LampiranADRT:           namaFile[5],
 		Sekretariat:            request.Sekretariat,
-		LampiranSekretariat:    request.LampiranSekretariat,
+		LampiranSekretariat:    namaFile[6],
 		PresentasiPerempuanP3A: request.PresentasiPerempuanP3A,
 		ArealTersier:           request.ArealTersier,
 		PengisianBuku:          request.PengisianBuku,
