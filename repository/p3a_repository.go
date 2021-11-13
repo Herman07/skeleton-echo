@@ -9,7 +9,7 @@ type P3Repository interface {
 	FindAllWhere(operation string, orderType string, orderBy string, limit int, offset int, keyVal map[string]interface{}) ([]models.Inventaris, error)
 	Count() (int64, error)
 	GetData(dataReq models.Inventaris)(*models.Inventaris, error)
-	FindById(id string) (*models.Inventaris, error)
+	FindById(id string) (*models.P3AModels, error)
 	UpdateById(models.Inventaris)(*models.Inventaris, error)
 	Delete(models.Inventaris) error
 	CountWhere(operation string, keyVal map[string]interface{}) (int64, error)
@@ -61,9 +61,18 @@ func (r *p3Repository)GetData(dataReq models.Inventaris)(*models.Inventaris,erro
 	return &data, err
 
 }
-func (r p3Repository) FindById(id string) (*models.Inventaris, error) {
-	var entity models.Inventaris
-	err := r.DB.Table("data_p3a").Where("id_p3a = ?", id).First(&entity).Error
+func (r p3Repository) FindById(id string) (*models.P3AModels, error) {
+	var entity models.P3AModels
+	err := r.DB.Table("data_p3a a").
+		Select("a.*,b.*,c.*,d.*,e.*,f.*,g.*,h.*").
+		Joins("LEFT JOIN status_legal b on b.id_status_legal = a.id_status_legal_fk").
+		Joins("LEFT JOIN kepengurusan c on c.id_kepengurusan = a.id_kepengurusan_fk").
+		Joins("LEFT JOIN teknik_irigasi d on d.id_t_irigasi = a.id_teknik_irigasi_fk").
+		Joins("LEFT JOIN teknik_pertanian e on e.id_t_pertanian = a.id_teknik_pertanian_fk").
+		Joins("LEFT JOIN provinsi f on f.id_prov = a.id_prov_fk").
+		Joins("LEFT JOIN kabupaten g on g.id_kab = a.id_kab_fk").
+		Joins("LEFT JOIN kecamatan h on h.id_kec = a.id_kec_fk").
+		Where("id_p3a = ?", id).Find(&entity).Error
 	return &entity, err
 }
 

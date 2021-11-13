@@ -61,7 +61,7 @@ func (s *P3Service) QueryDatatable(searchValue string, orderType string, orderBy
 //	return data, err
 //}
 
-func (s *P3Service) FindById(id string) (*models.Inventaris, error) {
+func (s *P3Service) FindById(id string) (*models.P3AModels, error) {
 	data, err := s.P3Repository.FindById(id)
 	if err != nil {
 		return nil, err

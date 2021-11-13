@@ -321,16 +321,8 @@ func (c *P3Controller) Update(ctx echo.Context) error {
 		"menu": "Home",
 		"link": "/inventaris/v1/update/:id",
 	}
-	dataInventaris := models.Inventaris{
-		ID:             data.ID,
-		NoUrut:         data.NoUrut,
-		NamaP3A:        data.NamaP3A,
-		JumlahP3A:      data.JumlahP3A,
-		DaerahIrigasi:  data.DaerahIrigasi,
-		LuasWilayah:    data.LuasWilayah,
-		LuasLayananP3A: data.LuasLayananP3A,
-	}
-	return Render(ctx, "Home", "p3a/update", c.Menu, append(c.BreadCrumbs, breadCrumbs), dataInventaris)
+
+	return Render(ctx, "Home", "p3a/update", c.Menu, append(c.BreadCrumbs, breadCrumbs), data)
 }
 //
 //func (c *P3Controller) DoUpdate(ctx echo.Context) error {

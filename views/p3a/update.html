@@ -187,146 +187,146 @@
                                             <input type="text" class="form-control" name="id_kepengurusan"
                                                    id="id_kepengurusan" value="{{.data.IDPengurusan}}" disabled>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Ketua<span class="required">*</span></label>
-                                            <br>
-                                            {{if eq .data.Ketua = "L"}}
-                                            L:
-                                            <input type="radio" class="flat" value="L" name="ketua" id="ketua"
-                                                   required checked/>
-                                            P:
-                                            <input type="radio" class="flat" value="P" name="ketua" id="ketua"
-                                                   required/>
-                                            {{else}}
-                                            L:
-                                            <input type="radio" class="flat" value="L" name="ketua" id="ketua"
-                                                   required />
-                                            P:
-                                            <input type="radio" class="flat" value="P" name="ketua" id="ketua"
-                                                   required checked/>
-                                            {{end}}
-                                        </div>
+<!--                                        <div class="form-group">-->
+<!--                                            <label>Ketua<span class="required">*</span></label>-->
+<!--                                            <br>-->
+<!--                                            {{if eq .data.Ketua = "L"}}-->
+<!--                                            L:-->
+<!--                                            <input type="radio" class="flat" value="L" name="ketua" id="ketua"-->
+<!--                                                   required checked/>-->
+<!--                                            P:-->
+<!--                                            <input type="radio" class="flat" value="P" name="ketua" id="ketua"-->
+<!--                                                   required/>-->
+<!--                                            {{else}}-->
+<!--                                            L:-->
+<!--                                            <input type="radio" class="flat" value="L" name="ketua" id="ketua"-->
+<!--                                                   required />-->
+<!--                                            P:-->
+<!--                                            <input type="radio" class="flat" value="P" name="ketua" id="ketua"-->
+<!--                                                   required checked/>-->
+<!--                                            {{end}}-->
+<!--                                        </div>-->
                                         <br>
-                                        <div class="form-group">
-                                            <label>Wakil<span class="required">*</span></label>
-                                            <br>
-                                            {{if eq .data.Ketua = "L"}}
-                                            L:
-                                            <input type="radio" class="flat" value="L" name="wakil" id="wakil"
-                                                   required checked/>
-                                            P:
-                                            <input type="radio" class="flat" value="P" name="wakil" id="wakil"
-                                                   required/>
-                                            {{else}}
-                                            L:
-                                            <input type="radio" class="flat" value="L" name="wakil" id="wakil"
-                                                   required/>
-                                            P:
-                                            <input type="radio" class="flat" value="P" name="wakil" id="wakil"
-                                                   required checked/>
-                                            {{end}}
-                                        </div>
+<!--                                        <div class="form-group">-->
+<!--                                            <label>Wakil<span class="required">*</span></label>-->
+<!--                                            <br>-->
+<!--                                            {{if eq .data.Ketua = "L"}}-->
+<!--                                            L:-->
+<!--                                            <input type="radio" class="flat" value="L" name="wakil" id="wakil"-->
+<!--                                                   required checked/>-->
+<!--                                            P:-->
+<!--                                            <input type="radio" class="flat" value="P" name="wakil" id="wakil"-->
+<!--                                                   required/>-->
+<!--                                            {{else}}-->
+<!--                                            L:-->
+<!--                                            <input type="radio" class="flat" value="L" name="wakil" id="wakil"-->
+<!--                                                   required/>-->
+<!--                                            P:-->
+<!--                                            <input type="radio" class="flat" value="P" name="wakil" id="wakil"-->
+<!--                                                   required checked/>-->
+<!--                                            {{end}}-->
+<!--                                        </div>-->
                                         <br>
-                                        <div class="form-group">
-                                            <label>Sekretaris<span class="required">*</span></label>
-                                            <br>
-                                            {{if eq .data.Ketua = "L"}}
-                                            L:
-                                            <input type="radio" class="flat" value="L" name="sekretaris" id="sekretaris"
-                                                   required checked/>
-                                            P:
-                                            <input type="radio" class="flat" value="P" name="sekretaris" id="sekretaris"
-                                                   required/>
-                                            {{else}}
-                                            <input type="radio" class="flat" value="L" name="sekretaris" id="sekretaris"
-                                                   required/>
-                                            P:
-                                            <input type="radio" class="flat" value="P" name="sekretaris" id="sekretaris"
-                                                   required checked/>
-                                            {{end}}
-                                        </div>
+<!--                                        <div class="form-group">-->
+<!--                                            <label>Sekretaris<span class="required">*</span></label>-->
+<!--                                            <br>-->
+<!--                                            {{if eq .data.Ketua = "L"}}-->
+<!--                                            L:-->
+<!--                                            <input type="radio" class="flat" value="L" name="sekretaris" id="sekretaris"-->
+<!--                                                   required checked/>-->
+<!--                                            P:-->
+<!--                                            <input type="radio" class="flat" value="P" name="sekretaris" id="sekretaris"-->
+<!--                                                   required/>-->
+<!--                                            {{else}}-->
+<!--                                            <input type="radio" class="flat" value="L" name="sekretaris" id="sekretaris"-->
+<!--                                                   required/>-->
+<!--                                            P:-->
+<!--                                            <input type="radio" class="flat" value="P" name="sekretaris" id="sekretaris"-->
+<!--                                                   required checked/>-->
+<!--                                            {{end}}-->
+<!--                                        </div>-->
                                         <br>
-                                        <div class="form-group">
-                                            <label>Bendahara<span class="required">*</span></label>
-                                            <br>
-                                            {{if eq .data.Ketua = "L"}}
-                                            L:
-                                            <input type="radio" class="flat" value="L" name="bendahara" id="bendahara"
-                                                   required checked/>
-                                            P:
-                                            <input type="radio" class="flat" value="P" name="bendahara" id="bendahara"
-                                                   required/>
-                                            {{else}}
-                                            L:
-                                            <input type="radio" class="flat" value="L" name="bendahara" id="bendahara"
-                                                   required/>
-                                            P:
-                                            <input type="radio" class="flat" value="P" name="bendahara" id="bendahara"
-                                                   required checked/>
-                                            {{end}}
-                                        </div>
+<!--                                        <div class="form-group">-->
+<!--                                            <label>Bendahara<span class="required">*</span></label>-->
+<!--                                            <br>-->
+<!--                                            {{if eq .data.Ketua = "L"}}-->
+<!--                                            L:-->
+<!--                                            <input type="radio" class="flat" value="L" name="bendahara" id="bendahara"-->
+<!--                                                   required checked/>-->
+<!--                                            P:-->
+<!--                                            <input type="radio" class="flat" value="P" name="bendahara" id="bendahara"-->
+<!--                                                   required/>-->
+<!--                                            {{else}}-->
+<!--                                            L:-->
+<!--                                            <input type="radio" class="flat" value="L" name="bendahara" id="bendahara"-->
+<!--                                                   required/>-->
+<!--                                            P:-->
+<!--                                            <input type="radio" class="flat" value="P" name="bendahara" id="bendahara"-->
+<!--                                                   required checked/>-->
+<!--                                            {{end}}-->
+<!--                                        </div>-->
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Seksi Teknik<span class="required">*</span></label>
-                                            <br>
-                                            {{if eq .data.Ketua = "L"}}
-                                            L:
-                                            <input type="radio" class="flat" value="L" name="sek_teknik" id="sek_teknik"
-                                                   required checked/>
-                                            P:
-                                            <input type="radio" class="flat" value="P" name="sek_teknik" id="sek_teknik"
-                                                   required/>
-                                            {{else}}
-                                            L:
-                                            <input type="radio" class="flat" value="L" name="sek_teknik" id="sek_teknik"
-                                                   required/>
-                                            P:
-                                            <input type="radio" class="flat" value="P" name="sek_teknik" id="sek_teknik"
-                                                   required checked/>
-                                            {{end}}
-                                        </div>
-                                        <br>
-                                        <div class="form-group">
-                                            <label>Seksi Operasi<span class="required">*</span></label>
-                                            <br>
-                                            {{if eq .data.Ketua = "L"}}
-                                            L:
-                                            <input type="radio" class="flat" value="L" name="sek_op" id="sek_op"
-                                                   required checked/>
-                                            P:
-                                            <input type="radio" class="flat" value="P" name="sek_op" id="sek_op"
-                                                   required/>
-                                            {{else}}
-                                            L:
-                                            <input type="radio" class="flat" value="L" name="sek_op" id="sek_op"
-                                                   required/>
-                                            P:
-                                            <input type="radio" class="flat" value="P" name="sek_op" id="sek_op"
-                                                   required checked/>
-                                            {{end}}
-                                        </div>
-                                        <br>
-                                        <div class="form-group">
-                                            <label>Seksi Binis<span class="required">*</span></label>
-                                            <br>
-                                            {{if eq .data.Ketua = "L"}}
-                                            L:
-                                            <input type="radio" class="flat" value="L" name="sek_bisnis" id="sek_bisnis"
-                                                   required checked/>
-                                            P:
-                                            <input type="radio" class="flat" value="P" name="sek_bisnis" id="sek_bisnis"
-                                                   required/>
-                                            {{else}}
-                                            L:
-                                            <input type="radio" class="flat" value="L" name="sek_bisnis" id="sek_bisnis"
-                                                   required/>
-                                            P:
-                                            <input type="radio" class="flat" value="P" name="sek_bisnis" id="sek_bisnis"
-                                                   required checked/>
-                                            {{end}}
-                                        </div>
-                                    </div>
+<!--                                    <div class="col-md-6">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label>Seksi Teknik<span class="required">*</span></label>-->
+<!--                                            <br>-->
+<!--                                            {{if eq .data.Ketua = "L"}}-->
+<!--                                            L:-->
+<!--                                            <input type="radio" class="flat" value="L" name="sek_teknik" id="sek_teknik"-->
+<!--                                                   required checked/>-->
+<!--                                            P:-->
+<!--                                            <input type="radio" class="flat" value="P" name="sek_teknik" id="sek_teknik"-->
+<!--                                                   required/>-->
+<!--                                            {{else}}-->
+<!--                                            L:-->
+<!--                                            <input type="radio" class="flat" value="L" name="sek_teknik" id="sek_teknik"-->
+<!--                                                   required/>-->
+<!--                                            P:-->
+<!--                                            <input type="radio" class="flat" value="P" name="sek_teknik" id="sek_teknik"-->
+<!--                                                   required checked/>-->
+<!--                                            {{end}}-->
+<!--                                        </div>-->
+<!--                                        <br>-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label>Seksi Operasi<span class="required">*</span></label>-->
+<!--                                            <br>-->
+<!--                                            {{if eq .data.Ketua = "L"}}-->
+<!--                                            L:-->
+<!--                                            <input type="radio" class="flat" value="L" name="sek_op" id="sek_op"-->
+<!--                                                   required checked/>-->
+<!--                                            P:-->
+<!--                                            <input type="radio" class="flat" value="P" name="sek_op" id="sek_op"-->
+<!--                                                   required/>-->
+<!--                                            {{else}}-->
+<!--                                            L:-->
+<!--                                            <input type="radio" class="flat" value="L" name="sek_op" id="sek_op"-->
+<!--                                                   required/>-->
+<!--                                            P:-->
+<!--                                            <input type="radio" class="flat" value="P" name="sek_op" id="sek_op"-->
+<!--                                                   required checked/>-->
+<!--                                            {{end}}-->
+<!--                                        </div>-->
+<!--                                        <br>-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label>Seksi Binis<span class="required">*</span></label>-->
+<!--                                            <br>-->
+<!--                                            {{if eq .data.Ketua = "L"}}-->
+<!--                                            L:-->
+<!--                                            <input type="radio" class="flat" value="L" name="sek_bisnis" id="sek_bisnis"-->
+<!--                                                   required checked/>-->
+<!--                                            P:-->
+<!--                                            <input type="radio" class="flat" value="P" name="sek_bisnis" id="sek_bisnis"-->
+<!--                                                   required/>-->
+<!--                                            {{else}}-->
+<!--                                            L:-->
+<!--                                            <input type="radio" class="flat" value="L" name="sek_bisnis" id="sek_bisnis"-->
+<!--                                                   required/>-->
+<!--                                            P:-->
+<!--                                            <input type="radio" class="flat" value="P" name="sek_bisnis" id="sek_bisnis"-->
+<!--                                                   required checked/>-->
+<!--                                            {{end}}-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                 </div>
                                 <div class="form-group">
                                     <label>Jumlah Anggota<span class="required">*</span></label>
