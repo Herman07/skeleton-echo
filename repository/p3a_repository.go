@@ -23,6 +23,7 @@ type P3Repository interface {
 	UpdatePengurus(entity models.Pengurus)(*models.Pengurus, error)
 	UpdateIrigasi(models.TeknikIrigasi)(*models.TeknikIrigasi, error)
 	UpdatePertanian(pertanian models.TeknikPertanian)(*models.TeknikPertanian, error)
+	ExportExcel()(*[]models.P3AModels, error)
 
 }
 
@@ -146,6 +147,21 @@ func (r p3Repository) UpdateIrigasi(entity models.TeknikIrigasi)(*models.TeknikI
 
 func (r p3Repository) UpdatePertanian(entity models.TeknikPertanian)(*models.TeknikPertanian, error){
 	err := r.DB.Model(&models.TeknikPertanian{ID: entity.ID}).Updates(&entity).Error
+	return &entity, err
+}
+
+func (r p3Repository) ExportExcel()(*[]models.P3AModels, error) {
+	var entity []models.P3AModels
+	err := r.DB.Table("data_p3a a").
+		Select("a.*,b.*,c.*,d.*,e.*,f.*,g.*,h.*").
+		Joins("LEFT JOIN status_legal b on b.id_status_legal = a.id_status_legal_fk").
+		Joins("LEFT JOIN kepengurusan c on c.id_kepengurusan = a.id_kepengurusan_fk").
+		Joins("LEFT JOIN teknik_irigasi d on d.id_t_irigasi = a.id_teknik_irigasi_fk").
+		Joins("LEFT JOIN teknik_pertanian e on e.id_t_pertanian = a.id_teknik_pertanian_fk").
+		Joins("LEFT JOIN provinsi f on f.id_prov = a.id_prov_fk").
+		Joins("LEFT JOIN kabupaten g on g.id_kab = a.id_kab_fk").
+		Joins("LEFT JOIN kecamatan h on h.id_kec = a.id_kec_fk").
+		Find(&entity).Error
 	return &entity, err
 }
 

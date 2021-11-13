@@ -279,3 +279,11 @@ func (s *P3Service) UpdatePertanian(id string, dto request.UpdateInventaris) (*m
 	}
 	return data, err
 }
+
+func (s *P3Service) GetDataExport() ([]models.P3AModels, error) {
+	data, err := s.P3Repository.ExportExcel()
+	if err != nil {
+		return nil, err
+	}
+	return *data, nil
+}

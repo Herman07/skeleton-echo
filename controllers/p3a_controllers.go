@@ -175,10 +175,12 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 	return ctx.Redirect(http.StatusFound, "/admin/v1/inventaris")
 }
 
-func (c *Controller) GenerateExcel(ctx echo.Context) error {
+func (c *P3Controller) GenerateExcel(ctx echo.Context) error {
 	// Get Data Export
-	var data []models.Inventaris
-
+	data, err := c.service.GetDataExport()
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
 	//style := excelize.Style{
 	//	Border:        nil,
 	//	Fill:          excelize.Fill{},
@@ -293,7 +295,39 @@ func (c *Controller) GenerateExcel(ctx echo.Context) error {
 
 
 	for i, v := range data{
-		_ = f.SetCellValue("Sheet1", "B"+strconv.Itoa(i), v.IDIrigasi)
+		_ = f.SetCellValue("Sheet1", "A"+strconv.Itoa(i+4), i+1)
+		i = i+4
+		_ = f.SetCellValue("Sheet1", "B"+strconv.Itoa(i), v.NamaProv)
+		_ = f.SetCellValue("Sheet1", "C"+strconv.Itoa(i), v.NamaKec)
+		_ = f.SetCellValue("Sheet1", "D"+strconv.Itoa(i), v.DaerahIrigasi)
+		_ = f.SetCellValue("Sheet1", "E"+strconv.Itoa(i), v.LuasWilayah)
+		_ = f.SetCellValue("Sheet1", "F"+strconv.Itoa(i), v.JumlahP3A)
+		_ = f.SetCellValue("Sheet1", "G"+strconv.Itoa(i), v.NamaP3A)
+		_ = f.SetCellValue("Sheet1", "H"+strconv.Itoa(i), v.LuasLayananP3A)
+		_ = f.SetCellValue("Sheet1", "I"+strconv.Itoa(i), v.TahunPembentukan)
+		_ = f.SetCellValue("Sheet1", "J"+strconv.Itoa(i), v.LamKplDesa)
+		_ = f.SetCellValue("Sheet1", "K"+strconv.Itoa(i), v.SKBupati)
+		_ = f.SetCellValue("Sheet1", "L"+strconv.Itoa(i), v.AkteNotaris)
+		_ = f.SetCellValue("Sheet1", "M"+strconv.Itoa(i), v.NoPendaftaran)
+		_ = f.SetCellValue("Sheet1", "N"+strconv.Itoa(i), v.Ketua)
+		_ = f.SetCellValue("Sheet1", "O"+strconv.Itoa(i), v.Wakil)
+		_ = f.SetCellValue("Sheet1", "P"+strconv.Itoa(i), v.Sekretaris)
+		_ = f.SetCellValue("Sheet1", "Q"+strconv.Itoa(i), v.Bendahara)
+		_ = f.SetCellValue("Sheet1", "R"+strconv.Itoa(i), v.SekTeknik)
+		_ = f.SetCellValue("Sheet1", "S"+strconv.Itoa(i), v.SekOP)
+		_ = f.SetCellValue("Sheet1", "T"+strconv.Itoa(i), v.SekBisnis)
+		_ = f.SetCellValue("Sheet1", "U"+strconv.Itoa(i), v.JumlahAnggota)
+		_ = f.SetCellValue("Sheet1", "V"+strconv.Itoa(i), v.NoADRT)
+		_ = f.SetCellValue("Sheet1", "W"+strconv.Itoa(i), v.Sekretariat)
+		_ = f.SetCellValue("Sheet1", "X"+strconv.Itoa(i), v.PresentasiPerempuanP3A)
+		_ = f.SetCellValue("Sheet1", "Y"+strconv.Itoa(i), v.ArealTersier)
+		_ = f.SetCellValue("Sheet1", "Z"+strconv.Itoa(i), v.PengisianBuku)
+		_ = f.SetCellValue("Sheet1", "AA"+strconv.Itoa(i), v.Iuran)
+		_ = f.SetCellValue("Sheet1", "AB"+strconv.Itoa(i), v.Operasi)
+		_ = f.SetCellValue("Sheet1", "AC"+strconv.Itoa(i), v.Partisipatif)
+		_ = f.SetCellValue("Sheet1", "AD"+strconv.Itoa(i), v.PolaTanam)
+		_ = f.SetCellValue("Sheet1", "AE"+strconv.Itoa(i), v.UsahaTani)
+		_ = f.SetCellValue("Sheet1", "AF"+strconv.Itoa(i), v.Keterangan)
 
 	}
 	// Set active sheet of the workbook.
@@ -357,11 +391,10 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 	}
 
 	//Update Data to Table p3a
-	data, err := c.service.UpdateById(id, entity)
+	_, err = c.service.UpdateById(id, entity)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
-	fmt.Println(data)
 	return ctx.Redirect(http.StatusFound, "/admin/v1/inventaris")
 }
 
