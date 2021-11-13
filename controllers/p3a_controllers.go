@@ -332,6 +332,31 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 		return ctx.JSON(400, echo.Map{"message": "error binding data"})
 	}
 	fmt.Println("Data Request : ",entity)
+	// Update Data Status Legal
+	_, err := c.service.UpdateStatusLegal(id, entity)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+
+	// Update Data Kepengurusan
+	_ , err = c.service.UpdatePengurus(id,entity)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+
+	// Update Data Teknik Irigasi
+	_, err = c.service.UpdateIrigasi(id, entity)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+
+	// Update Data Teknik Pertanian
+	_, err = c.service.UpdatePertanian(id,entity)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+
+	//Update Data to Table p3a
 	data, err := c.service.UpdateById(id, entity)
 	if err != nil {
 		return c.InternalServerError(ctx, err)

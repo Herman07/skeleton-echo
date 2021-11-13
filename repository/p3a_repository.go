@@ -19,6 +19,11 @@ type P3Repository interface {
 	CreateIrigasi(entity models.TeknikIrigasi) (*models.TeknikIrigasi, error)
 	CreatePertanian(entity models.TeknikPertanian) (*models.TeknikPertanian, error)
 	DbInstance() *gorm.DB
+	UpdateStatusLegal(entity models.StatusLegal)(*models.StatusLegal, error)
+	UpdatePengurus(entity models.Pengurus)(*models.Pengurus, error)
+	UpdateIrigasi(models.TeknikIrigasi)(*models.TeknikIrigasi, error)
+	UpdatePertanian(pertanian models.TeknikPertanian)(*models.TeknikPertanian, error)
+
 }
 
 
@@ -120,6 +125,27 @@ func (r p3Repository) CreateIrigasi(entity models.TeknikIrigasi) (*models.Teknik
 }
 func (r p3Repository) CreatePertanian(entity models.TeknikPertanian) (*models.TeknikPertanian, error) {
 	err := r.DB.Table("teknik_pertanian").Create(&entity).Error
+	return &entity, err
+}
+
+func (r p3Repository) UpdateStatusLegal(entity models.StatusLegal)(*models.StatusLegal, error){
+	err := r.DB.Model(&models.StatusLegal{ID: entity.ID}).Updates(&entity).Error
+	return &entity, err
+}
+
+func (r p3Repository) UpdatePengurus(entity models.Pengurus)(*models.Pengurus, error){
+	err := r.DB.Model(&models.Pengurus{ID: entity.ID}).Updates(&entity).Error
+	return &entity, err
+}
+
+func (r p3Repository) UpdateIrigasi(entity models.TeknikIrigasi)(*models.TeknikIrigasi, error){
+	err := r.DB.Model(&models.TeknikIrigasi{ID: entity.ID}).Updates(&entity).Error
+	return &entity, err
+}
+
+
+func (r p3Repository) UpdatePertanian(entity models.TeknikPertanian)(*models.TeknikPertanian, error){
+	err := r.DB.Model(&models.TeknikPertanian{ID: entity.ID}).Updates(&entity).Error
 	return &entity, err
 }
 

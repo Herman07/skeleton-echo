@@ -53,6 +53,7 @@ func (s *P3Service) QueryDatatable(searchValue string, orderType string, orderBy
 	})
 	return recordTotal, recordFiltered, data, err
 }
+
 //func (s *P3Service) GetAll(dataReq models.Inventaris) (*models.Inventaris, error) {
 //	data, err := s.P3Repository.GetData(dataReq)
 //	if err != nil {
@@ -108,7 +109,6 @@ func (s *P3Service) CreateStatusLegal(request request.RequestInventaris, namaFil
 	return data, err
 }
 
-
 func (s *P3Service) CreatePengurus(request request.RequestInventaris, namaFile []string) (*models.Pengurus, error) {
 	entity := models.Pengurus{
 		Ketua:                  request.Ketua,
@@ -152,9 +152,9 @@ func (s *P3Service) CreateIrigasi(request request.RequestInventaris) (*models.Te
 
 func (s *P3Service) CreatePertanian(request request.RequestInventaris) (*models.TeknikPertanian, error) {
 	entity := models.TeknikPertanian{
-		PolaTanam:  request.PolaTanam,
+		PolaTanam: request.PolaTanam,
 		UsahaTani: request.UsahaTani,
-		ID: request.IDPertanian,
+		ID:        request.IDPertanian,
 	}
 	data, err := s.P3Repository.CreatePertanian(entity)
 
@@ -164,7 +164,7 @@ func (s *P3Service) CreatePertanian(request request.RequestInventaris) (*models.
 	return data, err
 }
 
-func (s *P3Service) CreateDataP3a(request request.RequestInventaris,idStatusLegal string, idPengurus string, idIrigasi string, idPertanian string) (*models.Inventaris, error) {
+func (s *P3Service) CreateDataP3a(request request.RequestInventaris, idStatusLegal string, idPengurus string, idIrigasi string, idPertanian string) (*models.Inventaris, error) {
 	entity := models.Inventaris{
 		IDProv:         request.IDProv,
 		IDKab:          request.IDKab,
@@ -179,7 +179,7 @@ func (s *P3Service) CreateDataP3a(request request.RequestInventaris,idStatusLega
 		DaerahIrigasi:  request.DaerahIrigasi,
 		LuasWilayah:    request.LuasWilayah,
 		LuasLayananP3A: request.LuasLayananP3A,
-		Keterangan: request.Keterangan,
+		Keterangan:     request.Keterangan,
 	}
 	data, err := s.P3Repository.Create(entity)
 	if err != nil {
@@ -198,4 +198,84 @@ func (s *P3Service) Delete(id string) error {
 	} else {
 		return nil
 	}
+}
+
+func (s *P3Service) UpdateStatusLegal(id string, dto request.UpdateInventaris) (*models.StatusLegal, error) {
+	entity := models.StatusLegal{
+		ID:                  id,
+		TahunPembentukan:    dto.TahunPembentukan,
+		LamTahunPembentukan: dto.LamTahunPembentukan,
+		LamKplDesa:          dto.LamKplDesa,
+		SKBupati:            dto.SKBupati,
+		LamSKBupati:         dto.LamSKBupati,
+		AkteNotaris:         dto.AkteNotaris,
+		LamAkteNotaris:      dto.LamAkteNotaris,
+		NoPendaftaran:       dto.NoPendaftaran,
+		LamPendaftaran:      dto.LamPendaftaran,
+	}
+
+	data, err := s.P3Repository.UpdateStatusLegal(entity)
+
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}
+
+func (s *P3Service) UpdatePengurus(id string, dto request.UpdateInventaris) (*models.Pengurus, error) {
+	entity := models.Pengurus{
+		ID:                     id,
+		Ketua:                  dto.Ketua,
+		Wakil:                  dto.Wakil,
+		Sekretaris:             dto.Sekretaris,
+		Bendahara:              dto.Bendahara,
+		SekTeknik:              dto.SekTeknik,
+		SekOP:                  dto.SekOP,
+		SekBisnis:              dto.SekBisnis,
+		JumlahAnggota:          dto.JumlahAnggota,
+		NoADRT:                 dto.NoADRT,
+		LampiranADRT:           dto.LampiranADRT,
+		Sekretariat:            dto.Sekretariat,
+		LampiranSekretariat:    dto.LampiranSekretariat,
+		PresentasiPerempuanP3A: dto.PresentasiPerempuanP3A,
+		ArealTersier:           dto.ArealTersier,
+		PengisianBuku:          dto.PengisianBuku,
+		Iuran:                  dto.Iuran,
+	}
+
+	data, err := s.P3Repository.UpdatePengurus(entity)
+
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}
+
+func (s *P3Service) UpdateIrigasi(id string, dto request.UpdateInventaris) (*models.TeknikIrigasi, error) {
+	entity := models.TeknikIrigasi{
+		ID:           id,
+		Operasi:      dto.Operasi,
+		Partisipatif: dto.Partisipatif,
+	}
+	data, err := s.P3Repository.UpdateIrigasi(entity)
+
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}
+
+func (s *P3Service) UpdatePertanian(id string, dto request.UpdateInventaris) (*models.TeknikPertanian, error) {
+	entity := models.TeknikPertanian{
+		ID:        id,
+		PolaTanam: dto.PolaTanam,
+		UsahaTani: dto.UsahaTani,
+	}
+
+	data, err := s.P3Repository.UpdatePertanian(entity)
+
+	if err != nil {
+		return nil, err
+	}
+	return data, err
 }
