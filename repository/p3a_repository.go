@@ -63,7 +63,7 @@ func (r *p3Repository)GetData(dataReq models.Inventaris)(*models.Inventaris,erro
 }
 func (r p3Repository) FindById(id string) (*models.Inventaris, error) {
 	var entity models.Inventaris
-	err := r.DB.Table("data_p3a").Where("id = ?", id).First(&entity).Error
+	err := r.DB.Table("data_p3a").Where("id_p3a = ?", id).First(&entity).Error
 	return &entity, err
 }
 

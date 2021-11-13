@@ -35,7 +35,7 @@ func Api(e *echo.Echo, db *gorm.DB) {
 		invenGroup.DELETE("/delete/:id", dashboardController.Delete)
 		//g.GET("/table", dashboardController.GetData)
 		//g.GET("/table/:id", dashboardController.Detail)
-		//g.GET("/update/:id", dashboardController.Update)
+		e.GET("/admin/v1/inventaris/update/:id", dashboardController.Update)
 		//g.POST("/do-update/:id", dashboardController.DoUpdate)
 
 	}

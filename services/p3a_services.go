@@ -61,32 +61,32 @@ func (s *P3Service) QueryDatatable(searchValue string, orderType string, orderBy
 //	return data, err
 //}
 
-//func (s *P3Service) FindById(id string) (*models.Inventaris, error) {
-//	data, err := s.P3Repository.FindById(id)
-//	if err != nil {
-//		return nil, err
-//	}
-//	return data, err
-//}
+func (s *P3Service) FindById(id string) (*models.Inventaris, error) {
+	data, err := s.P3Repository.FindById(id)
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}
 
-//func (s *P3Service) UpdateById(id string, dto request.RequestInventaris) (*models.Inventaris, error) {
-//	entity := models.Inventaris{
-//		ID:             id,
-//		NoUrut:         dto.NoUrut,
-//		NamaP3A:        dto.NamaP3A,
-//		JumlahP3A:      dto.JumlahP3A,
-//		DaerahIrigasi:  dto.DaerahIrigasi,
-//		LuasWilayah:    dto.LuasWilayah,
-//		LuasLayananP3A: dto.LuasLayananP3A,
-//	}
-//
-//	data, err := s.P3Repository.UpdateById(entity)
-//
-//	if err != nil {
-//		return nil, err
-//	}
-//	return data, err
-//}
+func (s *P3Service) UpdateById(id string, dto request.RequestInventaris) (*models.Inventaris, error) {
+	entity := models.Inventaris{
+		ID:             id,
+		NoUrut:         dto.NoUrut,
+		NamaP3A:        dto.NamaP3A,
+		JumlahP3A:      dto.JumlahP3A,
+		DaerahIrigasi:  dto.DaerahIrigasi,
+		LuasWilayah:    dto.LuasWilayah,
+		LuasLayananP3A: dto.LuasLayananP3A,
+	}
+
+	data, err := s.P3Repository.UpdateById(entity)
+
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}
 
 func (s *P3Service) CreateStatusLegal(request request.RequestInventaris, namaFile []string) (*models.StatusLegal, error) {
 	entity := models.StatusLegal{

@@ -64,8 +64,8 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 	var action string
 	listOfData := make([]map[string]interface{}, len(data))
 	for k, v := range data {
-		action = `<a href="/admin/v1/inventaris/update` + (v.ID) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-edit"></i></a>
-		<a href="/admin/v1/inventaris/detail` + (v.ID) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-eye"></i></a>
+		action = `<a href="/admin/v1/inventaris/update/` + (v.ID) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-edit"></i></a>
+		<a href="/admin/v1/inventaris/detail/` + (v.ID) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-eye"></i></a>
 		<button onclick="Delete('` + v.ID + `')" class="btn btn-danger" title="Delete" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-trash"></i></button>`
 		//time := v.CreatedAt
 		//createdAt = time.Format("2006-01-02")
@@ -310,28 +310,28 @@ func (c *Controller) GenerateExcel(ctx echo.Context) error {
 	return ctx.File(name)
 }
 
-//func (c *P3Controller) Update(ctx echo.Context) error {
-//	id := ctx.Param("id")
-//	data, err := c.service.FindById(id)
-//	if err != nil {
-//		return c.InternalServerError(ctx, err)
-//	}
-//
-//	breadCrumbs := map[string]interface{}{
-//		"menu": "Home",
-//		"link": "/inventaris/v1/update/:id",
-//	}
-//	dataInventaris := models.Inventaris{
-//		ID:             data.ID,
-//		NoUrut:         data.NoUrut,
-//		NamaP3A:        data.NamaP3A,
-//		JumlahP3A:      data.JumlahP3A,
-//		DaerahIrigasi:  data.DaerahIrigasi,
-//		LuasWilayah:    data.LuasWilayah,
-//		LuasLayananP3A: data.LuasLayananP3A,
-//	}
-//	return Render(ctx, "Home", "update", c.Menu, append(c.BreadCrumbs, breadCrumbs), dataInventaris)
-//}
+func (c *P3Controller) Update(ctx echo.Context) error {
+	id := ctx.Param("id")
+	data, err := c.service.FindById(id)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+
+	breadCrumbs := map[string]interface{}{
+		"menu": "Home",
+		"link": "/inventaris/v1/update/:id",
+	}
+	dataInventaris := models.Inventaris{
+		ID:             data.ID,
+		NoUrut:         data.NoUrut,
+		NamaP3A:        data.NamaP3A,
+		JumlahP3A:      data.JumlahP3A,
+		DaerahIrigasi:  data.DaerahIrigasi,
+		LuasWilayah:    data.LuasWilayah,
+		LuasLayananP3A: data.LuasLayananP3A,
+	}
+	return Render(ctx, "Home", "p3a/update", c.Menu, append(c.BreadCrumbs, breadCrumbs), dataInventaris)
+}
 //
 //func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 //	var entity request.RequestInventaris
