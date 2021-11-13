@@ -36,7 +36,7 @@ func Api(e *echo.Echo, db *gorm.DB) {
 		//g.GET("/table", dashboardController.GetData)
 		//g.GET("/table/:id", dashboardController.Detail)
 		e.GET("/admin/v1/inventaris/update/:id", dashboardController.Update)
-		//g.POST("/do-update/:id", dashboardController.DoUpdate)
+		invenGroup.POST("/do-update/:id", dashboardController.DoUpdate)
 
 	}
 

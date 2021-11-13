@@ -324,20 +324,21 @@ func (c *P3Controller) Update(ctx echo.Context) error {
 
 	return Render(ctx, "Home", "p3a/update", c.Menu, append(c.BreadCrumbs, breadCrumbs), data)
 }
-//
-//func (c *P3Controller) DoUpdate(ctx echo.Context) error {
-//	var entity request.RequestInventaris
-//	id := ctx.Param("id")
-//	if err := ctx.Bind(&entity); err != nil {
-//		return ctx.JSON(400, echo.Map{"message": "error binding data"})
-//	}
-//	data, err := c.service.UpdateById(id, entity)
-//	if err != nil {
-//		return c.InternalServerError(ctx, err)
-//	}
-//	fmt.Println(data)
-//	return ctx.Redirect(302, "/inventaris/v1/admin")
-//}
+
+func (c *P3Controller) DoUpdate(ctx echo.Context) error {
+	var entity request.UpdateInventaris
+	id := ctx.Param("id")
+	if err := ctx.Bind(&entity); err != nil {
+		return ctx.JSON(400, echo.Map{"message": "error binding data"})
+	}
+	fmt.Println("Data Request : ",entity)
+	data, err := c.service.UpdateById(id, entity)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+	fmt.Println(data)
+	return ctx.Redirect(http.StatusFound, "/admin/v1/inventaris")
+}
 
 func (c *P3Controller) Delete(ctx echo.Context) error {
 	id := ctx.Param("id")

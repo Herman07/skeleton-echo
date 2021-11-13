@@ -13,73 +13,77 @@
                     </div>
                     <div class="x_content">
                         <br/>
-                        <form id="form">
+                        <form id="form" method="POST" action="/admin/v1/inventaris/do-update/{{.data.IDP3A}}" enctype="multipart/form-data">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Provinsi<span class="required">*</span></label>
-                                    <select id="id_prov_fk" class="form-control" name="id_prov_fk" required>
+                                    <label>Provinsi<span class="">*</span></label>
+                                    <select id="prov" class="form-control" name="prov" >
                                         <option value="{{.data.NamaProv}}">{{.data.NamaProv}}</option>
                                     </select>
+                                    <input type="text" name="id_prov_fk" id="id_prov_fk" value="{{.data.IDProv}}" hidden>
+
                                 </div>
                                 <div class="form-group">
-                                    <label>Kabupaten<span class="required">*</span></label>
-                                    <select id="id_kab_fk" class="form-control" name="id_kab_fk" onchange="GetValue()"
-                                            required>
+                                    <label>Kabupaten<span class="">*</span></label>
+                                    <select id="kab" class="form-control" name="kab" onchange="GetValue()"
+                                            >
                                         <option value="{{.data.NamaKab}}">{{.data.NamaKab}}</option>
                                     </select>
+                                    <input type="text" name="id_kab_fk" id="id_kab_fk" value="{{.data.IDKab}}" hidden>
                                 </div>
                                 <div class="form-group">
-                                    <label>Kecamatan</label><span class="required">*</span>
-                                    <select id="id_kec_fk" class="form-control"
-                                            name="id_kec_fk" required>
+                                    <label>Kecamatan</label><span class="">*</span>
+                                    <select id="kec" class="form-control"
+                                            name="kec" onchange="GetVal()" >
                                         <option value="{{.data.NamaKec}}">{{.data.NamaKec}}</option>
                                     </select>
+                                    <input type="text" name="id_kec_fk" id="id_kec_fk" value="{{.data.IDKec}}" hidden>
                                 </div>
                                 <input type="text" name="id_p3a" id="id_p3a" value="{{.data.IDP3A}}" hidden>
                                 <div class="form-group">
-                                    <label>No Urut <span class="required">*</span>
+                                    <label>No Urut <span class="">*</span>
                                     </label>
                                     <input type="number" class="form-control" data-validate-length-range="5"
-                                           name="no_urut" id="no_urut" value="{{.data.NoUrut}}" required>
+                                           name="no_urut" id="no_urut" value="{{.data.NoUrut}}" >
                                 </div>
                                 <div class="form-group">
-                                    <label>Nama P3A<span class="required">*</span></label>
+                                    <label>Nama P3A<span class="">*</span></label>
                                     <input type="text" class="form-control" data-validate-length-range="5"
-                                           name="nama_p3a" id="nama_p3a" value="{{.data.NamaP3A}}" required>
+                                           name="nama_p3a" id="nama_p3a" value="{{.data.NamaP3A}}" >
                                 </div>
                                 <div class="form-group">
-                                    <label>Nama Daerah Irigasi<span class="required">*</span></label>
+                                    <label>Nama Daerah Irigasi<span class="">*</span></label>
                                     <input type="text" class="form-control" name="nama_daerah_irigasi"
-                                           id="nama_daerah_irigasi" value="{{.data.DaerahIrigasi}}" required>
+                                           id="nama_daerah_irigasi" value="{{.data.DaerahIrigasi}}" >
                                 </div>
                                 <div class="form-group">
-                                    <label>Luas Wilayah<span class="required">*</span></label>
+                                    <label>Luas Wilayah<span class="">*</span></label>
                                     <input type="number" class="form-control" name="luas_wilayah"
-                                           id="luas_wilayah" value="{{.data.LuasWilayah}}" required>
+                                           id="luas_wilayah" value="{{.data.LuasWilayah}}" >
                                 </div>
                                 <div class="form-group">
-                                    <label>Jumlah P3A<span class="required">*</span></label>
+                                    <label>Jumlah P3A<span class="">*</span></label>
                                     <input type="number" class="form-control" name="jumlah_p3a"
-                                           id="jumlah_p3a" value="{{.data.JumlahP3A}}" required>
+                                           id="jumlah_p3a" value="{{.data.JumlahP3A}}" >
                                 </div>
                                 <div class="form-group">
-                                    <label>Luas Layanan P3A<span class="required">*</span></label>
+                                    <label>Luas Layanan P3A<span class="">*</span></label>
                                     <input type="number" class="form-control" name="luas_layanan_p3a"
-                                           id="luas_layanan_p3a" value="{{.data.LuasLayananP3A}}" required>
+                                           id="luas_layanan_p3a" value="{{.data.LuasLayananP3A}}" >
                                 </div>
                                 <div class="form-group">
-                                    <label>Keterangan<span class="required">*</span></label>
+                                    <label>Keterangan<span class="">*</span></label>
                                     <input type="text" class="form-control" name="keterangan"
-                                           id="keterangan" value="{{.data.Keterangan}}" required>
+                                           id="keterangan" value="{{.data.Keterangan}}" >
                                 </div>
-                                <input type="text" name="id_status_legal" id="id_status_legal" value="{{.data.IDStatus}}" hidden>
+<!--                                <input type="text" name="id_status_legal" id="id_status_legal" value="{{.data.IDStatus}}" hidden>-->
                                 <div class="form-group">
-                                    <label>Tahun Pembentukan<span class="required">*</span></label>
+                                    <label>Tahun Pembentukan<span class="">*</span></label>
                                     <input type="number" class="form-control" maxlength="4" name="tahun_pembentukan"
-                                           id="tahun_pembentukan" value="{{.data.TahunPembentukan}}" required>
+                                           id="tahun_pembentukan" value="{{.data.TahunPembentukan}}" >
                                 </div>
                                 <div class="form-group">
-                                    <label>Lampiran Tahun Pembentukan<span class="required">*</span></label>
+                                    <label>Lampiran Tahun Pembentukan<span class="">*</span></label>
                                     <div class="avatar-preview">
                                         <div id="imagePreview1"
                                              style="background-image: url(/static/image/{{.data.LamTahunPembentukan}});">
@@ -89,11 +93,11 @@
                                     <div class=" avatar-upload avatar-edit">
                                         <input type="file" id="lampiran_tahun_pembentukan"
                                                name="lampiran_tahun_pembentukan" accept=".png, .jpg, .jpeg"
-                                               required/>
+                                               />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Diket Kepala Daerah<span class="required">*</span></label>
+                                    <label>Diket Kepala Daerah<span class="">*</span></label>
                                     <div class="avatar-preview">
                                         <div id="imagePreview2"
                                              style="background-image: url(/static/image/{{.data.LamKplDesa}});">
@@ -103,19 +107,19 @@
                                     <div class=" avatar-upload avatar-edit">
                                         <input type="file" id="diket_kep_dc" name="diket_kep_dc"
                                                accept=".png, .jpg, .jpeg"
-                                               required/>
+                                               />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Nomor SK Bupati<span class="required">*</span></label>
-                                    <select class="form-control" name="no_sk_bupati" id="no_sk_bupati" required>
+                                    <label>Nomor SK Bupati<span class="">*</span></label>
+                                    <select class="form-control" name="no_sk_bupati" id="no_sk_bupati" >
                                         <option value="{{.data.SKBupati}}">{{.data.SKBupati}}</option>
                                         <option>Ada</option>
                                         <option>Tidak Ada</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Lampiran SK Bupati<span class="required">*</span></label>
+                                    <label>Lampiran SK Bupati<span class="">*</span></label>
                                     <div class="avatar-preview">
                                         <div id="imagePreview3"
                                              style="background-image: url(/static/image/{{.data.LamSKBupati}});">
@@ -125,12 +129,12 @@
                                     <div class=" avatar-upload avatar-edit">
                                         <input type="file" id="lampiran_sk_bupati" name="lampiran_sk_bupati"
                                                accept=".png, .jpg, .jpeg"
-                                               required/>
+                                               />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Akte Notaris<span class="required">*</span></label>
-                                    <select class="form-control" name="akte_notaris" id="akte_notaris" required>
+                                    <label>Akte Notaris<span class="">*</span></label>
+                                    <select class="form-control" name="akte_notaris" id="akte_notaris" >
                                         <option value="{{.data.AkteNotaris}}"> {{.data.AkteNotaris}}</option>
                                         <option>Ada</option>
                                         <option>Tidak Ada</option>
@@ -138,7 +142,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Lampiran Akte Notaris<span class="required">*</span></label>
+                                    <label>Lampiran Akte Notaris<span class="">*</span></label>
                                     <div class="avatar-preview">
                                         <div id="imagePreview4"
                                              style="background-image: url(/static/image/{{.data.LamAkteNotaris}});">
@@ -148,14 +152,14 @@
                                     <div class=" avatar-upload avatar-edit">
                                         <input type="file" id="lampiran_akte_notaris" name="lampiran_akte_notaris"
                                                accept=".png, .jpg, .jpeg"
-                                               required/>
+                                               />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Nomor Pendaftaran<span class="required">*</span></label>
-                                    <select class="form-control" name="no_pendaftaran" id="no_pendaftaran" required>
+                                    <label>Nomor Pendaftaran<span class="">*</span></label>
+                                    <select class="form-control" name="no_pendaftaran" id="no_pendaftaran" >
                                         <option value="{{.data.NoPendaftaran}}">{{.data.NoPendaftaran}}</option>
                                         <option>Ada</option>
                                         <option>Tidak Ada</option>
@@ -163,7 +167,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Lampiran No Pendaftaran<span class="required">*</span></label>
+                                    <label>Lampiran No Pendaftaran<span class="">*</span></label>
                                     <div class="avatar-preview">
                                         <div id="imagePreview5"
                                              style="background-image: url(/static/image/{{.data.LamPendaftaran}});">
@@ -173,165 +177,165 @@
                                     <div class=" avatar-upload avatar-edit">
                                         <input type="file" id="lampiran_pendaftaran" name="lampiran_pendaftaran"
                                                accept=".png, .jpg, .jpeg"
-                                               required/>
+                                               />
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input type="text" name="id_kepengurusan" id="id_kepengurusan" value="{{.data.IDPengurusan}}" hidden>
+<!--                                        <input type="text" name="id_kepengurusan" id="id_kepengurusan" value="{{.data.IDPengurusan}}" hidden>-->
                                         <div class="form-group">
-                                            <label>Ketua<span class="required">*</span></label>
+                                            <label>Ketua<span class="">*</span></label>
                                             <br>
                                             {{if eq .data.Ketua "L"}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="ketua" id="ketua"
-                                                   required checked/>
+                                                    checked/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="ketua" id="ketua"
-                                                   required/>
+                                                   />
                                             {{else}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="ketua" id="ketua"
-                                                   required />
+                                                    />
                                             P:
                                             <input type="radio" class="flat" value="P" name="ketua" id="ketua"
-                                                   required checked/>
+                                                    checked/>
                                             {{end}}
                                         </div>
                                         <br>
                                         <div class="form-group">
-                                            <label>Wakil<span class="required">*</span></label>
+                                            <label>Wakil<span class="">*</span></label>
                                             <br>
                                             {{if eq .data.Wakil "L"}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="wakil" id="wakil"
-                                                   required checked/>
+                                                    checked/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="wakil" id="wakil"
-                                                   required/>
+                                                   />
                                             {{else}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="wakil" id="wakil"
-                                                   required/>
+                                                   />
                                             P:
                                             <input type="radio" class="flat" value="P" name="wakil" id="wakil"
-                                                   required checked/>
+                                                    checked/>
                                             {{end}}
                                         </div>
                                         <br>
                                         <div class="form-group">
-                                            <label>Sekretaris<span class="required">*</span></label>
+                                            <label>Sekretaris<span class="">*</span></label>
                                             <br>
                                             {{if eq .data.Sekretaris "L"}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="sekretaris" id="sekretaris"
-                                                   required checked/>
+                                                    checked/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="sekretaris" id="sekretaris"
-                                                   required/>
+                                                   />
                                             {{else}}
                                             <input type="radio" class="flat" value="L" name="sekretaris" id="sekretaris"
-                                                   required/>
+                                                   />
                                             P:
                                             <input type="radio" class="flat" value="P" name="sekretaris" id="sekretaris"
-                                                   required checked/>
+                                                    checked/>
                                             {{end}}
                                         </div>
                                         <br>
                                         <div class="form-group">
-                                            <label>Bendahara<span class="required">*</span></label>
+                                            <label>Bendahara<span class="">*</span></label>
                                             <br>
                                             {{if eq .data.Bendahara "L"}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="bendahara" id="bendahara"
-                                                   required checked/>
+                                                    checked/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="bendahara" id="bendahara"
-                                                   required/>
+                                                   />
                                             {{else}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="bendahara" id="bendahara"
-                                                   required/>
+                                                   />
                                             P:
                                             <input type="radio" class="flat" value="P" name="bendahara" id="bendahara"
-                                                   required checked/>
+                                                    checked/>
                                             {{end}}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Seksi Teknik<span class="required">*</span></label>
+                                            <label>Seksi Teknik<span class="">*</span></label>
                                             <br>
                                             {{if eq .data.SekTeknik "L"}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="sek_teknik" id="sek_teknik"
-                                                   required checked/>
+                                                    checked/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="sek_teknik" id="sek_teknik"
-                                                   required/>
+                                                   />
                                             {{else}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="sek_teknik" id="sek_teknik"
-                                                   required/>
+                                                   />
                                             P:
                                             <input type="radio" class="flat" value="P" name="sek_teknik" id="sek_teknik"
-                                                   required checked/>
+                                                    checked/>
                                             {{end}}
                                         </div>
                                         <br>
                                         <div class="form-group">
-                                            <label>Seksi Operasi<span class="required">*</span></label>
+                                            <label>Seksi Operasi<span class="">*</span></label>
                                             <br>
                                             {{if eq .data.SekOP "L"}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="sek_op" id="sek_op"
-                                                   required checked/>
+                                                    checked/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="sek_op" id="sek_op"
-                                                   required/>
+                                                   />
                                             {{else}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="sek_op" id="sek_op"
-                                                   required/>
+                                                   />
                                             P:
                                             <input type="radio" class="flat" value="P" name="sek_op" id="sek_op"
-                                                   required checked/>
+                                                    checked/>
                                             {{end}}
                                         </div>
                                         <br>
                                         <div class="form-group">
-                                            <label>Seksi Binis<span class="required">*</span></label>
+                                            <label>Seksi Binis<span class="">*</span></label>
                                             <br>
                                             {{if eq .data.SekBisnis "L"}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="sek_bisnis" id="sek_bisnis"
-                                                   required checked/>
+                                                    checked/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="sek_bisnis" id="sek_bisnis"
-                                                   required/>
+                                                   />
                                             {{else}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="sek_bisnis" id="sek_bisnis"
-                                                   required/>
+                                                   />
                                             P:
                                             <input type="radio" class="flat" value="P" name="sek_bisnis" id="sek_bisnis"
-                                                   required checked/>
+                                                    checked/>
                                             {{end}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Jumlah Anggota<span class="required">*</span></label>
+                                    <label>Jumlah Anggota<span class="">*</span></label>
                                     <input type="number" class="form-control" name="jumlah_anggota" id="jumlah_anggota"
-                                           value="{{.data.JumlahAnggota}}" required>
+                                           value="{{.data.JumlahAnggota}}" >
                                 </div>
                                 <div class="form-group">
-                                    <label>No ADRT<span class="required">*</span></label>
-                                    <input type="number" class="form-control" name="no_ad_art" id="no_ad_art" value="{{.data.NoADRT}}" required>
+                                    <label>No ADRT<span class="">*</span></label>
+                                    <input type="number" class="form-control" name="no_ad_art" id="no_ad_art" value="{{.data.NoADRT}}" >
                                 </div>
                                 <div class="form-group">
-                                    <label> Lampiran ADRT <span class="required">*</span></label>
+                                    <label> Lampiran ADRT <span class="">*</span></label>
                                     <div class="avatar-preview">
                                         <div id="imagePreview6"
                                              style="background-image: url(/static/image/{{.data.LampiranADRT}});">
@@ -341,19 +345,19 @@
                                     <div class=" avatar-upload avatar-edit">
                                         <input type="file" id="lampiran_ad_art" name="lampiran_ad_art"
                                                accept=".png, .jpg, .jpeg"
-                                               required/>
+                                               />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Sekretariat<span class="required">*</span></label>
-                                    <select class="form-control" name="sekretariat" id="sekretariat" required>
+                                    <label>Sekretariat<span class="">*</span></label>
+                                    <select class="form-control" name="sekretariat" id="sekretariat" >
                                         <option value="{{.data.Sekretariat}}">{{.data.Sekretariat}}</option>
                                         <option>Ada</option>
                                         <option>Tidak Ada</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Lampiran Sekretariat<span class="required">*</span></label>
+                                    <label>Lampiran Sekretariat<span class="">*</span></label>
                                     <div class="avatar-preview">
                                         <div id="imagePreview7"
                                              style="background-image: url(/static/image/{{.data.LampiranSekretariat}});">
@@ -363,46 +367,46 @@
                                     <div class=" avatar-upload avatar-edit">
                                         <input type="file" id="lampiran_sekretariat" name="lampiran_sekretariat"
                                                accept=".png, .jpg, .jpeg"
-                                               required/>
+                                               />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Presentase Perempuan P3A<span class="required">*</span></label>
+                                    <label>Presentase Perempuan P3A<span class="">*</span></label>
                                     <input type="number" class="form-control" name="persentase_perempuan_p3a"
-                                           id="persentase_perempuan_p3a" value="{{.data.PresentasiPerempuanP3A}}" required>
+                                           id="persentase_perempuan_p3a" value="{{.data.PresentasiPerempuanP3A}}" >
                                 </div>
                                 <div class="form-group">
-                                    <label>Areal Tersier<span class="required">*</span></label>
+                                    <label>Areal Tersier<span class="">*</span></label>
                                     <input type="number" class="form-control" name="areal_tersier"
-                                           id="areal_tersier" value="{{.data.ArealTersier}}" required>
+                                           id="areal_tersier" value="{{.data.ArealTersier}}" >
                                 </div>
                                 <div class="form-group">
-                                    <label>Pengisian Buku<span class="required">*</span></label>
+                                    <label>Pengisian Buku<span class="">*</span></label>
                                     <input type="text" class="form-control" name="pengisian_buku" id="pengisian_buku"
-                                           value="{{.data.PengisianBuku}}" required>
+                                           value="{{.data.PengisianBuku}}" >
                                 </div>
                                 <div class="form-group">
-                                    <label>Iuran<span class="required">*</span></label>
-                                    <input type="text" class="form-control" name="iuran" id="iuran" value="{{.data.Iuran}}" required>
+                                    <label>Iuran<span class="">*</span></label>
+                                    <input type="text" class="form-control" name="iuran" id="iuran" value="{{.data.Iuran}}" >
                                 </div>
-                                <input type="text"name="id_t_irigasi" id="id_t_irigasi" value="{{.data.IDIrig}}" hidden>
+<!--                                <input type="text"name="id_t_irigasi" id="id_t_irigasi" value="{{.data.IDIrig}}" hidden>-->
                                 <div class="form-group">
-                                    <label>Operasi<span class="required">*</span></label>
-                                    <input type="text" class="form-control" name="operasi" id="operasi" value="{{.data.Operasi}}" required>
+                                    <label>Operasi<span class="">*</span></label>
+                                    <input type="text" class="form-control" name="operasi" id="operasi" value="{{.data.Operasi}}" >
                                 </div>
                                 <div class="form-group">
-                                    <label>Partisipatif<span class="required">*</span></label>
+                                    <label>Partisipatif<span class="">*</span></label>
                                     <input type="text" class="form-control" name="partisipatif" id="partisipatif" value="{{.data.Partisipatif}}"
-                                           required>
+                                           >
                                 </div>
-                                <input type="text" name="id_t_pertanian" id="id_t_pertanian" value="{{.data.IDTani}}" hidden>
+<!--                                <input type="text" name="id_t_pertanian" id="id_t_pertanian" value="{{.data.IDTani}}" hidden>-->
                                 <div class="form-group">
-                                    <label>Pola Tanam<span class="required">*</span></label>
-                                    <input type="text" class="form-control" name="pola_tanam" id="pola_tanam" value="{{.data.PolaTanam}}" required>
+                                    <label>Pola Tanam<span class="">*</span></label>
+                                    <input type="text" class="form-control" name="pola_tanam" id="pola_tanam" value="{{.data.PolaTanam}}" >
                                 </div>
                                 <div class="form-group">
-                                    <label>Usaha Tani<span class="required">*</span></label>
-                                    <input type="text" class="form-control" name="usaha_tani" id="usaha_tani" value="{{.data.UsahaTani}}" required>
+                                    <label>Usaha Tani<span class="">*</span></label>
+                                    <input type="text" class="form-control" name="usaha_tani" id="usaha_tani" value="{{.data.UsahaTani}}" >
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -410,9 +414,10 @@
                                 <div class="col-md-12 text-right">
                                     <button class="btn btn-primary" type="button">Cancel</button>
                                     <button class="btn btn-primary" type="reset">Reset</button>
-                                    <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
                             </div>
+                            <button type="submit" class="btn btn-success">Submit</button>
+
                         </form>
                     </div>
                 </div>
@@ -433,7 +438,7 @@
             y = val.nama_provinsi
             var myselect = $('<select>');
             myselect.append($('<option></option>').val(x).html(y));
-            $('#id_prov_fk').append(myselect.html());
+            $('#prov').append(myselect.html());
         }
 
     })
@@ -448,13 +453,14 @@
                 var x = index.nama_kab
                 myselect.append($('<option></option>').val(y).html(x));
             });
-            $('#id_kab_fk').append(myselect.html());
+            $('#kab').append(myselect.html());
+            $('#id_prov_fk').val(x)
         }
 
     });
 
     function GetValue(id) {
-        id = $('#id_kab_fk').val();
+        id = $('#kab').val();
         pip = [];
         console.log("pip 2 : ", pip)
         $.ajax({
@@ -469,13 +475,18 @@
                         id: text.id_kec,
                         text: text.nama_kecamatan,
                     })
-                    $('#id_kec_fk').select2({
+                    $('#kec').select2({
                         data: pip
                     })
                 })
+                $('#id_kab_fk').val(id)
 
             }
         })
+    }
+    function GetVal(id){
+        id = document.getElementById('kec').value;
+        $('#id_kec_fk').val(id)
     }
 
     function readURL1(input) {

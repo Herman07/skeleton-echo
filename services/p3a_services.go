@@ -69,7 +69,7 @@ func (s *P3Service) FindById(id string) (*models.P3AModels, error) {
 	return data, err
 }
 
-func (s *P3Service) UpdateById(id string, dto request.RequestInventaris) (*models.Inventaris, error) {
+func (s *P3Service) UpdateById(id string, dto request.UpdateInventaris) (*models.Inventaris, error) {
 	entity := models.Inventaris{
 		ID:             id,
 		NoUrut:         dto.NoUrut,
