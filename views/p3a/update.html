@@ -17,26 +17,25 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Provinsi<span class="required">*</span></label>
-                                    <select id="prov" class="form-control" name="nama_prov" required>
-                                        <option>{{.data.NamaProv}}</option>
+                                    <select id="id_prov_fk" class="form-control" name="id_prov_fk" required>
+                                        <option value="{{.data.NamaProv}}">{{.data.NamaProv}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Kabupaten<span class="required">*</span></label>
-                                    <select id="kab" class="form-control" name="nama_kab" onchange="GetValue()"
+                                    <select id="id_kab_fk" class="form-control" name="id_kab_fk" onchange="GetValue()"
                                             required>
-                                        <option>{{.data.NamaKab}}</option>
+                                        <option value="{{.data.NamaKab}}">{{.data.NamaKab}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Kecamatan</label><span class="required">*</span>
-                                    <select id="kec" class="form-control"
-                                            name="nama_kecamatan" required>
-                                        <option>{{.data.NamaKec}}</option>
+                                    <select id="id_kec_fk" class="form-control"
+                                            name="id_kec_fk" required>
+                                        <option value="{{.data.NamaKec}}">{{.data.NamaKec}}</option>
                                     </select>
                                 </div>
-                                <input type="text" class="form-control" data-validate-length-range="5"
-                                       name="id_p3a" id="id_p3a" value="{{.data.IDP3A}}" disabled>
+                                <input type="text" name="id_p3a" id="id_p3a" value="{{.data.IDP3A}}" hidden>
                                 <div class="form-group">
                                     <label>No Urut <span class="required">*</span>
                                     </label>
@@ -73,10 +72,7 @@
                                     <input type="text" class="form-control" name="keterangan"
                                            id="keterangan" value="{{.data.Keterangan}}" required>
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="id_status_legal"
-                                           id="id_status_legal" value="{{.data.IDStatus}}" disabled>
-                                </div>
+                                <input type="text" name="id_status_legal" id="id_status_legal" value="{{.data.IDStatus}}" hidden>
                                 <div class="form-group">
                                     <label>Tahun Pembentukan<span class="required">*</span></label>
                                     <input type="number" class="form-control" maxlength="4" name="tahun_pembentukan"
@@ -113,7 +109,7 @@
                                 <div class="form-group">
                                     <label>Nomor SK Bupati<span class="required">*</span></label>
                                     <select class="form-control" name="no_sk_bupati" id="no_sk_bupati" required>
-                                        <option>{{.data.SKBupati}}</option>
+                                        <option value="{{.data.SKBupati}}">{{.data.SKBupati}}</option>
                                         <option>Ada</option>
                                         <option>Tidak Ada</option>
                                     </select>
@@ -135,7 +131,7 @@
                                 <div class="form-group">
                                     <label>Akte Notaris<span class="required">*</span></label>
                                     <select class="form-control" name="akte_notaris" id="akte_notaris" required>
-                                        <option>{{.data.AkteNotaris}}</option>
+                                        <option value="{{.data.AkteNotaris}}"> {{.data.AkteNotaris}}</option>
                                         <option>Ada</option>
                                         <option>Tidak Ada</option>
                                     </select>
@@ -160,7 +156,7 @@
                                 <div class="form-group">
                                     <label>Nomor Pendaftaran<span class="required">*</span></label>
                                     <select class="form-control" name="no_pendaftaran" id="no_pendaftaran" required>
-                                        <option>{{.data.NoPendaftaran}}</option>
+                                        <option value="{{.data.NoPendaftaran}}">{{.data.NoPendaftaran}}</option>
                                         <option>Ada</option>
                                         <option>Tidak Ada</option>
                                     </select>
@@ -183,150 +179,147 @@
 
                                 <div class="row">
                                     <div class="col-md-6">
+                                        <input type="text" name="id_kepengurusan" id="id_kepengurusan" value="{{.data.IDPengurusan}}" hidden>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="id_kepengurusan"
-                                                   id="id_kepengurusan" value="{{.data.IDPengurusan}}" disabled>
+                                            <label>Ketua<span class="required">*</span></label>
+                                            <br>
+                                            {{if eq .data.Ketua "L"}}
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="ketua" id="ketua"
+                                                   required checked/>
+                                            P:
+                                            <input type="radio" class="flat" value="P" name="ketua" id="ketua"
+                                                   required/>
+                                            {{else}}
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="ketua" id="ketua"
+                                                   required />
+                                            P:
+                                            <input type="radio" class="flat" value="P" name="ketua" id="ketua"
+                                                   required checked/>
+                                            {{end}}
                                         </div>
-<!--                                        <div class="form-group">-->
-<!--                                            <label>Ketua<span class="required">*</span></label>-->
-<!--                                            <br>-->
-<!--                                            {{if eq .data.Ketua = "L"}}-->
-<!--                                            L:-->
-<!--                                            <input type="radio" class="flat" value="L" name="ketua" id="ketua"-->
-<!--                                                   required checked/>-->
-<!--                                            P:-->
-<!--                                            <input type="radio" class="flat" value="P" name="ketua" id="ketua"-->
-<!--                                                   required/>-->
-<!--                                            {{else}}-->
-<!--                                            L:-->
-<!--                                            <input type="radio" class="flat" value="L" name="ketua" id="ketua"-->
-<!--                                                   required />-->
-<!--                                            P:-->
-<!--                                            <input type="radio" class="flat" value="P" name="ketua" id="ketua"-->
-<!--                                                   required checked/>-->
-<!--                                            {{end}}-->
-<!--                                        </div>-->
                                         <br>
-<!--                                        <div class="form-group">-->
-<!--                                            <label>Wakil<span class="required">*</span></label>-->
-<!--                                            <br>-->
-<!--                                            {{if eq .data.Ketua = "L"}}-->
-<!--                                            L:-->
-<!--                                            <input type="radio" class="flat" value="L" name="wakil" id="wakil"-->
-<!--                                                   required checked/>-->
-<!--                                            P:-->
-<!--                                            <input type="radio" class="flat" value="P" name="wakil" id="wakil"-->
-<!--                                                   required/>-->
-<!--                                            {{else}}-->
-<!--                                            L:-->
-<!--                                            <input type="radio" class="flat" value="L" name="wakil" id="wakil"-->
-<!--                                                   required/>-->
-<!--                                            P:-->
-<!--                                            <input type="radio" class="flat" value="P" name="wakil" id="wakil"-->
-<!--                                                   required checked/>-->
-<!--                                            {{end}}-->
-<!--                                        </div>-->
+                                        <div class="form-group">
+                                            <label>Wakil<span class="required">*</span></label>
+                                            <br>
+                                            {{if eq .data.Wakil "L"}}
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="wakil" id="wakil"
+                                                   required checked/>
+                                            P:
+                                            <input type="radio" class="flat" value="P" name="wakil" id="wakil"
+                                                   required/>
+                                            {{else}}
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="wakil" id="wakil"
+                                                   required/>
+                                            P:
+                                            <input type="radio" class="flat" value="P" name="wakil" id="wakil"
+                                                   required checked/>
+                                            {{end}}
+                                        </div>
                                         <br>
-<!--                                        <div class="form-group">-->
-<!--                                            <label>Sekretaris<span class="required">*</span></label>-->
-<!--                                            <br>-->
-<!--                                            {{if eq .data.Ketua = "L"}}-->
-<!--                                            L:-->
-<!--                                            <input type="radio" class="flat" value="L" name="sekretaris" id="sekretaris"-->
-<!--                                                   required checked/>-->
-<!--                                            P:-->
-<!--                                            <input type="radio" class="flat" value="P" name="sekretaris" id="sekretaris"-->
-<!--                                                   required/>-->
-<!--                                            {{else}}-->
-<!--                                            <input type="radio" class="flat" value="L" name="sekretaris" id="sekretaris"-->
-<!--                                                   required/>-->
-<!--                                            P:-->
-<!--                                            <input type="radio" class="flat" value="P" name="sekretaris" id="sekretaris"-->
-<!--                                                   required checked/>-->
-<!--                                            {{end}}-->
-<!--                                        </div>-->
+                                        <div class="form-group">
+                                            <label>Sekretaris<span class="required">*</span></label>
+                                            <br>
+                                            {{if eq .data.Sekretaris "L"}}
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="sekretaris" id="sekretaris"
+                                                   required checked/>
+                                            P:
+                                            <input type="radio" class="flat" value="P" name="sekretaris" id="sekretaris"
+                                                   required/>
+                                            {{else}}
+                                            <input type="radio" class="flat" value="L" name="sekretaris" id="sekretaris"
+                                                   required/>
+                                            P:
+                                            <input type="radio" class="flat" value="P" name="sekretaris" id="sekretaris"
+                                                   required checked/>
+                                            {{end}}
+                                        </div>
                                         <br>
-<!--                                        <div class="form-group">-->
-<!--                                            <label>Bendahara<span class="required">*</span></label>-->
-<!--                                            <br>-->
-<!--                                            {{if eq .data.Ketua = "L"}}-->
-<!--                                            L:-->
-<!--                                            <input type="radio" class="flat" value="L" name="bendahara" id="bendahara"-->
-<!--                                                   required checked/>-->
-<!--                                            P:-->
-<!--                                            <input type="radio" class="flat" value="P" name="bendahara" id="bendahara"-->
-<!--                                                   required/>-->
-<!--                                            {{else}}-->
-<!--                                            L:-->
-<!--                                            <input type="radio" class="flat" value="L" name="bendahara" id="bendahara"-->
-<!--                                                   required/>-->
-<!--                                            P:-->
-<!--                                            <input type="radio" class="flat" value="P" name="bendahara" id="bendahara"-->
-<!--                                                   required checked/>-->
-<!--                                            {{end}}-->
-<!--                                        </div>-->
+                                        <div class="form-group">
+                                            <label>Bendahara<span class="required">*</span></label>
+                                            <br>
+                                            {{if eq .data.Bendahara "L"}}
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="bendahara" id="bendahara"
+                                                   required checked/>
+                                            P:
+                                            <input type="radio" class="flat" value="P" name="bendahara" id="bendahara"
+                                                   required/>
+                                            {{else}}
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="bendahara" id="bendahara"
+                                                   required/>
+                                            P:
+                                            <input type="radio" class="flat" value="P" name="bendahara" id="bendahara"
+                                                   required checked/>
+                                            {{end}}
+                                        </div>
                                     </div>
-<!--                                    <div class="col-md-6">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label>Seksi Teknik<span class="required">*</span></label>-->
-<!--                                            <br>-->
-<!--                                            {{if eq .data.Ketua = "L"}}-->
-<!--                                            L:-->
-<!--                                            <input type="radio" class="flat" value="L" name="sek_teknik" id="sek_teknik"-->
-<!--                                                   required checked/>-->
-<!--                                            P:-->
-<!--                                            <input type="radio" class="flat" value="P" name="sek_teknik" id="sek_teknik"-->
-<!--                                                   required/>-->
-<!--                                            {{else}}-->
-<!--                                            L:-->
-<!--                                            <input type="radio" class="flat" value="L" name="sek_teknik" id="sek_teknik"-->
-<!--                                                   required/>-->
-<!--                                            P:-->
-<!--                                            <input type="radio" class="flat" value="P" name="sek_teknik" id="sek_teknik"-->
-<!--                                                   required checked/>-->
-<!--                                            {{end}}-->
-<!--                                        </div>-->
-<!--                                        <br>-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label>Seksi Operasi<span class="required">*</span></label>-->
-<!--                                            <br>-->
-<!--                                            {{if eq .data.Ketua = "L"}}-->
-<!--                                            L:-->
-<!--                                            <input type="radio" class="flat" value="L" name="sek_op" id="sek_op"-->
-<!--                                                   required checked/>-->
-<!--                                            P:-->
-<!--                                            <input type="radio" class="flat" value="P" name="sek_op" id="sek_op"-->
-<!--                                                   required/>-->
-<!--                                            {{else}}-->
-<!--                                            L:-->
-<!--                                            <input type="radio" class="flat" value="L" name="sek_op" id="sek_op"-->
-<!--                                                   required/>-->
-<!--                                            P:-->
-<!--                                            <input type="radio" class="flat" value="P" name="sek_op" id="sek_op"-->
-<!--                                                   required checked/>-->
-<!--                                            {{end}}-->
-<!--                                        </div>-->
-<!--                                        <br>-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label>Seksi Binis<span class="required">*</span></label>-->
-<!--                                            <br>-->
-<!--                                            {{if eq .data.Ketua = "L"}}-->
-<!--                                            L:-->
-<!--                                            <input type="radio" class="flat" value="L" name="sek_bisnis" id="sek_bisnis"-->
-<!--                                                   required checked/>-->
-<!--                                            P:-->
-<!--                                            <input type="radio" class="flat" value="P" name="sek_bisnis" id="sek_bisnis"-->
-<!--                                                   required/>-->
-<!--                                            {{else}}-->
-<!--                                            L:-->
-<!--                                            <input type="radio" class="flat" value="L" name="sek_bisnis" id="sek_bisnis"-->
-<!--                                                   required/>-->
-<!--                                            P:-->
-<!--                                            <input type="radio" class="flat" value="P" name="sek_bisnis" id="sek_bisnis"-->
-<!--                                                   required checked/>-->
-<!--                                            {{end}}-->
-<!--                                        </div>-->
-<!--                                    </div>-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Seksi Teknik<span class="required">*</span></label>
+                                            <br>
+                                            {{if eq .data.SekTeknik "L"}}
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="sek_teknik" id="sek_teknik"
+                                                   required checked/>
+                                            P:
+                                            <input type="radio" class="flat" value="P" name="sek_teknik" id="sek_teknik"
+                                                   required/>
+                                            {{else}}
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="sek_teknik" id="sek_teknik"
+                                                   required/>
+                                            P:
+                                            <input type="radio" class="flat" value="P" name="sek_teknik" id="sek_teknik"
+                                                   required checked/>
+                                            {{end}}
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <label>Seksi Operasi<span class="required">*</span></label>
+                                            <br>
+                                            {{if eq .data.SekOP "L"}}
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="sek_op" id="sek_op"
+                                                   required checked/>
+                                            P:
+                                            <input type="radio" class="flat" value="P" name="sek_op" id="sek_op"
+                                                   required/>
+                                            {{else}}
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="sek_op" id="sek_op"
+                                                   required/>
+                                            P:
+                                            <input type="radio" class="flat" value="P" name="sek_op" id="sek_op"
+                                                   required checked/>
+                                            {{end}}
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <label>Seksi Binis<span class="required">*</span></label>
+                                            <br>
+                                            {{if eq .data.SekBisnis "L"}}
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="sek_bisnis" id="sek_bisnis"
+                                                   required checked/>
+                                            P:
+                                            <input type="radio" class="flat" value="P" name="sek_bisnis" id="sek_bisnis"
+                                                   required/>
+                                            {{else}}
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="sek_bisnis" id="sek_bisnis"
+                                                   required/>
+                                            P:
+                                            <input type="radio" class="flat" value="P" name="sek_bisnis" id="sek_bisnis"
+                                                   required checked/>
+                                            {{end}}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Jumlah Anggota<span class="required">*</span></label>
@@ -354,7 +347,7 @@
                                 <div class="form-group">
                                     <label>Sekretariat<span class="required">*</span></label>
                                     <select class="form-control" name="sekretariat" id="sekretariat" required>
-                                        <option>{.data.Sekretariat}</option>
+                                        <option value="{{.data.Sekretariat}}">{{.data.Sekretariat}}</option>
                                         <option>Ada</option>
                                         <option>Tidak Ada</option>
                                     </select>
@@ -392,9 +385,7 @@
                                     <label>Iuran<span class="required">*</span></label>
                                     <input type="text" class="form-control" name="iuran" id="iuran" value="{{.data.Iuran}}" required>
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="id_t_irigasi" id="id_t_irigasi" value="{{.data.IDIrig}}" disabled>
-                                </div>
+                                <input type="text"name="id_t_irigasi" id="id_t_irigasi" value="{{.data.IDIrig}}" hidden>
                                 <div class="form-group">
                                     <label>Operasi<span class="required">*</span></label>
                                     <input type="text" class="form-control" name="operasi" id="operasi" value="{{.data.Operasi}}" required>
@@ -404,16 +395,14 @@
                                     <input type="text" class="form-control" name="partisipatif" id="partisipatif" value="{{.data.Partisipatif}}"
                                            required>
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="id_t_pertanian" id="id_t_pertanian" value="{{.data.IDTani}}" disabled>
-                                </div>
+                                <input type="text" name="id_t_pertanian" id="id_t_pertanian" value="{{.data.IDTani}}" hidden>
                                 <div class="form-group">
                                     <label>Pola Tanam<span class="required">*</span></label>
                                     <input type="text" class="form-control" name="pola_tanam" id="pola_tanam" value="{{.data.PolaTanam}}" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Usaha Tani<span class="required">*</span></label>
-                                    <input type="text" class="form-control" name="usaha_tani" id="usaha_tani" value="{{.data.PolaTanam}}" required>
+                                    <input type="text" class="form-control" name="usaha_tani" id="usaha_tani" value="{{.data.UsahaTani}}" required>
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -444,7 +433,7 @@
             y = val.nama_provinsi
             var myselect = $('<select>');
             myselect.append($('<option></option>').val(x).html(y));
-            $('#nama_prov').append(myselect.html());
+            $('#id_prov_fk').append(myselect.html());
         }
 
     })
@@ -459,13 +448,13 @@
                 var x = index.nama_kab
                 myselect.append($('<option></option>').val(y).html(x));
             });
-            $('#nama_kab').append(myselect.html());
+            $('#id_kab_fk').append(myselect.html());
         }
 
     });
 
     function GetValue(id) {
-        id = $('#nama_kab').val();
+        id = $('#id_kab_fk').val();
         pip = [];
         console.log("pip 2 : ", pip)
         $.ajax({
@@ -480,7 +469,7 @@
                         id: text.id_kec,
                         text: text.nama_kecamatan,
                     })
-                    $('#nama_kecamatan').select2({
+                    $('#id_kec_fk').select2({
                         data: pip
                     })
                 })

@@ -39,6 +39,7 @@ func main() {
 	e.Static("/style", "static/assets")
 	// Load static auth
 	e.Static("/login/template", "static/auth")
+	e.Static("/static/image", "static/image")
 
 	//DB Connected
 	db := config.Landscape()
