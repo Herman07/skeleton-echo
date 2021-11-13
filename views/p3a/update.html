@@ -1,0 +1,604 @@
+{{define "content"}}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Inventarisasi P3A</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="row">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <div class="clearfix"></div>
+                    </div>
+                    <form class="form-horizontal form-label-left" id="form" method="POST" action="/admin/v1/inventaris/store"
+                          enctype="multipart/form-data">
+                        <div class="x_content">
+
+
+                            <!-- Smart Wizard -->
+                            <div id="wizard" class="form_wizard wizard_horizontal">
+                                <ul class="wizard_steps">
+                                    <li>
+                                        <a href="#step-1">
+                                            <span class="step_no">1</span>
+                                            <span class="step_descr">
+                                              Step 1<br/>
+                                              <small>Step 1 description</small>
+                                          </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#step-2">
+                                            <span class="step_no">2</span>
+                                            <span class="step_descr">
+                                              Step 2<br/>
+                                              <small>Step 2 description</small>
+                                          </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#step-3">
+                                            <span class="step_no">3</span>
+                                            <span class="step_descr">
+                                              Step 3<br/>
+                                              <small>Step 3 description</small>
+                                          </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#step-4">
+                                            <span class="step_no">4</span>
+                                            <span class="step_descr">
+                                              Step 4<br/>
+                                              <small>Step 4 description</small>
+                                          </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#step-5">
+                                            <span class="step_no">4</span>
+                                            <span class="step_descr">
+                                              Step 5<br/>
+                                              <small>Step 5 description</small>
+                                          </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#step-6">
+                                            <span class="step_no">4</span>
+                                            <span class="step_descr">
+                                              Step 6<br/>
+                                              <small>Step 6 description</small>
+                                          </span>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <div id="step-1">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Provinsi<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select id="prov" class="form-control" name="nama_prov">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Kabupaten<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select id="kab" class="form-control" name="nama_kab"
+                                                    onchange="GetValue()">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Kecamatan</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select id="kec" class="form-control"
+                                                    name="nama_kecamatan">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="step-2">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">No Urut <span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="number" data-validate-length-range="5"
+                                                   name="no_urut" id="no_urut"
+                                                   class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama P3A
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" data-validate-length-range="5"
+                                                   name="nama_p3a" id="nama_p3a"
+                                                   class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Daerah Irigasi
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" name="nama_daerah_irigasi" id="nama_daerah_irigasi"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Luas Wilayah<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="number" name="luas_wilayah" id="luas_wilayah"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Jumlah P3A<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="number" name="jumlah_p3a" id="jumlah_p3a"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Luas Layanan P3A<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="number" name="luas_layanan_p3a" id="luas_layanan_p3a"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" name="keterangan" id="keterangan"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="step-3">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tahun Pembentukan<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="number" maxlength="4"
+                                                   name="tahun_pembentukan" id="tahun_pembentukan"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Lampiran Tahun
+                                            Pembentukan<span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="file" name="lampiran_tahun_pembentukan"
+                                                   id="lampiran_tahun_pembentukan" data-max-size="2048"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Diket Kepala
+                                            Daerah<span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="file" name="diket_kep_dc" id="diket_kep_dc" data-max-size="2048"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nomor SK Bupati<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select class="form-control" name="no_sk_bupati" id="no_sk_bupati">
+                                                <option>Ada</option>
+                                                <option>Tidak Ada</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Lampiran SK Bupati<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="file" name="lampiran_sk_bupati" id="lampiran_sk_bupati" data-max-size="2048"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Akte Notaris<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select class="form-control" name="akte_notaris" id="akte_notaris">
+                                                <option>Ada</option>
+                                                <option>Tidak Ada</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Lampiran Akte
+                                            Notaris<span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="file" name="lampiran_akte_notaris" id="lampiran_akte_notaris" data-max-size="2048"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nomor Pendaftaran<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select class="form-control" name="no_pendaftaran" id="no_pendaftaran">
+                                                <option>Ada</option>
+                                                <option>Tidak Ada</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Lampiran No Pendaftaran<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="file" name="lampiran_pendaftaran" id="lampiran_pendaftaran" data-max-size="2048"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="step-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Ketua<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="ketua" id="ketua"
+                                                   required/> P:
+                                            <input type="radio" class="flat" value="P" name="ketua" id="ketua"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Wakil<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="wakil" id="wakil"
+                                                   required/> P:
+                                            <input type="radio" class="flat" value="P" name="wakil" id="wakil"
+                                                   required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Sekretaris<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="sekretaris" id="sekretaris"
+                                                   required/> P:
+                                            <input type="radio" class="flat" value="P" name="sekretaris" id="sekretaris"
+                                                   required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Bendahara<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="bendahara" id="bendahara"
+                                                   required/> P:
+                                            <input type="radio" class="flat" value="P" name="bendahara" id="bendahara"
+                                                   required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Seksi Teknik<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="sek_teknik" id="sek_teknik"
+                                                   required/> P:
+                                            <input type="radio" class="flat" value="P" name="sek_teknik" id="sek_teknik"
+                                                   required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Seksi Operasi<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="sek_op" id="sek_op"
+                                                   required/> P:
+                                            <input type="radio" class="flat" value="P" name="sek_op" id="sek_op"
+                                                   required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Seksi Binis<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            L:
+                                            <input type="radio" class="flat" value="L" name="sek_bisnis" id="sek_bisnis"
+                                                   required/> P:
+                                            <input type="radio" class="flat" value="P" name="sek_bisnis" id="sek_bisnis"
+                                                   required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Jumlah Anggota<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="number" name="jumlah_anggota" id="jumlah_anggota"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">No ADRT<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="number" name="no_ad_art" id="no_ad_art"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Lampiran ADRT<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="file" name="lampiran_ad_art" id="lampiran_ad_art" data-max-size="2048"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Sekretariat<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select class="form-control" name="sekretariat" id="sekretariat">
+                                                <option>Ada</option>
+                                                <option>Tidak Ada</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Lampiran
+                                            Sekretariat<span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="file" name="lampiran_sekretariat" id="lampiran_sekretariat" data-max-size="2048"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Presentase Perempuan
+                                            P3A<span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="number" name="persentase_perempuan_p3a"
+                                                   id="persentase_perempuan_p3a"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Areal Tersier<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="number" name="areal_tersier" id="areal_tersier"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Pengisian Buku<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" name="pengisian_buku" id="pengisian_buku"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Iuran<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" name="iuran" id="iuran"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="step-5">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Operasi<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" name="operasi" id="operasi"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Partisipatif<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" name="partisipatif" id="partisipatif"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="step-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Pola Tanam<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" name="pola_tanam" id="pola_tanam"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Usaha Tani<span
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" name="usaha_tani" id="usaha_tani"
+                                                   class="form-control col-md-7 col-xs-12" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End SmartWizard Content -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#kec,#prov,#kab').select2({
+            placeholder: "Select a value",
+        })
+    });
+    $.ajax({
+        url: '/prov/32',
+        type: "POST",
+        success: function (res) {
+            val = res.data
+            x = val.id_prov
+            y = val.nama_provinsi
+            var myselect = $('<select>');
+            myselect.append($('<option></option>').val(x).html(y));
+            $('#prov').append(myselect.html());
+        }
+
+    })
+    $.ajax({
+        url: '/kab/32',
+        type: "POST",
+        success: function (res) {
+            val = res.data
+            var myselect = $('<select>');
+            $.each(val, function (key, index) {
+                var y = index.id_kab
+                var x = index.nama_kab
+                myselect.append($('<option></option>').val(y).html(x));
+            });
+            $('#kab').append(myselect.html());
+        }
+
+    });
+
+    function GetValue(id) {
+        id = $('#kab').val();
+        pip = [];
+        console.log("pip 2 : ", pip)
+        $.ajax({
+            url: '/kec/' + id,
+            type: 'POST',
+            success: function (res) {
+                val = res.data
+                pip = [];
+                console.log("pip 3 : ", pip)
+                $.each(val, function (id, text) {
+                    pip.push({
+                        id: text.id_kec,
+                        text: text.nama_kecamatan,
+                    })
+                    $('#kec').select2({
+                        data: pip
+                    })
+                })
+
+            }
+        })
+    }
+
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+    //  function Finish() {
+    //     // $("#form").valid();
+    //     var prov = "&id_prov_fk=" + document.getElementById('prov').value;
+    //     var kab = "&id_kab_fk=" + document.getElementById('kab').value;
+    //     var kec = "&id_kec_fk=" + document.getElementById('kec').value;
+    //     // const lampthn = document.querySelector('#lampiran_tahun_pembentukan').files[0];
+    //     // const lampklp = document.querySelector('#diket_kep_dc').files[0];
+    //     // const lampskbup = document.querySelector('#lampiran_sk_bupati').files[0];
+    //     // const lampakte = document.querySelector('#lampiran_akte_notaris').files[0];
+    //     // const lampdaftar = document.querySelector('#lampiran_pendaftaran').files[0];
+    //     // const lampsekret = document.querySelector('#lamapiran_sekretariat').files[0];
+    //     // const lampadart = document.querySelector('#lampiran_ad_art').files[0];
+    //     // var image = "&lampiran_tahun_pembentukan=" + await toBase64(lampthn)
+    //     // var image1 = "&diket_kep_dc=" + await toBase64(lampklp)
+    //     // var image2 = "&lampiran_sk_bupati=" + await toBase64(lampskbup)
+    //     // var image3 = "&lampiran_akte_notaris=" + await toBase64(lampakte)
+    //     // var image4 = "&lampiran_pendaftaran=" + await toBase64(lampdaftar)
+    //     // var image5 = "&lamapiran_sekretariat=" + await toBase64(lampsekret)
+    //     // var image6 = "&lampiran_ad_art=" + await toBase64(lampadart)
+    //     // var pic = image.replace("data:image/jpeg;base64,", "");
+    //     // var pic1 = image1.replace("data:image/jpeg;base64,", "");
+    //     // var pic2 = image2.replace("data:image/jpeg;base64,", "");
+    //     // var pic3 = image3.replace("data:image/jpeg;base64,", "");
+    //     // var pic4 = image4.replace("data:image/jpeg;base64,", "");
+    //     // var pic5 = image5.replace("data:image/jpeg;base64,", "");
+    //     // var pic6 = image6.replace("data:image/jpeg;base64,", "");
+    //
+    //     datas = $("#form").serialize() + prov + kab + kec
+    //     console.log(datas)
+    //     $.ajax({
+    //         url: "/admin/v1/inventaris/store",
+    //         data: datas,
+    //         type: 'POST',
+    //         cache: false,
+    //         // contentType: 'multipart/form-data',
+    //         success: function (res) {
+    //             alert("SUKSES INSERT DATA")
+    //             console.log(res)
+    //         },
+    //         error: function (error) {
+    //             alert("Error", error)
+    //         }
+    //     })
+    // }
+</script>
+{{end}}

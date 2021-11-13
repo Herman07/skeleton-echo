@@ -64,8 +64,9 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 	var action string
 	listOfData := make([]map[string]interface{}, len(data))
 	for k, v := range data {
-		action = `<a href="/inventaris/v1/update/` + (v.ID) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fas fa-edit"></i></a>
-		<button onclick="Delete('` + v.ID + `')" class="btn btn-danger" title="Delete" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fas fa-trash"></i></button>`
+		action = `<a href="/admin/v1/inventaris/update` + (v.ID) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-edit"></i></a>
+		<a href="/admin/v1/inventaris/detail` + (v.ID) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-eye"></i></a>
+		<button onclick="Delete('` + v.ID + `')" class="btn btn-danger" title="Delete" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-trash"></i></button>`
 		//time := v.CreatedAt
 		//createdAt = time.Format("2006-01-02")
 		listOfData[k] = map[string]interface{}{
@@ -124,17 +125,22 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 		defer src.Close()
 
 		// Destination
-		t := time.Now()
-		nama := "static/image/"+name[i]+"_"+t.Format(time.RFC3339)+"_"+file.Filename
+		t := time.Now().UnixNano()
+		nf := name[i]+"_"+ strconv.FormatInt(t, 10) + "_" +file.Filename
+		nama := "static/image/"+nf
 		dst, _ := os.Create(nama)
 		defer dst.Close()
 
 		// Copy
-		_, _ = io.Copy(dst, src);
+		_, err := io.Copy(dst, src);
+		if err != nil {
+			log.Error("[Error] ", err)
+			return c.InternalServerError(ctx, err)
+		}
 		i++
-		namaFile = append(namaFile, nama)
+		namaFile = append(namaFile, nf)
 	}
-
+	fmt.Println("Name File  : ",namaFile)
 
 	//Store Data Status Legal
 	statusLegal, err := c.service.CreateStatusLegal(entity, namaFile)
