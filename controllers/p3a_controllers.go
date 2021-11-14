@@ -35,7 +35,7 @@ func (c *P3Controller) Index(ctx echo.Context) error {
 		"menu": "Home",
 		"link": "/admin/v1/inventaris",
 	}
-	return Render(ctx, "Home", "p3a/index", c.Menu, append(c.BreadCrumbs, breadCrumbs),nil)
+	return Render(ctx, "Home", "p3a/index", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
 }
 
 func (c *P3Controller) Add(ctx echo.Context) error {
@@ -79,7 +79,7 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 			"luas_layanan_p3a":    v.LuasLayananP3A,
 			"keterangan":          v.Keterangan,
 			//"created_at":          createdAt,
-			"action":              action,
+			"action": action,
 		}
 	}
 	result := models.ResponseDatatable{
@@ -90,6 +90,7 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 	}
 	return ctx.JSON(http.StatusOK, &result)
 }
+
 //func (c *P3Controller) GetData(ctx echo.Context) error {
 //	dataReq := models.Inventaris{}
 //
@@ -116,9 +117,9 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 		//return ctx.JSON(500, echo.Map{"message": "error binding data"})
 	}
 
-	name := []string{"lampiran_tahun_pembentukan","diket_kep_dc","lampiran_sk_bupati","lampiran_akte_notaris","lampiran_pendaftaran","lampiran_ad_art","lampiran_sekretariat"}
+	name := []string{"lampiran_tahun_pembentukan", "diket_kep_dc", "lampiran_sk_bupati", "lampiran_akte_notaris", "lampiran_pendaftaran", "lampiran_ad_art", "lampiran_sekretariat"}
 	var namaFile []string
-	for i := range name{
+	for i := range name {
 		file, _ := ctx.FormFile(name[i])
 
 		src, _ := file.Open()
@@ -126,13 +127,13 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 
 		// Destination
 		t := time.Now().UnixNano()
-		nf := name[i]+"_"+ strconv.FormatInt(t, 10) + "_" +file.Filename
-		nama := "static/image/"+nf
+		nf := name[i] + "_" + strconv.FormatInt(t, 10) + "_" + file.Filename
+		nama := "static/image/" + nf
 		dst, _ := os.Create(nama)
 		defer dst.Close()
 
 		// Copy
-		_, err := io.Copy(dst, src);
+		_, err := io.Copy(dst, src)
 		if err != nil {
 			log.Error("[Error] ", err)
 			return c.InternalServerError(ctx, err)
@@ -140,7 +141,7 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 		i++
 		namaFile = append(namaFile, nf)
 	}
-	fmt.Println("Name File  : ",namaFile)
+	fmt.Println("Name File  : ", namaFile)
 
 	//Store Data Status Legal
 	statusLegal, err := c.service.CreateStatusLegal(entity, namaFile)
@@ -149,7 +150,7 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 	}
 
 	// Store Data Kepengurusan
-	pengurus , err := c.service.CreatePengurus(entity, namaFile)
+	pengurus, err := c.service.CreatePengurus(entity, namaFile)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
@@ -167,7 +168,7 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 	}
 
 	//Store Data to Table p3a
-	_, err = c.service.CreateDataP3a(entity,statusLegal.ID,pengurus.ID,irigasi.ID,pertanian.ID)
+	_, err = c.service.CreateDataP3a(entity, statusLegal.ID, pengurus.ID, irigasi.ID, pertanian.ID)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
@@ -195,7 +196,7 @@ func (c *P3Controller) GenerateExcel(ctx echo.Context) error {
 	//}
 	f := excelize.NewFile()
 	_, _ = f.NewConditionalStyle("center")
-	style,_ := f.NewStyle(`
+	style, _ := f.NewStyle(`
 		{
 			"alignment":{"horizontal":"center"
 		}, 
@@ -206,7 +207,6 @@ func (c *P3Controller) GenerateExcel(ctx echo.Context) error {
 			}`)
 
 	f.SetCellStyle("Sheet1", "A1", "AF100", style)
-
 
 	// Create a new sheet.
 	index := f.NewSheet("Data Export")
@@ -255,7 +255,6 @@ func (c *P3Controller) GenerateExcel(ctx echo.Context) error {
 	_ = f.SetCellValue("Sheet1", "Z1", "Pengisian Buku")
 	_ = f.SetCellValue("Sheet1", "AA1", "Iuran")
 
-
 	//Teknik irigasi
 	_ = f.SetCellValue("Sheet1", "AB1", "Teknik Irigasi")
 	_ = f.SetCellValue("Sheet1", "AB2", "Operasi")
@@ -263,7 +262,6 @@ func (c *P3Controller) GenerateExcel(ctx echo.Context) error {
 	_ = f.MergeCell("Sheet1", "AB1", "AC1")
 	_ = f.MergeCell("Sheet1", "AB2", "AB3")
 	_ = f.MergeCell("Sheet1", "AC2", "AC3")
-
 
 	//Teknik Pertanian
 	_ = f.SetCellValue("Sheet1", "AD1", "Teknik Pertanian")
@@ -273,30 +271,27 @@ func (c *P3Controller) GenerateExcel(ctx echo.Context) error {
 	_ = f.MergeCell("Sheet1", "AD2", "AD3")
 	_ = f.MergeCell("Sheet1", "AE2", "AE3")
 
-
 	// Keterangan
 	_ = f.SetCellValue("Sheet1", "AF1", "Keterangan")
 	_ = f.MergeCell("Sheet1", "AF1", "AF3")
 
-
 	// ROW MERGE
-	for i := 0;i<9;i++{
-		_ = f.MergeCell("Sheet1", string(rune('A' - 1 + i))+"1", string(rune('A' - 1 + i))+"3")
+	for i := 0; i < 9; i++ {
+		_ = f.MergeCell("Sheet1", string(rune('A'-1+i))+"1", string(rune('A'-1+i))+"3")
 	}
 
-	for i := 0;i<6;i++{
-		_ = f.MergeCell("Sheet1", string(rune('I' - 1 + i))+"2", string(rune('I' - 1 + i))+"3")
+	for i := 0; i < 6; i++ {
+		_ = f.MergeCell("Sheet1", string(rune('I'-1+i))+"2", string(rune('I'-1+i))+"3")
 	}
 
-	for i := 0;i<5;i++{
-		_ = f.MergeCell("Sheet1", string(rune('W' - 1 + i))+"1", string(rune('W' - 1 + i))+"3")
+	for i := 0; i < 5; i++ {
+		_ = f.MergeCell("Sheet1", string(rune('W'-1+i))+"1", string(rune('W'-1+i))+"3")
 	}
 	_ = f.MergeCell("Sheet1", "AA1", "AA3")
 
-
-	for i, v := range data{
+	for i, v := range data {
 		_ = f.SetCellValue("Sheet1", "A"+strconv.Itoa(i+4), i+1)
-		i = i+4
+		i = i + 4
 		_ = f.SetCellValue("Sheet1", "B"+strconv.Itoa(i), v.NamaProv)
 		_ = f.SetCellValue("Sheet1", "C"+strconv.Itoa(i), v.NamaKec)
 		_ = f.SetCellValue("Sheet1", "D"+strconv.Itoa(i), v.DaerahIrigasi)
@@ -334,7 +329,7 @@ func (c *P3Controller) GenerateExcel(ctx echo.Context) error {
 	f.SetActiveSheet(index)
 	// Save spreadsheet by the given path.
 	t := time.Now()
-	name := "Report - "+t.Format("2006-01-02")+".xlsx"
+	name := "Report - " + t.Format("2006-01-02") + ".xlsx"
 	if err := f.SaveAs(name); err != nil {
 		fmt.Println(err)
 	}
@@ -365,7 +360,39 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 	if err := ctx.Bind(&entity); err != nil {
 		return ctx.JSON(400, echo.Map{"message": "error binding data"})
 	}
-	fmt.Println("Data Request : ",entity)
+	fmt.Println("Data Request : ", entity)
+	name := []string{"lampiran_tahun_pembentukan", "diket_kep_dc", "lampiran_sk_bupati", "lampiran_akte_notaris", "lampiran_pendaftaran", "lampiran_ad_art", "lampiran_sekretariat"}
+	var namaFile []string
+	for i := range name {
+		file, _ := ctx.FormFile(name[i])
+
+		src, _ := file.Open()
+		defer src.Close()
+
+		// Destination
+		t := time.Now().UnixNano()
+		nf := name[i] + "_" + strconv.FormatInt(t, 10) + "_" + file.Filename
+		nama := "static/image/" + nf
+		dst, _ := os.Create(nama)
+		defer dst.Close()
+
+		// Copy
+		_, err := io.Copy(dst, src)
+		if err != nil {
+			log.Error("[Error] ", err)
+			return c.InternalServerError(ctx, err)
+		}
+		i++
+		namaFile = append(namaFile, nf)
+	}
+	fmt.Println("Name File  : ", namaFile)
+	entity.LamTahunPembentukan = namaFile[0]
+	entity.LamKplDesa = namaFile[1]
+	entity.LamSKBupati = namaFile[2]
+	entity.LamAkteNotaris = namaFile[3]
+	entity.LamPendaftaran = namaFile[4]
+	entity.LampiranADRT = namaFile[5]
+	entity.LampiranSekretariat = namaFile[6]
 	// Update Data Status Legal
 	_, err := c.service.UpdateStatusLegal(id, entity)
 	if err != nil {
@@ -373,7 +400,7 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 	}
 
 	// Update Data Kepengurusan
-	_ , err = c.service.UpdatePengurus(id,entity)
+	_, err = c.service.UpdatePengurus(id, entity)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
@@ -385,7 +412,7 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 	}
 
 	// Update Data Teknik Pertanian
-	_, err = c.service.UpdatePertanian(id,entity)
+	_, err = c.service.UpdatePertanian(id, entity)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}

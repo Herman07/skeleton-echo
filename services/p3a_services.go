@@ -189,10 +189,26 @@ func (s *P3Service) CreateDataP3a(request request.RequestInventaris, idStatusLeg
 }
 
 func (s *P3Service) Delete(id string) error {
+	data, err := s.P3Repository.FindById(id)
+
+	// Delete Status Legal
+	err = s.P3Repository.DeleteStatusLegal(data.IDStatus)
+
+	// Delete Irigasi
+	err = s.P3Repository.DeleteIrigasi(data.IDIrig)
+
+	// Delete Pengurusan
+	err = s.P3Repository.DeletePengurusan(data.IDPengurusan)
+
+	// Delete Pertanian
+	err = s.P3Repository.DeletePertanian(data.IDTani)
+
+
+
 	entity := models.Inventaris{
 		ID: id,
 	}
-	err := s.P3Repository.Delete(entity)
+	err = s.P3Repository.Delete(entity)
 	if err != nil {
 		return err
 	} else {
