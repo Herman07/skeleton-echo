@@ -6,7 +6,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Update P3A</h2>
+                        <h2>Detail P3A</h2>
                         <ul class="nav navbar-right panel_toolbox">
                         </ul>
                         <div class="clearfix"></div>
@@ -17,70 +17,62 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Provinsi<span class="">*</span></label>
-                                    <select id="prov" class="form-control" name="prov" >
+                                    <select id="prov" class="form-control" name="prov" disabled>
                                         <option value="{{.data.NamaProv}}">{{.data.NamaProv}}</option>
                                     </select>
-                                    <input type="text" name="id_prov_fk" id="id_prov_fk" value="{{.data.IDProv}}" hidden>
-
                                 </div>
                                 <div class="form-group">
                                     <label>Kabupaten<span class="">*</span></label>
-                                    <select id="kab" class="form-control" name="kab" onchange="GetValue()"
-                                    >
+                                    <select id="kab" class="form-control" name="kab" disabled>
                                         <option value="{{.data.NamaKab}}">{{.data.NamaKab}}</option>
                                     </select>
-                                    <input type="text" name="id_kab_fk" id="id_kab_fk" value="{{.data.IDKab}}" hidden>
                                 </div>
                                 <div class="form-group">
                                     <label>Kecamatan</label><span class="">*</span>
-                                    <select id="kec" class="form-control"
-                                            name="kec" onchange="GetVal()" >
+                                    <select id="kec" class="form-control" name="kec" disabled>
                                         <option value="{{.data.NamaKec}}">{{.data.NamaKec}}</option>
                                     </select>
-                                    <input type="text" name="id_kec_fk" id="id_kec_fk" value="{{.data.IDKec}}" hidden>
                                 </div>
-                                <input type="text" name="id_p3a" id="id_p3a" value="{{.data.IDP3A}}" hidden>
                                 <div class="form-group">
                                     <label>No Urut <span class="">*</span>
                                     </label>
                                     <input type="number" class="form-control" data-validate-length-range="5"
-                                           name="no_urut" id="no_urut" value="{{.data.NoUrut}}" >
+                                           name="no_urut" id="no_urut" value="{{.data.NoUrut}}" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>Nama P3A<span class="">*</span></label>
                                     <input type="text" class="form-control" data-validate-length-range="5"
-                                           name="nama_p3a" id="nama_p3a" value="{{.data.NamaP3A}}" >
+                                           name="nama_p3a" id="nama_p3a" value="{{.data.NamaP3A}}" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Daerah Irigasi<span class="">*</span></label>
                                     <input type="text" class="form-control" name="nama_daerah_irigasi"
-                                           id="nama_daerah_irigasi" value="{{.data.DaerahIrigasi}}" >
+                                           id="nama_daerah_irigasi" value="{{.data.DaerahIrigasi}}" disabled >
                                 </div>
                                 <div class="form-group">
                                     <label>Luas Wilayah<span class="">*</span></label>
                                     <input type="number" class="form-control" name="luas_wilayah"
-                                           id="luas_wilayah" value="{{.data.LuasWilayah}}" >
+                                           id="luas_wilayah" value="{{.data.LuasWilayah}}" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>Jumlah P3A<span class="">*</span></label>
                                     <input type="number" class="form-control" name="jumlah_p3a"
-                                           id="jumlah_p3a" value="{{.data.JumlahP3A}}" >
+                                           id="jumlah_p3a" value="{{.data.JumlahP3A}}" disabled >
                                 </div>
                                 <div class="form-group">
                                     <label>Luas Layanan P3A<span class="">*</span></label>
                                     <input type="number" class="form-control" name="luas_layanan_p3a"
-                                           id="luas_layanan_p3a" value="{{.data.LuasLayananP3A}}" >
+                                           id="luas_layanan_p3a" value="{{.data.LuasLayananP3A}}" disabled >
                                 </div>
                                 <div class="form-group">
                                     <label>Keterangan<span class="">*</span></label>
                                     <input type="text" class="form-control" name="keterangan"
-                                           id="keterangan" value="{{.data.Keterangan}}" >
+                                           id="keterangan" value="{{.data.Keterangan}}" disabled>
                                 </div>
-                                <!--                                <input type="text" name="id_status_legal" id="id_status_legal" value="{{.data.IDStatus}}" hidden>-->
                                 <div class="form-group">
                                     <label>Tahun Pembentukan<span class="">*</span></label>
                                     <input type="number" class="form-control" maxlength="4" name="tahun_pembentukan"
-                                           id="tahun_pembentukan" value="{{.data.TahunPembentukan}}" >
+                                           id="tahun_pembentukan" value="{{.data.TahunPembentukan}}" disabled >
                                 </div>
                                 <div class="form-group">
                                     <label>Lampiran Tahun Pembentukan<span class="">*</span></label>
@@ -90,11 +82,6 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <div class=" avatar-upload avatar-edit">
-                                        <input type="file" id="lampiran_tahun_pembentukan"
-                                               name="lampiran_tahun_pembentukan" accept=".png, .jpg, .jpeg"
-                                        />
-                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Diket Kepala Daerah<span class="">*</span></label>
@@ -104,18 +91,11 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <div class=" avatar-upload avatar-edit">
-                                        <input type="file" id="diket_kep_dc" name="diket_kep_dc"
-                                               accept=".png, .jpg, .jpeg"
-                                        />
-                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Nomor SK Bupati<span class="">*</span></label>
-                                    <select class="form-control" name="no_sk_bupati" id="no_sk_bupati" >
+                                    <select class="form-control" name="no_sk_bupati" id="no_sk_bupati" disabled>
                                         <option value="{{.data.SKBupati}}">{{.data.SKBupati}}</option>
-                                        <option>Ada</option>
-                                        <option>Tidak Ada</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -126,18 +106,11 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <div class=" avatar-upload avatar-edit">
-                                        <input type="file" id="lampiran_sk_bupati" name="lampiran_sk_bupati"
-                                               accept=".png, .jpg, .jpeg"
-                                        />
-                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Akte Notaris<span class="">*</span></label>
-                                    <select class="form-control" name="akte_notaris" id="akte_notaris" >
+                                    <select class="form-control" name="akte_notaris" id="akte_notaris" disabled >
                                         <option value="{{.data.AkteNotaris}}"> {{.data.AkteNotaris}}</option>
-                                        <option>Ada</option>
-                                        <option>Tidak Ada</option>
                                     </select>
                                 </div>
 
@@ -149,20 +122,13 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <div class=" avatar-upload avatar-edit">
-                                        <input type="file" id="lampiran_akte_notaris" name="lampiran_akte_notaris"
-                                               accept=".png, .jpg, .jpeg"
-                                        />
-                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Nomor Pendaftaran<span class="">*</span></label>
-                                    <select class="form-control" name="no_pendaftaran" id="no_pendaftaran" >
+                                    <select class="form-control" name="no_pendaftaran" id="no_pendaftaran" disabled >
                                         <option value="{{.data.NoPendaftaran}}">{{.data.NoPendaftaran}}</option>
-                                        <option>Ada</option>
-                                        <option>Tidak Ada</option>
                                     </select>
                                 </div>
 
@@ -174,11 +140,6 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <div class=" avatar-upload avatar-edit">
-                                        <input type="file" id="lampiran_pendaftaran" name="lampiran_pendaftaran"
-                                               accept=".png, .jpg, .jpeg"
-                                        />
-                                    </div>
                                 </div>
 
                                 <div class="row">
@@ -190,17 +151,17 @@
                                             {{if eq .data.Ketua "L"}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="ketua" id="ketua"
-                                                   checked/>
+                                                   checked disabled/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="ketua" id="ketua"
-                                            />
+                                            disabled/>
                                             {{else}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="ketua" id="ketua"
-                                            />
+                                            disabled/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="ketua" id="ketua"
-                                                   checked/>
+                                                   checked disabled/>
                                             {{end}}
                                         </div>
                                         <br>
@@ -210,17 +171,17 @@
                                             {{if eq .data.Wakil "L"}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="wakil" id="wakil"
-                                                   checked/>
+                                                   checked disabled/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="wakil" id="wakil"
-                                            />
+                                            disabled/>
                                             {{else}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="wakil" id="wakil"
-                                            />
+                                            disabled/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="wakil" id="wakil"
-                                                   checked/>
+                                                   checked disabled/>
                                             {{end}}
                                         </div>
                                         <br>
@@ -230,16 +191,16 @@
                                             {{if eq .data.Sekretaris "L"}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="sekretaris" id="sekretaris"
-                                                   checked/>
+                                                   checked disabled/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="sekretaris" id="sekretaris"
-                                            />
+                                            disabled/>
                                             {{else}}
                                             <input type="radio" class="flat" value="L" name="sekretaris" id="sekretaris"
-                                            />
+                                            disabled/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="sekretaris" id="sekretaris"
-                                                   checked/>
+                                                   checked disabled/>
                                             {{end}}
                                         </div>
                                         <br>
@@ -249,17 +210,17 @@
                                             {{if eq .data.Bendahara "L"}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="bendahara" id="bendahara"
-                                                   checked/>
+                                                   checked disabled/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="bendahara" id="bendahara"
-                                            />
+                                            disabled/>
                                             {{else}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="bendahara" id="bendahara"
-                                            />
+                                            disabled/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="bendahara" id="bendahara"
-                                                   checked/>
+                                                   checked disabled/>
                                             {{end}}
                                         </div>
                                     </div>
@@ -270,17 +231,17 @@
                                             {{if eq .data.SekTeknik "L"}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="sek_teknik" id="sek_teknik"
-                                                   checked/>
+                                                   checked disabled/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="sek_teknik" id="sek_teknik"
-                                            />
+                                            disabled/>
                                             {{else}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="sek_teknik" id="sek_teknik"
-                                            />
+                                            disabled/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="sek_teknik" id="sek_teknik"
-                                                   checked/>
+                                                   checked disabled/>
                                             {{end}}
                                         </div>
                                         <br>
@@ -290,17 +251,17 @@
                                             {{if eq .data.SekOP "L"}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="sek_op" id="sek_op"
-                                                   checked/>
+                                                   checked disabled/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="sek_op" id="sek_op"
-                                            />
+                                            disabled/>
                                             {{else}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="sek_op" id="sek_op"
-                                            />
+                                            disabled/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="sek_op" id="sek_op"
-                                                   checked/>
+                                                   checked disabled/>
                                             {{end}}
                                         </div>
                                         <br>
@@ -310,17 +271,17 @@
                                             {{if eq .data.SekBisnis "L"}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="sek_bisnis" id="sek_bisnis"
-                                                   checked/>
+                                                   checked disabled/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="sek_bisnis" id="sek_bisnis"
-                                            />
+                                            disabled/>
                                             {{else}}
                                             L:
                                             <input type="radio" class="flat" value="L" name="sek_bisnis" id="sek_bisnis"
-                                            />
+                                            disabled/>
                                             P:
                                             <input type="radio" class="flat" value="P" name="sek_bisnis" id="sek_bisnis"
-                                                   checked/>
+                                                   checked disabled/>
                                             {{end}}
                                         </div>
                                     </div>
@@ -328,11 +289,11 @@
                                 <div class="form-group">
                                     <label>Jumlah Anggota<span class="">*</span></label>
                                     <input type="number" class="form-control" name="jumlah_anggota" id="jumlah_anggota"
-                                           value="{{.data.JumlahAnggota}}" >
+                                           value="{{.data.JumlahAnggota}}" disabled >
                                 </div>
                                 <div class="form-group">
                                     <label>No ADRT<span class="">*</span></label>
-                                    <input type="number" class="form-control" name="no_ad_art" id="no_ad_art" value="{{.data.NoADRT}}" >
+                                    <input type="number" class="form-control" name="no_ad_art" id="no_ad_art" value="{{.data.NoADRT}}" disabled >
                                 </div>
                                 <div class="form-group">
                                     <label> Lampiran ADRT <span class="">*</span></label>
@@ -342,18 +303,11 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <div class=" avatar-upload avatar-edit">
-                                        <input type="file" id="lampiran_ad_art" name="lampiran_ad_art"
-                                               accept=".png, .jpg, .jpeg"
-                                        />
-                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Sekretariat<span class="">*</span></label>
-                                    <select class="form-control" name="sekretariat" id="sekretariat" >
+                                    <select class="form-control" name="sekretariat" id="sekretariat" disabled >
                                         <option value="{{.data.Sekretariat}}">{{.data.Sekretariat}}</option>
-                                        <option>Ada</option>
-                                        <option>Tidak Ada</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -364,60 +318,46 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <div class=" avatar-upload avatar-edit">
-                                        <input type="file" id="lampiran_sekretariat" name="lampiran_sekretariat"
-                                               accept=".png, .jpg, .jpeg"
-                                        />
-                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Presentase Perempuan P3A<span class="">*</span></label>
                                     <input type="number" class="form-control" name="persentase_perempuan_p3a"
-                                           id="persentase_perempuan_p3a" value="{{.data.PresentasiPerempuanP3A}}" >
+                                           id="persentase_perempuan_p3a" value="{{.data.PresentasiPerempuanP3A}}" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>Areal Tersier<span class="">*</span></label>
                                     <input type="number" class="form-control" name="areal_tersier"
-                                           id="areal_tersier" value="{{.data.ArealTersier}}" >
+                                           id="areal_tersier" value="{{.data.ArealTersier}}" disabled >
                                 </div>
                                 <div class="form-group">
                                     <label>Pengisian Buku<span class="">*</span></label>
                                     <input type="text" class="form-control" name="pengisian_buku" id="pengisian_buku"
-                                           value="{{.data.PengisianBuku}}" >
+                                           value="{{.data.PengisianBuku}}" disabled >
                                 </div>
                                 <div class="form-group">
                                     <label>Iuran<span class="">*</span></label>
-                                    <input type="text" class="form-control" name="iuran" id="iuran" value="{{.data.Iuran}}" >
+                                    <input type="text" class="form-control" name="iuran" id="iuran" value="{{.data.Iuran}}" disabled >
                                 </div>
-                                <!--                                <input type="text"name="id_t_irigasi" id="id_t_irigasi" value="{{.data.IDIrig}}" hidden>-->
                                 <div class="form-group">
                                     <label>Operasi<span class="">*</span></label>
-                                    <input type="text" class="form-control" name="operasi" id="operasi" value="{{.data.Operasi}}" >
+                                    <input type="text" class="form-control" name="operasi" id="operasi" value="{{.data.Operasi}}" disabled >
                                 </div>
                                 <div class="form-group">
                                     <label>Partisipatif<span class="">*</span></label>
                                     <input type="text" class="form-control" name="partisipatif" id="partisipatif" value="{{.data.Partisipatif}}"
-                                    >
+                                    disabled>
                                 </div>
-                                <!--                                <input type="text" name="id_t_pertanian" id="id_t_pertanian" value="{{.data.IDTani}}" hidden>-->
                                 <div class="form-group">
                                     <label>Pola Tanam<span class="">*</span></label>
-                                    <input type="text" class="form-control" name="pola_tanam" id="pola_tanam" value="{{.data.PolaTanam}}" >
+                                    <input type="text" class="form-control" name="pola_tanam" id="pola_tanam" value="{{.data.PolaTanam}}" disabled >
                                 </div>
                                 <div class="form-group">
                                     <label>Usaha Tani<span class="">*</span></label>
-                                    <input type="text" class="form-control" name="usaha_tani" id="usaha_tani" value="{{.data.UsahaTani}}" >
+                                    <input type="text" class="form-control" name="usaha_tani" id="usaha_tani" value="{{.data.UsahaTani}}" disabled >
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
-                            <div class="form-group">
-                                <div class="col-md-12 text-right">
-                                    <button class="btn btn-primary" type="button">Cancel</button>
-                                    <button class="btn btn-primary" type="reset">Reset</button>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-success">Submit</button>
-
+                            <a href="/admin/v1/inventaris" type="button" class="btn btn-success">Back</a>
                         </form>
                     </div>
                 </div>
@@ -429,66 +369,6 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-    $.ajax({
-        url: '/prov/32',
-        type: "POST",
-        success: function (res) {
-            val = res.data
-            x = val.id_prov
-            y = val.nama_provinsi
-            var myselect = $('<select>');
-            myselect.append($('<option></option>').val(x).html(y));
-            $('#prov').append(myselect.html());
-        }
-
-    })
-    $.ajax({
-        url: '/kab/32',
-        type: "POST",
-        success: function (res) {
-            val = res.data
-            var myselect = $('<select>');
-            $.each(val, function (key, index) {
-                var y = index.id_kab
-                var x = index.nama_kab
-                myselect.append($('<option></option>').val(y).html(x));
-            });
-            $('#kab').append(myselect.html());
-            $('#id_prov_fk').val(x)
-        }
-
-    });
-
-    function GetValue(id) {
-        id = $('#kab').val();
-        pip = [];
-        console.log("pip 2 : ", pip)
-        $.ajax({
-            url: '/kec/' + id,
-            type: 'POST',
-            success: function (res) {
-                val = res.data
-                pip = [];
-                console.log("pip 3 : ", pip)
-                $.each(val, function (id, text) {
-                    pip.push({
-                        id: text.id_kec,
-                        text: text.nama_kecamatan,
-                    })
-                    $('#kec').select2({
-                        data: pip
-                    })
-                })
-                $('#id_kab_fk').val(id)
-
-            }
-        })
-    }
-    function GetVal(id){
-        id = document.getElementById('kec').value;
-        $('#id_kec_fk').val(id)
-    }
-
     function readURL1(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
