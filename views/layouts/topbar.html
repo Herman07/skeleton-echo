@@ -9,7 +9,9 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="/style/build/images/users.png" alt="">John Doe
+                        {{with session .ctx}}
+                        <img src="/style/build/images/users.png" alt="">{{.Username}}
+                        {{end}}
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">

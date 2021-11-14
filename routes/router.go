@@ -1,8 +1,13 @@
 package routes
 
 import (
+	"encoding/json"
+	"fmt"
+	"github.com/foolin/goview"
+	echotemplate "github.com/foolin/goview/supports/echoview-v4"
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
+	"html/template"
 	"net/http"
 	"skeleton-echo/config"
 	"skeleton-echo/middleware"
@@ -10,9 +15,30 @@ import (
 )
 
 func Api(e *echo.Echo, db *gorm.DB) {
+
+	mv := echotemplate.NewMiddleware(goview.Config{
+		Root:      "views",
+		Extension: ".html",
+		Master:    "layouts/master",
+		Funcs: template.FuncMap{
+			"session": func(ctx echo.Context) session.UserInfo {
+				ses, _ := session.Manager.Get(ctx, session.SessionId)
+				dataSes, _ := json.Marshal(ses)
+				var data session.UserInfo
+				userInfo := session.UserInfo{
+					ID: data.ID,
+					Username: data.Username,
+				}
+
+				_ = json.Unmarshal(dataSes, &userInfo)
+				fmt.Println("session data : ",userInfo)
+				return userInfo
+			},
+		},
+	})
 	authorizationMiddleware := middleware.NewAuthorizationMiddleware(db)
 
-	adminGroup := e.Group("/admin", middleware.SessionMiddleware(session.Manager))
+	adminGroup := e.Group("/admin",mv, middleware.SessionMiddleware(session.Manager))
 	g := adminGroup.Group("/v1", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
 
 
