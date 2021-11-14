@@ -135,4 +135,39 @@
             }
         });
     }
+    function Delete(id) {
+        data = new FormData();
+        console.log(id)
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            buttons:['Cancel',true],
+        }).then(function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url: '/admin/v1/inventaris/delete/' + id,
+                    type: 'DELETE',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (res) {
+                        swal(
+                            'Deleted!',
+                            'User has been deleted.',
+                            'success'
+                        );
+                        $('#datatables').DataTable().ajax.reload();
+                    },
+                    error: function (res) {
+                        swal({
+                            type: 'warning',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                        })
+                    }
+                })
+            }
+        });
+    }
 </script>

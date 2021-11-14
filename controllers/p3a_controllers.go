@@ -361,29 +361,31 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 		return ctx.JSON(400, echo.Map{"message": "error binding data"})
 	}
 	var name []string
-	fmt.Println("Data Request : ", entity)
-	if entity.LamTahunPembentukan != nil {
+	if entity.LamTahunPembentukan == nil {
+		fmt.Println("asd  : ",&entity.LamTahunPembentukan)
+
 		name = append(name, "lampiran_tahun_pembentukan")
 	}
-	if entity.LamKplDesa != nil {
+	if entity.LamKplDesa == nil {
 		name = append(name, "diket_kep_dc")
 	}
-	if entity.LamSKBupati != nil {
+	if entity.LamSKBupati == nil {
 		name = append(name, "lampiran_sk_bupati")
 	}
-	if entity.LamAkteNotaris != nil{
+	if entity.LamAkteNotaris == nil{
 		name = append(name, "lampiran_akte_notaris")
 	}
-	if entity.LamPendaftaran != nil {
+	if entity.LamPendaftaran == nil {
 		name = append(name, "lampiran_pendaftaran")
 	}
-	if entity.LampiranADRT != nil{
+	if entity.LampiranADRT == nil{
 		name = append(name, "lampiran_ad_art")
 	}
-	if entity.LampiranSekretariat != nil {
+	if entity.LampiranSekretariat == nil {
 		name = append(name, "lampiran_sekretariat")
 	}
 	var namaFile []string
+	if name != nil{
 	for i := range name {
 		file, _ := ctx.FormFile(name[i])
 
@@ -406,34 +408,34 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 		i++
 		namaFile = append(namaFile, nf)
 	}
-	fmt.Println("Name File  : ", namaFile)
-	entity.LamTahunPembentukan = &namaFile[0]
-	entity.LamKplDesa = &namaFile[1]
-	entity.LamSKBupati = &namaFile[2]
-	entity.LamAkteNotaris = &namaFile[3]
-	entity.LamPendaftaran = &namaFile[4]
-	entity.LampiranADRT = &namaFile[5]
-	entity.LampiranSekretariat = &namaFile[6]
+		entity.LamTahunPembentukan = &namaFile[0]
+		entity.LamKplDesa = &namaFile[1]
+		entity.LamSKBupati = &namaFile[2]
+		entity.LamAkteNotaris = &namaFile[3]
+		entity.LamPendaftaran = &namaFile[4]
+		entity.LampiranADRT = &namaFile[5]
+		entity.LampiranSekretariat = &namaFile[6]
+	}
 	// Update Data Status Legal
-	_, err := c.service.UpdateStatusLegal(id, entity)
+	_, err := c.service.UpdateStatusLegal(entity.IDStatus, entity)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
 
 	// Update Data Kepengurusan
-	_, err = c.service.UpdatePengurus(id, entity)
+	_, err = c.service.UpdatePengurus(entity.IDPengurusan, entity)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
 
 	// Update Data Teknik Irigasi
-	_, err = c.service.UpdateIrigasi(id, entity)
+	_, err = c.service.UpdateIrigasi(entity.IDIrig, entity)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
 
 	// Update Data Teknik Pertanian
-	_, err = c.service.UpdatePertanian(id, entity)
+	_, err = c.service.UpdatePertanian(entity.IDTani, entity)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}

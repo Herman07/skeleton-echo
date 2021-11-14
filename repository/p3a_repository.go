@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"fmt"
 	"gorm.io/gorm"
 	"skeleton-echo/models"
 )
@@ -133,6 +134,7 @@ func (r p3Repository) CreatePertanian(entity models.TeknikPertanian) (*models.Te
 }
 
 func (r p3Repository) UpdateStatusLegal(entity models.StatusLegal)(*models.StatusLegal, error){
+	fmt.Println("ID : ",entity.ID)
 	err := r.DB.Model(&models.StatusLegal{ID: entity.ID}).Updates(&entity).Error
 	return &entity, err
 }

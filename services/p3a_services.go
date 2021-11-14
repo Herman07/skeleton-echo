@@ -1,6 +1,7 @@
 package services
 
 import (
+	"fmt"
 	"skeleton-echo/models"
 	"skeleton-echo/repository"
 	"skeleton-echo/request"
@@ -229,7 +230,7 @@ func (s *P3Service) UpdateStatusLegal(id string, dto request.UpdateInventaris) (
 		NoPendaftaran:       dto.NoPendaftaran,
 		LamPendaftaran:      *dto.LamPendaftaran,
 	}
-
+	fmt.Println("Entity Services : ", entity.ID)
 	data, err := s.P3Repository.UpdateStatusLegal(entity)
 
 	if err != nil {

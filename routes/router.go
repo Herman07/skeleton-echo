@@ -39,7 +39,7 @@ func Api(e *echo.Echo, db *gorm.DB) {
 	authorizationMiddleware := middleware.NewAuthorizationMiddleware(db)
 
 	adminGroup := e.Group("/admin",mv, middleware.SessionMiddleware(session.Manager))
-	g := adminGroup.Group("/v1", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
+	g := adminGroup.Group("/v1",mv, authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
 
 
 	e.GET("/", func(ctx echo.Context) error {
@@ -51,16 +51,16 @@ func Api(e *echo.Echo, db *gorm.DB) {
 	e.POST("/logout", authController.Logout)
 
 	{
-		invenGroup := g.Group("/inventaris")
+		invenGroup := g.Group("/inventaris",mv)
 		dashboardController := config.InjectDashboardController(db)
 		invenGroup.GET("", dashboardController.Index)
 		invenGroup.GET("/add", dashboardController.Add)
 		invenGroup.POST("/store", dashboardController.AddData)
-		e.GET("/admin/v1/inventaris/generate", dashboardController.GenerateExcel)
+		invenGroup.GET("/generate", dashboardController.GenerateExcel)
 		invenGroup.GET("/tables", dashboardController.GetDetail)
 		invenGroup.DELETE("/delete/:id", dashboardController.Delete)
-		e.GET("/admin/v1/inventaris/update/:id", dashboardController.Update)
-		e.GET("/admin/v1/inventaris/detail/:id", dashboardController.Detail)
+		invenGroup.GET("/update/:id", dashboardController.Update)
+		invenGroup.GET("/detail/:id", dashboardController.Detail)
 		invenGroup.POST("/do-update/:id", dashboardController.DoUpdate)
 
 	}
