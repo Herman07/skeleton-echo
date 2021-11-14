@@ -407,3 +407,18 @@ func (c *P3Controller) Delete(ctx echo.Context) error {
 	}
 	return c.Ok(ctx, nil)
 }
+
+func (c *P3Controller) Detail(ctx echo.Context) error {
+	id := ctx.Param("id")
+	data, err := c.service.FindById(id)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+
+	breadCrumbs := map[string]interface{}{
+		"menu": "Home",
+		"link": "/inventaris/v1/update/:id",
+	}
+
+	return Render(ctx, "Home", "p3a/detail", c.Menu, append(c.BreadCrumbs, breadCrumbs), data)
+}
