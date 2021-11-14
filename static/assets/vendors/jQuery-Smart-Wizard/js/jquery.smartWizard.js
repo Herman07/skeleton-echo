@@ -304,6 +304,397 @@ function SmartWizard(target, options) {
 
     SmartWizard.prototype.goForward = function(){
         var nextStepIdx = this.curStepIdx + 1;
+        if (nextStepIdx === 1) {
+            var prov = $('#prov').val();
+            var kab = $('#kab').val();
+            var kec = $('#kec').val();
+
+            if (prov === '' || kab === '' || kec === ''){
+                if (prov === '') {
+                    $('#alert1').remove()
+                    $('#alert-1').append(`<div id="alert1" style="color: red" class="invalid-feedback">
+                    Please select your field.
+              </div>`)
+                } else {
+                    $('#alert1').remove()
+                }
+                if (kab === '') {
+                    $('#alert2').remove()
+                    $('#alert-2').append(`<div id="alert2" style="color: red" class="invalid-feedback">
+                        Please select your field.
+                  </div>`)
+                } else {
+                    $('#alert2').remove()
+                }
+                if (kec === '') {
+                    $('#alert3').remove()
+                    $('#alert-3').append(`<div id="alert3" style="color: red" class="invalid-feedback">
+                        Please select your field.
+                  </div>`)
+                } else {
+                    $('#alert3').remove()
+                }
+            }
+        }
+        if (nextStepIdx === 2) {
+            var data1 = $('#no_urut').val()
+            var data2 = $('#nama_p3a').val()
+            var data3 = $('#nama_daerah_irigasi').val()
+            var data4 = $('#luas_wilayah').val()
+            var data5 = $('#jumlah_p3a').val()
+            var data6 = $('#luas_layanan_p3a').val()
+            var data7 = $('#keterangan').val()
+            if (data1 === '' || data2 === '' || data3 === '' || data4 === '' || data5 === '' || data6 === '' || data7 === '') {
+                if (data1 == '') {
+                    $('#alert4').remove()
+                    $('#alert-4').append(`<div id="alert4" style="color: red" class="invalid-feedback">
+                        Please upload your field.
+                  </div>`)
+                } else {
+                    $('#alert4').remove()
+                }
+                if (data2 == '') {
+                    $('#alert5').remove()
+                    $('#alert-5').append(`<div id="alert5" style="color: red" class="invalid-feedback">
+                        Please upload your field.
+                  </div>`)
+                } else {
+                    $('#alert5').remove()
+                }
+                if (data3 == '') {
+                    $('#alert6').remove()
+                    $('#alert-6').append(`<div id="alert6" style="color: red" class="invalid-feedback">
+                        Please upload your field.
+                  </div>`)
+                } else {
+                    $('#alert6').remove()
+                }
+                if (data4 == '') {
+                    $('#alert7').remove()
+                    $('#alert-7').append(`<div id="alert7" style="color: red" class="invalid-feedback">
+                        Please upload your field.
+                  </div>`)
+                } else {
+                    $('#alert7').remove()
+                }
+                if (data5 == '') {
+                    $('#alert8').remove()
+                    $('#alert-8').append(`<div id="alert8" style="color: red" class="invalid-feedback">
+                        Please upload your field.
+                  </div>`)
+                } else {
+                    $('#alert8').remove()
+                }
+                if (data6 == '') {
+                    $('#alert9').remove()
+                    $('#alert-9').append(`<div id="alert9" style="color: red" class="invalid-feedback">
+                        Please upload your field.
+                  </div>`)
+                } else {
+                    $('#alert9').remove()
+                }
+                if (data7 == '') {
+                    $('#alert10').remove()
+                    $('#alert-10').append(`<div id="alert10" style="color: red" class="invalid-feedback">
+                        Please upload your field.
+                  </div>`)
+                } else {
+                    $('#alert10').remove()
+                }
+                return false;
+            }
+        }
+        if (nextStepIdx === 3) {
+            var imgVal = $('#lampiran_tahun_pembentukan').val();
+            var imgVal1 = $('#diket_kep_dc').val();
+            var imgVal2 = $('#lampiran_sk_bupati').val();
+            var imgVal3 = $('#lampiran_akte_notaris').val();
+            var imgVal4 = $('#lampiran_pendaftaran').val();
+            var data_1 = $('#tahun_pembentukan').val();
+            var data_2 = $('#no_sk_bupati').val();
+            var data_3 = $('#akte_notaris').val();
+            var data_4 = $('#no_pendaftaran').val();
+
+            if (imgVal === '' || imgVal1 === '' || imgVal2 === '' || imgVal3 === '' || imgVal4 === '' || data1 === '' || data2 === '' || data3 === '' || data4 === '') {
+
+                if (data_1 == '') {
+                    $('#alert11').remove()
+                    $('#alert-11').append(`<div id="alert11" style="color: red" class="invalid-feedback">
+                        Please upload your field.
+                  </div>`)
+                } else {
+                    $('#alert11').remove()
+                }
+
+
+                if (imgVal == '') {
+                    $('#alert12').remove()
+                    $('#alert-12').append(`<div id="alert12" style="color: red" class="invalid-feedback">
+                        Please upload your file.
+                  </div>`)
+                } else {
+                    $('#alert12').remove()
+                }
+
+
+                if (imgVal1 == '') {
+                    $('#alert13').remove()
+                    $('#alert-13').append(`<div id="alert13" style="color: red" class="invalid-feedback">
+                        Please upload your file.
+                  </div>`)
+                } else {
+                    $('#alert13').remove()
+                }
+                if (data_2 == '') {
+                    $('#alert14').remove()
+                    $('#alert-14').append(`<div id="alert14" style="color: red" class="invalid-feedback">
+                        Please upload your field.
+                  </div>`)
+                } else {
+                    $('#alert14').remove()
+                }
+                if (imgVal2 == '') {
+                    $('#alert15').remove()
+                    $('#alert-15').append(`<div id="alert15" style="color: red" class="invalid-feedback">
+                        Please upload your file.
+                  </div>`)
+                } else {
+                    $('#alert15').remove()
+                }
+                if (data_3 == '') {
+                    $('#alert16').remove()
+                    $('#alert-16').append(`<div id="alert16" style="color: red" class="invalid-feedback">
+                        Please upload your field.
+                  </div>`)
+                } else {
+                    $('#alert16').remove()
+                }
+                if (imgVal3 == '') {
+                    $('#alert17').remove()
+                    $('#alert-17').append(`<div id="alert17" style="color: red" class="invalid-feedback">
+                        Please upload your file.
+                  </div>`)
+                } else {
+                    $('#alert17').remove()
+                }
+                if (data_4 == '') {
+                    $('#alert18').remove()
+                    $('#alert-18').append(`<div id="alert18" style="color: red" class="invalid-feedback">
+                        Please upload your field.
+                  </div>`)
+                } else {
+                    $('#alert18').remove()
+                }
+                if (imgVal4 == '') {
+                    $('#alert19').remove()
+                    $('#alert-19').append(`<div id="aler19" style="color: red" class="invalid-feedback">
+                        Please upload your file.
+                  </div>`)
+                } else {
+                    $('#alert19').remove()
+                }
+                return false;
+            }
+
+        }
+        // if (nextStepIdx === 4) {
+        //     // var data01 = $('#ketua').val();
+        //     // var data02 = $('#wakil').val();
+        //     // var data03 = $('#sekretaris').val();
+        //     // var data04 = $('#bendahara').val();
+        //     // var data05 = $('#sek_teknik').val();
+        //     // var data06 = $('#sek_op').val();
+        //     // var data07 = $('#sek_bisnis').val();
+        //     var data08 = $('#jumlah_anggota').val();
+        //     // var data09 = $('#no_ad_art').val();
+        //     var data10 = $('#lampiran_ad_art').val();
+        //     // var data11 = $('#sekretariat').val();
+        //     var data12 = $('#lampiran_sekretariat').val();
+        //     var data13 = $('#persentase_perempuan_p3a').val();
+        //     var data14 = $('#areal_tersier').val();
+        //     var data15 = $('#pengisian_buku').val();
+        //     var data16 = $('#iuran').val();
+        //     if (data01 === '' || data02 === '' || data03 === '' || data04 === '' || data05 === '' || data06 === '' || data07 === '' || data08 === '' || data09 === ''
+        //     || data10 === '' || data11 === '' || data12 === '' || data13 === '' || data14 === '' || data15 === '' || data16 === '') {
+        //         if (data01 == '') {
+        //             $('#alert20').remove()
+        //             $('#alert-20').append(`<div id="alert20" style="color: red" class="invalid-feedback">
+        //                 Please upload your field.
+        //           </div>`)
+        //         } else {
+        //             $('#alert20').remove()
+        //         }
+        //         if (data02 == '') {
+        //             $('#alert21').remove()
+        //             $('#alert-21').append(`<div id="alert21" style="color: red" class="invalid-feedback">
+        //                 Please upload your field.
+        //           </div>`)
+        //         } else {
+        //             $('#alert21').remove()
+        //         }
+        //         if (data03 == '') {
+        //             $('#alert22').remove()
+        //             $('#alert-22').append(`<div id="alert22" style="color: red" class="invalid-feedback">
+        //                 Please upload your field.
+        //           </div>`)
+        //         } else {
+        //             $('#alert22').remove()
+        //         }
+        //         if (data04 == '') {
+        //             $('#alert23').remove()
+        //             $('#alert-23').append(`<div id="alert23" style="color: red" class="invalid-feedback">
+        //                 Please upload your field.
+        //           </div>`)
+        //         } else {
+        //             $('#alert23').remove()
+        //         }
+        //         if (data05 == '') {
+        //             $('#alert24').remove()
+        //             $('#alert-24').append(`<div id="alert24" style="color: red" class="invalid-feedback">
+        //                 Please upload your field.
+        //           </div>`)
+        //         } else {
+        //             $('#alert24').remove()
+        //         }
+        //         if (data06 == '') {
+        //             $('#alert25').remove()
+        //             $('#alert-25').append(`<div id="alert25" style="color: red" class="invalid-feedback">
+        //                 Please upload your field.
+        //           </div>`)
+        //         } else {
+        //             $('#alert25').remove()
+        //         }
+        //         if (data07 == '') {
+        //             $('#alert26').remove()
+        //             $('#alert-26').append(`<div id="alert26" style="color: red" class="invalid-feedback">
+        //                 Please upload your field.
+        //           </div>`)
+        //         } else {
+        //             $('#alert26').remove()
+        //         }
+        //         if (data08 == '') {
+        //             $('#alert27').remove()
+        //             $('#alert-27').append(`<div id="alert27" style="color: red" class="invalid-feedback">
+        //                 Please upload your field.
+        //           </div>`)
+        //         } else {
+        //             $('#alert27').remove()
+        //         }
+        //         if (data09 == '') {
+        //             $('#alert28').remove()
+        //             $('#alert-28').append(`<div id="alert28" style="color: red" class="invalid-feedback">
+        //                 Please upload your field.
+        //           </div>`)
+        //         } else {
+        //             $('#alert28').remove()
+        //         }
+        //         if (data10 == '') {
+        //             $('#alert29').remove()
+        //             $('#alert-29').append(`<div id="alert29" style="color: red" class="invalid-feedback">
+        //                 Please upload your field.
+        //           </div>`)
+        //         } else {
+        //             $('#alert29').remove()
+        //         }
+        //         if (data11 == '') {
+        //             $('#alert30').remove()
+        //             $('#alert-30').append(`<div id="alert30" style="color: red" class="invalid-feedback">
+        //                 Please upload your field.
+        //           </div>`)
+        //         } else {
+        //             $('#alert30').remove()
+        //         }
+        //         if (data12 == '') {
+        //             $('#alert31').remove()
+        //             $('#alert-31').append(`<div id="alert31" style="color: red" class="invalid-feedback">
+        //                 Please upload your field.
+        //           </div>`)
+        //         } else {
+        //             $('#alert31').remove()
+        //         }
+        //         if (data13 == '') {
+        //             $('#alert32').remove()
+        //             $('#alert-32').append(`<div id="alert32" style="color: red" class="invalid-feedback">
+        //                 Please upload your field.
+        //           </div>`)
+        //         } else {
+        //             $('#alert32').remove()
+        //         }
+        //         if (data14 == '') {
+        //             $('#alert33').remove()
+        //             $('#alert-33').append(`<div id="alert33" style="color: red" class="invalid-feedback">
+        //                 Please upload your field.
+        //           </div>`)
+        //         } else {
+        //             $('#alert33').remove()
+        //         }
+        //         if (data15 == '') {
+        //             $('#alert34').remove()
+        //             $('#alert-34').append(`<div id="alert34" style="color: red" class="invalid-feedback">
+        //                 Please upload your field.
+        //           </div>`)
+        //         } else {
+        //             $('#alert34').remove()
+        //         }
+        //         if (data16 == '') {
+        //             $('#alert35').remove()
+        //             $('#alert-35').append(`<div id="alert35" style="color: red" class="invalid-feedback">
+        //                 Please upload your field.
+        //           </div>`)
+        //         } else {
+        //             $('#alert35').remove()
+        //         }
+        //         return false;
+        //     }
+        //
+        // }
+        if (nextStepIdx === 5) {
+            var t_data1 = $('#operasi').val();
+            var t_data2 = $('#partisipatif').val();
+            if (t_data1 === '' || t_data2 === '' ){
+                if (t_data1 == '') {
+                    $('#alert36').remove()
+                    $('#alert-36').append(`<div id="alert36" style="color: red" class="invalid-feedback">
+                        Please upload your field.
+                  </div>`)
+                } else {
+                    $('#alert36').remove()
+                }
+                if (t_data2 == '') {
+                    $('#alert37').remove()
+                    $('#alert-37').append(`<div id="alert37" style="color: red" class="invalid-feedback">
+                        Please upload your field.
+                  </div>`)
+                } else {
+                    $('#alert37').remove()
+                }
+                return false;
+            }
+
+        }
+        if (nextStepIdx === 6) {
+            var p_data1 = $('#pola_tanam').val();
+            var p_data2 = $('#usaha_tani').val();
+            if (p_data1 === '' || p_data2 === '' ){
+                if (p_data1 == '') {
+                    $('#alert38').remove()
+                    $('#alert-38').append(`<div id="alert38" style="color: red" class="invalid-feedback">
+                        Please upload your field.
+                  </div>`)
+                } else {
+                    $('#alert38').remove()
+                }
+                if (p_data2 == '') {
+                    $('#alert39').remove()
+                    $('#alert-39').append(`<div id="alert39" style="color: red" class="invalid-feedback">
+                        Please upload your field.
+                  </div>`)
+                } else {
+                    $('#alert39').remove()
+                }
+                return false;
+            }
+        }
         if (this.steps.length <= nextStepIdx){
             if (! this.options.cycleSteps){
                 return false;

@@ -170,4 +170,28 @@
             }
         });
     }
+    function Logout() {
+        swal({
+            title: 'Are you sure?',
+            icon: 'warning',
+            buttons:['Cancel',true],
+        }).then(function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url: '/logout',
+                    type: 'POST',
+                    success: function (res) {
+                        window.location.href = "/login";
+                    },
+                    error: function (res) {
+                        swal({
+                            type: 'warning',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                        })
+                    }
+                })
+            }
+        });
+    }
 </script>

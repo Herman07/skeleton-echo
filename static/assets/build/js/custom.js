@@ -944,7 +944,7 @@ if (typeof NProgress != 'undefined') {
 			if( typeof (parsley) === 'undefined'){ return; }
 			console.log('init_parsley');
 			
-			$/*.listen*/('parsley:field:validate', function() {
+			$/*.listen*/('parsley:field:te', function() {
 			  validateFront();
 			});
 			$('#demo-form .btn').on('click', function() {

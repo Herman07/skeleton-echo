@@ -29,7 +29,7 @@
                                         <span class="step_no">1</span>
                                         <span class="step_descr">
                                               Step 1<br/>
-                                              <small>Step 1 description</small>
+                                              <small>Form Lokasi</small>
                                           </span>
                                     </a>
                                 </li>
@@ -38,7 +38,7 @@
                                         <span class="step_no">2</span>
                                         <span class="step_descr">
                                               Step 2<br/>
-                                              <small>Step 2 description</small>
+                                              <small>Form P3A</small>
                                           </span>
                                     </a>
                                 </li>
@@ -47,7 +47,7 @@
                                         <span class="step_no">3</span>
                                         <span class="step_descr">
                                               Step 3<br/>
-                                              <small>Step 3 description</small>
+                                              <small>Form Status Ilegal</small>
                                           </span>
                                     </a>
                                 </li>
@@ -56,25 +56,25 @@
                                         <span class="step_no">4</span>
                                         <span class="step_descr">
                                               Step 4<br/>
-                                              <small>Step 4 description</small>
+                                              <small>Form Kepengurusan</small>
                                           </span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#step-5">
-                                        <span class="step_no">4</span>
+                                        <span class="step_no">5</span>
                                         <span class="step_descr">
                                               Step 5<br/>
-                                              <small>Step 5 description</small>
+                                              <small>Form Teknik Irigasi</small>
                                           </span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#step-6">
-                                        <span class="step_no">4</span>
+                                        <span class="step_no">6</span>
                                         <span class="step_descr">
                                               Step 6<br/>
-                                              <small>Step 6 description</small>
+                                              <small>Form Teknik Pertanian</small>
                                           </span>
                                     </a>
                                 </li>
@@ -88,6 +88,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select id="prov" class="form-control" name="nama_prov" required>
                                             </select>
+                                            <div id="alert-1"></div>
                                         </div>
                                         <input type="text" name="id_prov_fk" id="id_prov_fk" hidden>
                                     </div>
@@ -100,6 +101,7 @@
                                                     onchange="GetValue()" required>
                                                 <option></option>
                                             </select>
+                                            <div id="alert-2"></div>
                                         </div>
                                         <input type="text" name="id_kab_fk" id="id_kab_fk" hidden>
                                     </div>
@@ -110,6 +112,7 @@
                                                     name="nama_kecamatan" onchange="GetVal()" required>
                                                 <option></option>
                                             </select>
+                                            <div id="alert-3"></div>
                                         </div>
                                     </div>
                                     <input type="text" name="id_kec_fk" id="id_kec_fk" hidden>
@@ -123,6 +126,7 @@
                                             <input type="number" data-validate-length-range="5"
                                                    name="no_urut" id="no_urut" required
                                                    class="form-control col-md-7 col-xs-12">
+                                            <div id="alert-4"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -133,6 +137,7 @@
                                             <input type="text" data-validate-length-range="5"
                                                    name="nama_p3a" id="nama_p3a"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-5"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -142,6 +147,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" name="nama_daerah_irigasi" id="nama_daerah_irigasi"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-6"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -151,6 +157,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="number" name="luas_wilayah" id="luas_wilayah"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-7"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -160,6 +167,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="number" name="jumlah_p3a" id="jumlah_p3a"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-8"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -169,6 +177,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="number" name="luas_layanan_p3a" id="luas_layanan_p3a"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-9"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -178,6 +187,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" name="keterangan" id="keterangan"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-10"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -187,9 +197,18 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" maxlength="4"
+                                            <select type="number" maxlength="4"
                                                    name="tahun_pembentukan" id="tahun_pembentukan"
-                                                   class="form-control col-md-7 col-xs-12" required>
+                                                    class="form-control col-md-7 col-xs-12">
+                                                <option value="">-Tahun-</option>
+                                                <script>
+                                                    var tahun = 1900;
+                                                    for(i=2021;i>=tahun;i--){
+                                                        document.write("<option>" + i + "</option>");
+                                                    }
+                                                </script>
+                                            </select>
+                                            <div id="alert-11"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -200,6 +219,7 @@
                                             <input type="file" name="lampiran_tahun_pembentukan"
                                                    id="lampiran_tahun_pembentukan" data-max-size="2048"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-12"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -209,6 +229,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="file" name="diket_kep_dc" id="diket_kep_dc" data-max-size="2048"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-13"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -219,6 +240,7 @@
                                             <select class="form-control" name="no_sk_bupati" id="no_sk_bupati" required>
                                                 <option>Ada</option>
                                                 <option>Tidak Ada</option>
+                                                <div id="alert-14"></div>
                                             </select>
                                         </div>
                                     </div>
@@ -229,6 +251,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="file" name="lampiran_sk_bupati" id="lampiran_sk_bupati" data-max-size="2048"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-15"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -240,6 +263,7 @@
                                                 <option>Ada</option>
                                                 <option>Tidak Ada</option>
                                             </select>
+                                            <div id="alert-16"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -249,6 +273,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="file" name="lampiran_akte_notaris" id="lampiran_akte_notaris" data-max-size="2048"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-17"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -260,6 +285,7 @@
                                                 <option>Ada</option>
                                                 <option>Tidak Ada</option>
                                             </select>
+                                            <div id="alert-18"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -269,6 +295,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="file" name="lampiran_pendaftaran" id="lampiran_pendaftaran" data-max-size="2048"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-19"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -282,6 +309,7 @@
                                             <input type="radio" class="flat" value="L" name="ketua" id="ketua"
                                                    required/> P:
                                             <input type="radio" class="flat" value="P" name="ketua" id="ketua" required/>
+                                            <div id="alert-20"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -294,6 +322,7 @@
                                                    required/> P:
                                             <input type="radio" class="flat" value="P" name="wakil" id="wakil"
                                                    required/>
+                                            <div id="alert-21"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -306,6 +335,7 @@
                                                    required/> P:
                                             <input type="radio" class="flat" value="P" name="sekretaris" id="sekretaris"
                                                    required/>
+                                            <div id="alert-22"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -318,6 +348,7 @@
                                                    required/> P:
                                             <input type="radio" class="flat" value="P" name="bendahara" id="bendahara"
                                                    required/>
+                                            <div id="alert-23"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -330,6 +361,7 @@
                                                    required/> P:
                                             <input type="radio" class="flat" value="P" name="sek_teknik" id="sek_teknik"
                                                    required/>
+                                            <div id="alert-24"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -342,6 +374,7 @@
                                                    required/> P:
                                             <input type="radio" class="flat" value="P" name="sek_op" id="sek_op"
                                                    required/>
+                                            <div id="alert-25"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -354,6 +387,7 @@
                                                    required/> P:
                                             <input type="radio" class="flat" value="P" name="sek_bisnis" id="sek_bisnis"
                                                    required/>
+                                            <div id="alert-26"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -363,6 +397,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="number" name="jumlah_anggota" id="jumlah_anggota"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-27"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -372,6 +407,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="number" name="no_ad_art" id="no_ad_art"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-28"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -381,6 +417,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="file" name="lampiran_ad_art" id="lampiran_ad_art" data-max-size="2048"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-29"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -392,6 +429,7 @@
                                                 <option>Ada</option>
                                                 <option>Tidak Ada</option>
                                             </select>
+                                            <div id="alert-30"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -401,6 +439,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="file" name="lampiran_sekretariat" id="lampiran_sekretariat" data-max-size="2048"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-31"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -411,6 +450,7 @@
                                             <input type="number" name="persentase_perempuan_p3a"
                                                    id="persentase_perempuan_p3a"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-32"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -420,6 +460,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="number" name="areal_tersier" id="areal_tersier"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-33"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -429,6 +470,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" name="pengisian_buku" id="pengisian_buku"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-34"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -438,6 +480,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" name="iuran" id="iuran"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-35"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -449,6 +492,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" name="operasi" id="operasi"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-36"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -458,6 +502,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" name="partisipatif" id="partisipatif"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-37"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -469,6 +514,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" name="pola_tanam" id="pola_tanam"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-38"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -478,6 +524,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" name="usaha_tani" id="usaha_tani"
                                                    class="form-control col-md-7 col-xs-12" required>
+                                            <div id="alert-39"></div>
                                         </div>
                                     </div>
                                 </div>
