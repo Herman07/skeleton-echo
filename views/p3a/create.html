@@ -86,7 +86,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="prov" class="form-control" name="nama_prov">
+                                            <select id="prov" class="form-control" name="nama_prov" required>
                                             </select>
                                         </div>
                                         <input type="text" name="id_prov_fk" id="id_prov_fk" hidden>
@@ -97,7 +97,7 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select id="kab" class="form-control" name="nama_kab"
-                                                    onchange="GetValue()">
+                                                    onchange="GetValue()" required>
                                                 <option></option>
                                             </select>
                                         </div>
@@ -107,7 +107,7 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Kecamatan</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select id="kec" class="form-control"
-                                                    name="nama_kecamatan" onchange="GetVal()">
+                                                    name="nama_kecamatan" onchange="GetVal()" required>
                                                 <option></option>
                                             </select>
                                         </div>
@@ -121,7 +121,7 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="number" data-validate-length-range="5"
-                                                   name="no_urut" id="no_urut"
+                                                   name="no_urut" id="no_urut" required
                                                    class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
@@ -132,7 +132,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" data-validate-length-range="5"
                                                    name="nama_p3a" id="nama_p3a"
-                                                   class="form-control col-md-7 col-xs-12">
+                                                   class="form-control col-md-7 col-xs-12" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -216,7 +216,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select class="form-control" name="no_sk_bupati" id="no_sk_bupati">
+                                            <select class="form-control" name="no_sk_bupati" id="no_sk_bupati" required>
                                                 <option>Ada</option>
                                                 <option>Tidak Ada</option>
                                             </select>
@@ -236,7 +236,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select class="form-control" name="akte_notaris" id="akte_notaris">
+                                            <select class="form-control" name="akte_notaris" id="akte_notaris" required>
                                                 <option>Ada</option>
                                                 <option>Tidak Ada</option>
                                             </select>
@@ -256,7 +256,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select class="form-control" name="no_pendaftaran" id="no_pendaftaran">
+                                            <select class="form-control" name="no_pendaftaran" id="no_pendaftaran" required>
                                                 <option>Ada</option>
                                                 <option>Tidak Ada</option>
                                             </select>
@@ -281,7 +281,7 @@
                                             L:
                                             <input type="radio" class="flat" value="L" name="ketua" id="ketua"
                                                    required/> P:
-                                            <input type="radio" class="flat" value="P" name="ketua" id="ketua"/>
+                                            <input type="radio" class="flat" value="P" name="ketua" id="ketua" required/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -388,7 +388,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select class="form-control" name="sekretariat" id="sekretariat">
+                                            <select class="form-control" name="sekretariat" id="sekretariat" required>
                                                 <option>Ada</option>
                                                 <option>Tidak Ada</option>
                                             </select>
