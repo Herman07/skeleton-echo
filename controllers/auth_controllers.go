@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/foolin/goview/supports/echoview-v4"
 	"github.com/labstack/echo/v4"
 	"net/http"
@@ -51,6 +52,7 @@ func (c *FrontAuthController) Login(ctx echo.Context) error {
 		Username: data.Username,
 		TypeUser: data.TypeUser,
 	}
+	fmt.Println(userInfo)
 	if err := session.Manager.Set(ctx, session.SessionId, &userInfo)
 	err != nil {
 		return ctx.Redirect(http.StatusFound, "/inventaris/v1/login")
