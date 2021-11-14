@@ -24,7 +24,10 @@ type P3Repository interface {
 	UpdateIrigasi(models.TeknikIrigasi)(*models.TeknikIrigasi, error)
 	UpdatePertanian(pertanian models.TeknikPertanian)(*models.TeknikPertanian, error)
 	ExportExcel()(*[]models.P3AModels, error)
-
+	DeleteStatusLegal(id string) error
+	DeleteIrigasi(id string) error
+	DeletePengurusan(id string) error
+	DeletePertanian(id string) error
 }
 
 
@@ -165,6 +168,36 @@ func (r p3Repository) ExportExcel()(*[]models.P3AModels, error) {
 	return &entity, err
 }
 
+
+func (r p3Repository) DeleteStatusLegal(id string) error {
+	entity := models.StatusLegal{
+		ID: id,
+	}
+	return r.DB.Table("status_legal").Delete(&entity).Error
+}
+
+
+func (r p3Repository) DeleteIrigasi(id string) error {
+	entity := models.TeknikIrigasi{
+		ID: id,
+	}
+	return r.DB.Table("teknik_irigasi").Delete(&entity).Error
+}
+
+func (r p3Repository) DeletePengurusan(id string) error {
+	entity := models.Pengurus{
+		ID: id,
+	}
+	return r.DB.Table("kepengurusan").Delete(&entity).Error
+}
+
+
+func (r p3Repository) DeletePertanian(id string) error {
+	entity := models.TeknikPertanian{
+		ID: id,
+	}
+	return r.DB.Table("teknik_pertanian").Delete(&entity).Error
+}
 
 func (r *p3Repository) DbInstance() *gorm.DB {
 	return r.DB

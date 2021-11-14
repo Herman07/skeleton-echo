@@ -189,10 +189,26 @@ func (s *P3Service) CreateDataP3a(request request.RequestInventaris, idStatusLeg
 }
 
 func (s *P3Service) Delete(id string) error {
+	data, err := s.P3Repository.FindById(id)
+
+	// Delete Status Legal
+	err = s.P3Repository.DeleteStatusLegal(data.IDStatus)
+
+	// Delete Irigasi
+	err = s.P3Repository.DeleteIrigasi(data.IDIrig)
+
+	// Delete Pengurusan
+	err = s.P3Repository.DeletePengurusan(data.IDPengurusan)
+
+	// Delete Pertanian
+	err = s.P3Repository.DeletePertanian(data.IDTani)
+
+
+
 	entity := models.Inventaris{
 		ID: id,
 	}
-	err := s.P3Repository.Delete(entity)
+	err = s.P3Repository.Delete(entity)
 	if err != nil {
 		return err
 	} else {
@@ -204,14 +220,14 @@ func (s *P3Service) UpdateStatusLegal(id string, dto request.UpdateInventaris) (
 	entity := models.StatusLegal{
 		ID:                  id,
 		TahunPembentukan:    dto.TahunPembentukan,
-		LamTahunPembentukan: dto.LamTahunPembentukan,
-		LamKplDesa:          dto.LamKplDesa,
+		LamTahunPembentukan: *dto.LamTahunPembentukan,
+		LamKplDesa:          *dto.LamKplDesa,
 		SKBupati:            dto.SKBupati,
-		LamSKBupati:         dto.LamSKBupati,
+		LamSKBupati:         *dto.LamSKBupati,
 		AkteNotaris:         dto.AkteNotaris,
-		LamAkteNotaris:      dto.LamAkteNotaris,
+		LamAkteNotaris:      *dto.LamAkteNotaris,
 		NoPendaftaran:       dto.NoPendaftaran,
-		LamPendaftaran:      dto.LamPendaftaran,
+		LamPendaftaran:      *dto.LamPendaftaran,
 	}
 
 	data, err := s.P3Repository.UpdateStatusLegal(entity)
@@ -234,9 +250,9 @@ func (s *P3Service) UpdatePengurus(id string, dto request.UpdateInventaris) (*mo
 		SekBisnis:              dto.SekBisnis,
 		JumlahAnggota:          dto.JumlahAnggota,
 		NoADRT:                 dto.NoADRT,
-		LampiranADRT:           dto.LampiranADRT,
+		LampiranADRT:           *dto.LampiranADRT,
 		Sekretariat:            dto.Sekretariat,
-		LampiranSekretariat:    dto.LampiranSekretariat,
+		LampiranSekretariat:    *dto.LampiranSekretariat,
 		PresentasiPerempuanP3A: dto.PresentasiPerempuanP3A,
 		ArealTersier:           dto.ArealTersier,
 		PengisianBuku:          dto.PengisianBuku,
