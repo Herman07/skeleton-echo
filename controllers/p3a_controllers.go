@@ -360,8 +360,29 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 	if err := ctx.Bind(&entity); err != nil {
 		return ctx.JSON(400, echo.Map{"message": "error binding data"})
 	}
+	var name []string
 	fmt.Println("Data Request : ", entity)
-	name := []string{"lampiran_tahun_pembentukan", "diket_kep_dc", "lampiran_sk_bupati", "lampiran_akte_notaris", "lampiran_pendaftaran", "lampiran_ad_art", "lampiran_sekretariat"}
+	if entity.LamTahunPembentukan != nil {
+		name = append(name, "lampiran_tahun_pembentukan")
+	}
+	if entity.LamKplDesa != nil {
+		name = append(name, "diket_kep_dc")
+	}
+	if entity.LamSKBupati != nil {
+		name = append(name, "lampiran_sk_bupati")
+	}
+	if entity.LamAkteNotaris != nil{
+		name = append(name, "lampiran_akte_notaris")
+	}
+	if entity.LamPendaftaran != nil {
+		name = append(name, "lampiran_pendaftaran")
+	}
+	if entity.LampiranADRT != nil{
+		name = append(name, "lampiran_ad_art")
+	}
+	if entity.LampiranSekretariat != nil {
+		name = append(name, "lampiran_sekretariat")
+	}
 	var namaFile []string
 	for i := range name {
 		file, _ := ctx.FormFile(name[i])
@@ -386,13 +407,13 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 		namaFile = append(namaFile, nf)
 	}
 	fmt.Println("Name File  : ", namaFile)
-	entity.LamTahunPembentukan = namaFile[0]
-	entity.LamKplDesa = namaFile[1]
-	entity.LamSKBupati = namaFile[2]
-	entity.LamAkteNotaris = namaFile[3]
-	entity.LamPendaftaran = namaFile[4]
-	entity.LampiranADRT = namaFile[5]
-	entity.LampiranSekretariat = namaFile[6]
+	entity.LamTahunPembentukan = &namaFile[0]
+	entity.LamKplDesa = &namaFile[1]
+	entity.LamSKBupati = &namaFile[2]
+	entity.LamAkteNotaris = &namaFile[3]
+	entity.LamPendaftaran = &namaFile[4]
+	entity.LampiranADRT = &namaFile[5]
+	entity.LampiranSekretariat = &namaFile[6]
 	// Update Data Status Legal
 	_, err := c.service.UpdateStatusLegal(id, entity)
 	if err != nil {
