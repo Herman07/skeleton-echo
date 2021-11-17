@@ -114,10 +114,11 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 	var entity request.RequestInventaris
 	if err := ctx.Bind(&entity); err != nil {
 		log.Error("[Error] ", err)
-		//return ctx.JSON(500, echo.Map{"message": "error binding data"})
+		return ctx.JSON(500, echo.Map{"message": "error binding data"})
 	}
 
 	name := []string{"lampiran_tahun_pembentukan", "diket_kep_dc", "lampiran_sk_bupati", "lampiran_akte_notaris", "lampiran_pendaftaran", "lampiran_ad_art", "lampiran_sekretariat"}
+
 	var namaFile []string
 	for i := range name {
 		file, _ := ctx.FormFile(name[i])
@@ -141,8 +142,6 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 		i++
 		namaFile = append(namaFile, nf)
 	}
-	fmt.Println("Name File  : ", namaFile)
-
 	//Store Data Status Legal
 	statusLegal, err := c.service.CreateStatusLegal(entity, namaFile)
 	if err != nil {
@@ -172,7 +171,7 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
-
+	time.Sleep(5 * time.Second)
 	return ctx.Redirect(http.StatusFound, "/admin/v1/inventaris")
 }
 
@@ -182,18 +181,6 @@ func (c *P3Controller) GenerateExcel(ctx echo.Context) error {
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
-	//style := excelize.Style{
-	//	Border:        nil,
-	//	Fill:          excelize.Fill{},
-	//	Font:          nil,
-	//	Alignment:     nil,
-	//	Protection:    nil,
-	//	NumFmt:        0,
-	//	DecimalPlaces: 0,
-	//	CustomNumFmt:  nil,
-	//	Lang:          "",
-	//	NegRed:        false,
-	//}
 	f := excelize.NewFile()
 	_, _ = f.NewConditionalStyle("center")
 	style, _ := f.NewStyle(`
@@ -445,6 +432,8 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
+
+	time.Sleep(5 * time.Second)
 	return ctx.Redirect(http.StatusFound, "/admin/v1/inventaris")
 }
 

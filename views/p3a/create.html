@@ -8,77 +8,74 @@
             </div>
         </div>
         <div class="clearfix"></div>
-
         <div class="row">
-
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
                         <div class="clearfix"></div>
                     </div>
-                    <form class="form-horizontal form-label-left" id="form" method="POST" action="/admin/v1/inventaris/store"
+                    <form class="form-horizontal form-label-left" id="form" method="POST"
+                          action="/admin/v1/inventaris/store"
                           enctype="multipart/form-data">
-                    <div class="x_content">
-
-
-                        <!-- Smart Wizard -->
-                        <div id="wizard" class="form_wizard wizard_horizontal">
-                            <ul class="wizard_steps">
-                                <li>
-                                    <a href="#step-1">
-                                        <span class="step_no">1</span>
-                                        <span class="step_descr">
+                        <div class="x_content">
+                            <!-- Smart Wizard -->
+                            <div id="wizard" class="form_wizard wizard_horizontal">
+                                <ul class="wizard_steps">
+                                    <li>
+                                        <a href="#step-1">
+                                            <span class="step_no">1</span>
+                                            <span class="step_descr">
                                               Step 1<br/>
                                               <small>Form Lokasi</small>
                                           </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#step-2">
-                                        <span class="step_no">2</span>
-                                        <span class="step_descr">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#step-2">
+                                            <span class="step_no">2</span>
+                                            <span class="step_descr">
                                               Step 2<br/>
                                               <small>Form P3A</small>
                                           </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#step-3">
-                                        <span class="step_no">3</span>
-                                        <span class="step_descr">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#step-3">
+                                            <span class="step_no">3</span>
+                                            <span class="step_descr">
                                               Step 3<br/>
                                               <small>Form Status Ilegal</small>
                                           </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#step-4">
-                                        <span class="step_no">4</span>
-                                        <span class="step_descr">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#step-4">
+                                            <span class="step_no">4</span>
+                                            <span class="step_descr">
                                               Step 4<br/>
                                               <small>Form Kepengurusan</small>
                                           </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#step-5">
-                                        <span class="step_no">5</span>
-                                        <span class="step_descr">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#step-5">
+                                            <span class="step_no">5</span>
+                                            <span class="step_descr">
                                               Step 5<br/>
                                               <small>Form Teknik Irigasi</small>
                                           </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#step-6">
-                                        <span class="step_no">6</span>
-                                        <span class="step_descr">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#step-6">
+                                            <span class="step_no">6</span>
+                                            <span class="step_descr">
                                               Step 6<br/>
                                               <small>Form Teknik Pertanian</small>
                                           </span>
-                                    </a>
-                                </li>
-                            </ul>
+                                        </a>
+                                    </li>
+                                </ul>
 
                                 <div id="step-1">
                                     <div class="form-group">
@@ -87,6 +84,7 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select id="prov" class="form-control" name="nama_prov" required>
+                                                <option></option>
                                             </select>
                                             <div id="alert-1"></div>
                                         </div>
@@ -198,12 +196,12 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select type="number" maxlength="4"
-                                                   name="tahun_pembentukan" id="tahun_pembentukan"
+                                                    name="tahun_pembentukan" id="tahun_pembentukan"
                                                     class="form-control col-md-7 col-xs-12">
                                                 <option value="">-Tahun-</option>
                                                 <script>
                                                     var tahun = 1900;
-                                                    for(i=2021;i>=tahun;i--){
+                                                    for (i = 2021; i >= tahun; i--) {
                                                         document.write("<option>" + i + "</option>");
                                                     }
                                                 </script>
@@ -227,7 +225,8 @@
                                             Daerah<span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" name="diket_kep_dc" id="diket_kep_dc" data-max-size="2048"
+                                            <input type="file" name="diket_kep_dc" id="diket_kep_dc"
+                                                   data-max-size="2048"
                                                    class="form-control col-md-7 col-xs-12" required>
                                             <div id="alert-13"></div>
                                         </div>
@@ -237,19 +236,20 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select class="form-control" name="no_sk_bupati" id="no_sk_bupati" required>
-                                                <option>Ada</option>
-                                                <option>Tidak Ada</option>
+                                            <select class="form-control" name="no_sk_bupati" id="no_sk_bupati" onchange="showDiv(this)" required>
+                                                <option value="0">Ada</option>
+                                                <option value="1">Tidak Ada</option>
                                                 <div id="alert-14"></div>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" id="bupati" style="display:block;">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Lampiran SK Bupati<span
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" name="lampiran_sk_bupati" id="lampiran_sk_bupati" data-max-size="2048"
+                                            <input type="file" name="lampiran_sk_bupati" id="lampiran_sk_bupati"
+                                                   data-max-size="2048"
                                                    class="form-control col-md-7 col-xs-12" required>
                                             <div id="alert-15"></div>
                                         </div>
@@ -259,19 +259,20 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select class="form-control" name="akte_notaris" id="akte_notaris" required>
-                                                <option>Ada</option>
-                                                <option>Tidak Ada</option>
+                                            <select class="form-control" name="akte_notaris" id="akte_notaris" onchange="showDiv1(this)" required>
+                                                <option value="0">Ada</option>
+                                                <option value="1">Tidak Ada</option>
                                             </select>
                                             <div id="alert-16"></div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" id="notaris" style="display:block;">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Lampiran Akte
                                             Notaris<span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" name="lampiran_akte_notaris" id="lampiran_akte_notaris" data-max-size="2048"
+                                            <input type="file" name="lampiran_akte_notaris" id="lampiran_akte_notaris"
+                                                   data-max-size="2048"
                                                    class="form-control col-md-7 col-xs-12" required>
                                             <div id="alert-17"></div>
                                         </div>
@@ -281,19 +282,21 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select class="form-control" name="no_pendaftaran" id="no_pendaftaran" required>
-                                                <option>Ada</option>
-                                                <option>Tidak Ada</option>
+                                            <select class="form-control" name="no_pendaftaran" id="no_pendaftaran" onchange="showDiv2(this)"
+                                                    required>
+                                                <option value="0">Ada</option>
+                                                <option value="1">Tidak Ada</option>
                                             </select>
                                             <div id="alert-18"></div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" id="pendaftaran" style="display:block;">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Lampiran No Pendaftaran<span
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" name="lampiran_pendaftaran" id="lampiran_pendaftaran" data-max-size="2048"
+                                            <input type="file" name="lampiran_pendaftaran" id="lampiran_pendaftaran"
+                                                   data-max-size="2048"
                                                    class="form-control col-md-7 col-xs-12" required>
                                             <div id="alert-19"></div>
                                         </div>
@@ -306,10 +309,8 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             L:
-                                            <input type="radio" class="flat" value="L" name="ketua" id="ketua"
-                                                   required/> P:
-                                            <input type="radio" class="flat" value="P" name="ketua" id="ketua" required/>
-                                            <div id="alert-20"></div>
+                                            <input type="radio" class="flat" value="L" name="ketua" id="ketua" checked/> P:
+                                            <input type="radio" class="flat" value="P" name="ketua" id="ketua"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -318,11 +319,8 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             L:
-                                            <input type="radio" class="flat" value="L" name="wakil" id="wakil"
-                                                   required/> P:
-                                            <input type="radio" class="flat" value="P" name="wakil" id="wakil"
-                                                   required/>
-                                            <div id="alert-21"></div>
+                                            <input type="radio" class="flat" value="L" name="wakil" id="wakil" checked/> P:
+                                            <input type="radio" class="flat" value="P" name="wakil" id="wakil"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -331,11 +329,8 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             L:
-                                            <input type="radio" class="flat" value="L" name="sekretaris" id="sekretaris"
-                                                   required/> P:
-                                            <input type="radio" class="flat" value="P" name="sekretaris" id="sekretaris"
-                                                   required/>
-                                            <div id="alert-22"></div>
+                                            <input type="radio" class="flat" value="L" name="sekretaris" id="sekretaris" checked/> P:
+                                            <input type="radio" class="flat" value="P" name="sekretaris" id="sekretaris"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -344,11 +339,8 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             L:
-                                            <input type="radio" class="flat" value="L" name="bendahara" id="bendahara"
-                                                   required/> P:
-                                            <input type="radio" class="flat" value="P" name="bendahara" id="bendahara"
-                                                   required/>
-                                            <div id="alert-23"></div>
+                                            <input type="radio" class="flat" value="L" name="bendahara" id="bendahara" checked/> P:
+                                            <input type="radio" class="flat" value="P" name="bendahara" id="bendahara"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -357,11 +349,8 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             L:
-                                            <input type="radio" class="flat" value="L" name="sek_teknik" id="sek_teknik"
-                                                   required/> P:
-                                            <input type="radio" class="flat" value="P" name="sek_teknik" id="sek_teknik"
-                                                   required/>
-                                            <div id="alert-24"></div>
+                                            <input type="radio" class="flat" value="L" name="sek_teknik" id="sek_teknik" checked/> P:
+                                            <input type="radio" class="flat" value="P" name="sek_teknik" id="sek_teknik"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -370,11 +359,8 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             L:
-                                            <input type="radio" class="flat" value="L" name="sek_op" id="sek_op"
-                                                   required/> P:
-                                            <input type="radio" class="flat" value="P" name="sek_op" id="sek_op"
-                                                   required/>
-                                            <div id="alert-25"></div>
+                                            <input type="radio" class="flat" value="L" name="sek_op" id="sek_op" checked/> P:
+                                            <input type="radio" class="flat" value="P" name="sek_op" id="sek_op"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -383,11 +369,8 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             L:
-                                            <input type="radio" class="flat" value="L" name="sek_bisnis" id="sek_bisnis"
-                                                   required/> P:
-                                            <input type="radio" class="flat" value="P" name="sek_bisnis" id="sek_bisnis"
-                                                   required/>
-                                            <div id="alert-26"></div>
+                                            <input type="radio" class="flat" value="L" name="sek_bisnis" id="sek_bisnis" checked/> P:
+                                            <input type="radio" class="flat" value="P" name="sek_bisnis" id="sek_bisnis"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -397,7 +380,6 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="number" name="jumlah_anggota" id="jumlah_anggota"
                                                    class="form-control col-md-7 col-xs-12" required>
-                                            <div id="alert-27"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -415,7 +397,8 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" name="lampiran_ad_art" id="lampiran_ad_art" data-max-size="2048"
+                                            <input type="file" name="lampiran_ad_art" id="lampiran_ad_art"
+                                                   data-max-size="2048"
                                                    class="form-control col-md-7 col-xs-12" required>
                                             <div id="alert-29"></div>
                                         </div>
@@ -425,19 +408,20 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select class="form-control" name="sekretariat" id="sekretariat" required>
-                                                <option>Ada</option>
-                                                <option>Tidak Ada</option>
+                                            <select class="form-control" name="sekretariat" id="sekretariat" onchange="showDiv3(this)" required>
+                                                <option value="0">Ada</option>
+                                                <option value="1">Tidak Ada</option>
                                             </select>
                                             <div id="alert-30"></div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" id="seketariat" style="display:block;">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Lampiran
                                             Sekretariat<span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" name="lampiran_sekretariat" id="lampiran_sekretariat" data-max-size="2048"
+                                            <input type="file" name="lampiran_sekretariat" id="lampiran_sekretariat"
+                                                   data-max-size="2048"
                                                    class="form-control col-md-7 col-xs-12" required>
                                             <div id="alert-31"></div>
                                         </div>
@@ -528,9 +512,9 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <!-- End SmartWizard Content -->
                         </div>
-                        <!-- End SmartWizard Content -->
-                    </div>
                     </form>
                 </div>
             </div>
@@ -602,16 +586,39 @@
             }
         })
     }
-    function GetVal(id){
+
+    function GetVal(id) {
         id = document.getElementById('kec').value;
         $('#id_kec_fk').val(id)
     }
 
-    const toBase64 = file => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
+    function showDiv(select){
+        if(select.value==0){
+            document.getElementById('bupati').style.display = "block";
+        } else{
+            document.getElementById('bupati').style.display = "none";
+        }
+    }
+    function showDiv1(select){
+        if(select.value==0){
+            document.getElementById('notaris').style.display = "block";
+        } else{
+            document.getElementById('notaris').style.display = "none";
+        }
+    }
+    function showDiv2(select){
+        if(select.value==0){
+            document.getElementById('pendaftaran').style.display = "block";
+        } else{
+            document.getElementById('pendaftaran').style.display = "none";
+        }
+    }
+    function showDiv3(select){
+        if(select.value==0){
+            document.getElementById('seketariat').style.display = "block";
+        } else{
+            document.getElementById('seketariat').style.display = "none";
+        }
+    }
 </script>
 {{end}}
