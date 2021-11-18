@@ -91,25 +91,6 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, &result)
 }
 
-//func (c *P3Controller) GetData(ctx echo.Context) error {
-//	dataReq := models.Inventaris{}
-//
-//	data, err := c.service.GetAll(dataReq)
-//	if err != nil {
-//		return c.InternalServerError(ctx, err)
-//	}
-//
-//	return c.Ok(ctx, data)
-//}
-//func (c *P3Controller) Detail(ctx echo.Context) error {
-//	id := ctx.Param("id")
-//	data, err := c.service.FindById(id)
-//	if err != nil {
-//		return c.InternalServerError(ctx, err)
-//	}
-//	return c.Ok(ctx, data)
-//}
-
 func (c *P3Controller) AddData(ctx echo.Context) error {
 	var entity request.RequestInventaris
 	if err := ctx.Bind(&entity); err != nil {
@@ -349,8 +330,6 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 	}
 	var name []string
 	if entity.LamTahunPembentukan == nil {
-		fmt.Println("asd  : ",&entity.LamTahunPembentukan)
-
 		name = append(name, "lampiran_tahun_pembentukan")
 	}
 	if entity.LamKplDesa == nil {
@@ -371,6 +350,7 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 	if entity.LampiranSekretariat == nil {
 		name = append(name, "lampiran_sekretariat")
 	}
+	fmt.Println("List Files : ",name)
 	var namaFile []string
 	if name != nil{
 	for i := range name {
