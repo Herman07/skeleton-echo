@@ -77,8 +77,8 @@
                                 <div class="form-group">
                                     <label>Lampiran Tahun Pembentukan<span class="">*</span></label>
                                     <div class="avatar-preview">
-                                        <div id="imagePreview1"
-                                             style="background-image: url(/static/image/{{.data.LamTahunPembentukan}});">
+                                        <div id="imagePreview1" onclick="openInNewTab()"
+                                             src="/static/image/{{.data.LamTahunPembentukan}}">
                                         </div>
                                     </div>
                                     <br>
@@ -86,7 +86,7 @@
                                 <div class="form-group">
                                     <label>Diket Kepala Daerah<span class="">*</span></label>
                                     <div class="avatar-preview">
-                                        <div id="imagePreview2"
+                                        <div id="imagePreview2" onclick="openInNewTab()"
                                              style="background-image: url(/static/image/{{.data.LamKplDesa}});">
                                         </div>
                                     </div>
@@ -101,7 +101,7 @@
                                 <div class="form-group">
                                     <label>Lampiran SK Bupati<span class="">*</span></label>
                                     <div class="avatar-preview">
-                                        <div id="imagePreview3"
+                                        <div id="imagePreview3" onclick="openInNewTab()"
                                              style="background-image: url(/static/image/{{.data.LamSKBupati}});">
                                         </div>
                                     </div>
@@ -117,7 +117,7 @@
                                 <div class="form-group">
                                     <label>Lampiran Akte Notaris<span class="">*</span></label>
                                     <div class="avatar-preview">
-                                        <div id="imagePreview4"
+                                        <div id="imagePreview4" onclick="openInNewTab()"
                                              style="background-image: url(/static/image/{{.data.LamAkteNotaris}});">
                                         </div>
                                     </div>
@@ -135,7 +135,7 @@
                                 <div class="form-group">
                                     <label>Lampiran No Pendaftaran<span class="">*</span></label>
                                     <div class="avatar-preview">
-                                        <div id="imagePreview5"
+                                        <div id="imagePreview5" onclick="openInNewTab()"
                                              style="background-image: url(/static/image/{{.data.LamPendaftaran}});">
                                         </div>
                                     </div>
@@ -298,7 +298,7 @@
                                 <div class="form-group">
                                     <label> Lampiran ADRT <span class="">*</span></label>
                                     <div class="avatar-preview">
-                                        <div id="imagePreview6"
+                                        <div id="imagePreview6" onclick="openInNewTab()"
                                              style="background-image: url(/static/image/{{.data.LampiranADRT}});">
                                         </div>
                                     </div>
@@ -313,7 +313,7 @@
                                 <div class="form-group">
                                     <label>Lampiran Sekretariat<span class="">*</span></label>
                                     <div class="avatar-preview">
-                                        <div id="imagePreview7"
+                                        <div id="imagePreview7" onclick="openInNewTab()"
                                              style="background-image: url(/static/image/{{.data.LampiranSekretariat}});">
                                         </div>
                                     </div>
@@ -488,5 +488,8 @@
     $("#lampiran_sekretariat").change(function () {
         readURL7(this);
     });
+    function openInNewTab(url) {
+        window.open(url, '_blank').focus();
+    }
 </script>
 {{end}}

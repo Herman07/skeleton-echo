@@ -13,7 +13,6 @@ type UserInfo struct {
 	Username string `json:"username" form:"username"`
 	TypeUser string `json:"type_users" form:"type_users"`
 	ID       string `json:"id_usergroup" form:"id_usergroup"`
-	Password string `json:"password" form:"password"`
 }
 
 type FlashMessage struct {

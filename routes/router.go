@@ -98,4 +98,8 @@ func Api(e *echo.Echo, db *gorm.DB) {
 	e.POST("/kec/:id",kecController.FindByID)
 	e.DELETE("/kec/:id/delete",kecController.Delete)
 
+	userController := config.InjectUserController(db)
+	//u := g.Group("/users", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
+	g.GET("/users", userController.Index)
+	g.POST("/adduser",userController.AddData)
 }

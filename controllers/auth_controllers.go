@@ -49,7 +49,6 @@ func (c *FrontAuthController) Login(ctx echo.Context) error {
 	}
 	userInfo := session.UserInfo{
 		ID:       data.ID,
-		Username: data.Username,
 		TypeUser: data.TypeUser,
 	}
 	fmt.Println(userInfo)

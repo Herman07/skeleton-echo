@@ -164,17 +164,60 @@ func (c *P3Controller) GenerateExcel(ctx echo.Context) error {
 	}
 	f := excelize.NewFile()
 	_, _ = f.NewConditionalStyle("center")
+	center,_ := f.NewStyle(`{"alignment":{"horizontal":"center"},"font":{"italic":true},"border": [
+			{
+				"type": "left",
+				"color": "202020",
+				"style": 5
+			},
+			{
+				"type": "top",
+				"color": "202020",
+				"style": 5
+			},
+			{
+				"type": "bottom",
+				"color": "202020",
+				"style": 5
+			},
+			{
+				"type": "right",
+				"color": "202020",
+				"style": 5
+			}]}`)
 	style, _ := f.NewStyle(`
-		{
-			"alignment":{"horizontal":"center"
-		}, 
-        "fill": {
-				"type": "pattern",
-				"color": ["#E0EBF5"],
-				"pattern": 1
-			}`)
-
-	f.SetCellStyle("Sheet1", "A1", "AF100", style)
+		{"alignment":{"horizontal":"center","vertical":"center"},"font":{"bold":true,"italic":true},
+		"fill":{"type":"pattern","color":["#6DF461"],"pattern":1},
+		"border": [
+			{
+				"type": "left",
+				"color": "202020",
+				"style": 5
+			},
+			{
+				"type": "top",
+				"color": "202020",
+				"style": 5
+			},
+			{
+				"type": "bottom",
+				"color": "202020",
+				"style": 5
+			},
+			{
+				"type": "right",
+				"color": "202020",
+				"style": 5
+			}]}`)
+	f.SetColWidth("Sheet1", "A", "AF", 20)
+	f.SetCellStyle("Sheet1", "A1", "AF3", style)
+	in := 4
+	for range data{
+		in++
+	}
+	number := strconv.Itoa(in)
+	column := fmt.Sprintf("AF%s",number)
+	_ = f.SetCellStyle("Sheet1", "A4", column, center)
 
 	// Create a new sheet.
 	index := f.NewSheet("Data Export")
@@ -260,7 +303,7 @@ func (c *P3Controller) GenerateExcel(ctx echo.Context) error {
 	for i, v := range data {
 		_ = f.SetCellValue("Sheet1", "A"+strconv.Itoa(i+4), i+1)
 		i = i + 4
-		_ = f.SetCellValue("Sheet1", "B"+strconv.Itoa(i), v.NamaProv)
+		_ = f.SetCellValue("Sheet1", "B"+strconv.Itoa(i), v.NamaProv +"/"+ v.NamaKab)
 		_ = f.SetCellValue("Sheet1", "C"+strconv.Itoa(i), v.NamaKec)
 		_ = f.SetCellValue("Sheet1", "D"+strconv.Itoa(i), v.DaerahIrigasi)
 		_ = f.SetCellValue("Sheet1", "E"+strconv.Itoa(i), v.LuasWilayah)
@@ -338,43 +381,43 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 	if entity.LamSKBupati == nil {
 		name = append(name, "lampiran_sk_bupati")
 	}
-	if entity.LamAkteNotaris == nil{
+	if entity.LamAkteNotaris == nil {
 		name = append(name, "lampiran_akte_notaris")
 	}
 	if entity.LamPendaftaran == nil {
 		name = append(name, "lampiran_pendaftaran")
 	}
-	if entity.LampiranADRT == nil{
+	if entity.LampiranADRT == nil {
 		name = append(name, "lampiran_ad_art")
 	}
 	if entity.LampiranSekretariat == nil {
 		name = append(name, "lampiran_sekretariat")
 	}
-	fmt.Println("List Files : ",name)
+	fmt.Println("List Files : ", name)
 	var namaFile []string
-	if name != nil{
-	for i := range name {
-		file, _ := ctx.FormFile(name[i])
+	if name != nil {
+		for i := range name {
+			file, _ := ctx.FormFile(name[i])
 
-		src, _ := file.Open()
-		defer src.Close()
+			src, _ := file.Open()
+			defer src.Close()
 
-		// Destination
-		t := time.Now().UnixNano()
-		nf := name[i] + "_" + strconv.FormatInt(t, 10) + "_" + file.Filename
-		nama := "static/image/" + nf
-		dst, _ := os.Create(nama)
-		defer dst.Close()
+			// Destination
+			t := time.Now().UnixNano()
+			nf := name[i] + "_" + strconv.FormatInt(t, 10) + "_" + file.Filename
+			nama := "static/image/" + nf
+			dst, _ := os.Create(nama)
+			defer dst.Close()
 
-		// Copy
-		_, err := io.Copy(dst, src)
-		if err != nil {
-			log.Error("[Error] ", err)
-			return c.InternalServerError(ctx, err)
+			// Copy
+			_, err := io.Copy(dst, src)
+			if err != nil {
+				log.Error("[Error] ", err)
+				return c.InternalServerError(ctx, err)
+			}
+			i++
+			namaFile = append(namaFile, nf)
 		}
-		i++
-		namaFile = append(namaFile, nf)
-	}
 		entity.LamTahunPembentukan = &namaFile[0]
 		entity.LamKplDesa = &namaFile[1]
 		entity.LamSKBupati = &namaFile[2]

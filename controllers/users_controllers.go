@@ -2,7 +2,13 @@ package controllers
 
 import (
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/gommon/log"
+	"io"
+	"os"
+	"skeleton-echo/request"
 	"skeleton-echo/services"
+	"strconv"
+	"time"
 )
 
 type UsersDataController struct {
@@ -23,70 +29,43 @@ func NewUsersDataController(services *services.UsersDataService) UsersDataContro
 func (c *UsersDataController) Index(ctx echo.Context) error {
 	breadCrumbs := map[string]interface{}{
 		"menu": "Users",
-		"link": "/inventaris/v1/users",
+		"link": "/admin/v1/users",
 	}
-	return Render(ctx, "Home", "users/detail", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
+	return Render(ctx, "Home", "users/create", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
 }
 
-//func (c *KabDataController) Store(ctx echo.Context) error {
-//	breadCrumbs := map[string]interface{}{
-//		"menu": "Home",
-//		"link": "/inventaris/v1/master-data/kab/add",
-//	}
-//	return Render(ctx, "Home", "master-data/kabupaten/add", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
-//}
-//func (c *KabDataController) Update(ctx echo.Context) error {
-//	id := ctx.Param("id")
-//	data, err := c.service.FindById(id)
-//	if err != nil {
-//		return c.InternalServerError(ctx, err)
-//	}
-//
-//	breadCrumbs := map[string]interface{}{
-//		"menu": "Home",
-//		"link": "/inventaris/v1/master-data/kab/update/:id",
-//	}
-//	dataKab := models.MasterDataKab{
-//		ID:         data.ID,
-//		Kabupaten:   data.Kabupaten,
-//		IDProv:  data.IDProv,
-//	}
-//	return Render(ctx, "Home", "master-data/kabupaten/update", c.Menu, append(c.BreadCrumbs, breadCrumbs), dataKab)
-//}
-//func (c *KabDataController) AddData(ctx echo.Context) error {
-//	var entity request.KabReq
-//
-//	if err := ctx.Bind(&entity); err != nil {
-//		return ctx.JSON(400, echo.Map{"message": "error binding data"})
-//	}
-//	_, err := c.service.Create(entity)
-//	//entity.CreatedAt = time.Now()
-//	if err != nil {
-//		return c.InternalServerError(ctx, err)
-//	}
-//	return ctx.Redirect(302, "/inventaris/v1/master-data/kab")
-//}
-//
-//func (c *KabDataController) DoUpdate(ctx echo.Context) error {
-//	var entity request.KabReq
-//	id := ctx.Param("id_kab")
-//	if err := ctx.Bind(&entity); err != nil {
-//		return ctx.JSON(400, echo.Map{"message": "error binding data"})
-//	}
-//	data, err := c.service.UpdateById(id, entity)
-//	if err != nil {
-//		return c.InternalServerError(ctx, err)
-//	}
-//	fmt.Println(data)
-//	return ctx.Redirect(302, "/inventaris/v1/master-data/kab")
-//}
-//
-//func (c *KabDataController) Delete(ctx echo.Context) error {
-//	id := ctx.Param("id_kab")
-//
-//	err := c.service.Delete(id)
-//	if err != nil {
-//		return c.InternalServerError(ctx, err)
-//	}
-//	return c.Ok(ctx,nil)
-//}
+func (c *UsersDataController) AddData(ctx echo.Context) error {
+	var entity request.UsersReq
+
+	if err := ctx.Bind(&entity); err != nil {
+		return ctx.JSON(400, echo.Map{"message": "error binding data"})
+	}
+	user, err := c.service.Create(entity)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+	file, _ := ctx.FormFile("foto")
+
+	src, _ := file.Open()
+	defer src.Close()
+
+	// Destination
+	t := time.Now().UnixNano()
+	nf := entity.Nama + "_" + strconv.FormatInt(t, 10) + "_" + file.Filename
+	nama := "static/image/" + nf
+	dst, _ := os.Create(nama)
+	defer dst.Close()
+
+	// Copy
+	_, err = io.Copy(dst, src)
+	if err != nil {
+		log.Error("[Error] ", err)
+		return c.InternalServerError(ctx, err)
+	}
+	_, err = c.service.CreateAkun(entity, nf, user.ID)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+	return ctx.Redirect(302, "/admin/v1/inventaris")
+}
+

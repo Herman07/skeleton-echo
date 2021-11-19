@@ -39,3 +39,9 @@ func InjectKecController(db *gorm.DB) controllers.KecDataController {
 	kecController := controllers.NewKecDataController(kecService)
 	return kecController
 }
+func InjectUserController(db *gorm.DB) controllers.UsersDataController {
+	userRepository := repository.NewUsersDataRepository(db)
+	userService := services.NewUsersDataService(userRepository)
+	userController := controllers.NewUsersDataController(userService)
+	return userController
+}
