@@ -127,7 +127,7 @@ func (c *UsersDataController) AddData(ctx echo.Context) error {
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
-	return ctx.Redirect(http.StatusFound, "/admin/v1/inventaris")
+	return ctx.Redirect(http.StatusFound, "/admin/v1/user")
 }
 
 func (c *UsersDataController) Update(ctx echo.Context) error {
