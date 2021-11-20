@@ -152,7 +152,7 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
-	time.Sleep(5 * time.Second)
+	time.Sleep(3 * time.Second)
 	return ctx.Redirect(http.StatusFound, "/admin/v1/inventaris")
 }
 
@@ -456,7 +456,7 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 		return c.InternalServerError(ctx, err)
 	}
 
-	time.Sleep(5 * time.Second)
+	time.Sleep(3 * time.Second)
 	return ctx.Redirect(http.StatusFound, "/admin/v1/inventaris")
 }
 

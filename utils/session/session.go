@@ -10,7 +10,7 @@ const SessionId = "id"
 var Manager *ConfigSession
 
 type UserInfo struct {
-	Username string `json:"username" form:"username"`
+	Username string `json:"user_name" form:"user_name"`
 	TypeUser string `json:"type_users" form:"type_users"`
 	ID       string `json:"id_usergroup" form:"id_usergroup"`
 }

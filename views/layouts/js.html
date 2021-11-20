@@ -37,11 +37,11 @@
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
             icon: 'warning',
-            buttons : ['Cancel' , true]
-        }).then(function(isConfirm) {
+            buttons: ['Cancel', true]
+        }).then(function (isConfirm) {
             if (isConfirm) {
                 $.ajax({
-                    url: '/kab/' + id +'/delete',
+                    url: '/kab/' + id + '/delete',
                     type: 'DELETE',
                     data: data,
                     processData: false,
@@ -65,6 +65,7 @@
             }
         });
     }
+
     function Deletede(id) {
         console.log(id)
         data = new FormData();
@@ -72,8 +73,8 @@
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
             icon: 'warning',
-            buttons:['Cancel',true],
-        }).then(function(isConfirm) {
+            buttons: ['Cancel', true],
+        }).then(function (isConfirm) {
             if (isConfirm) {
                 $.ajax({
                     url: '/kec/' + id + '/delete',
@@ -100,6 +101,7 @@
             }
         });
     }
+
     function Deleted(id) {
         data = new FormData();
         console.log(id)
@@ -107,11 +109,11 @@
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
             icon: 'warning',
-            buttons:['Cancel',true],
-        }).then(function(isConfirm) {
+            buttons: ['Cancel', true],
+        }).then(function (isConfirm) {
             if (isConfirm) {
                 $.ajax({
-                    url: '/prov/' + id +'/delete',
+                    url: '/prov/' + id + '/delete',
                     type: 'DELETE',
                     data: data,
                     processData: false,
@@ -135,6 +137,7 @@
             }
         });
     }
+
     function Delete(id) {
         data = new FormData();
         console.log(id)
@@ -142,8 +145,8 @@
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
             icon: 'warning',
-            buttons:['Cancel',true],
-        }).then(function(isConfirm) {
+            buttons: ['Cancel', true],
+        }).then(function (isConfirm) {
             if (isConfirm) {
                 $.ajax({
                     url: '/admin/v1/inventaris/delete/' + id,
@@ -170,12 +173,48 @@
             }
         });
     }
+    function DeleteUser(id) {
+        data = new FormData();
+        console.log(id)
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            buttons: ['Cancel', true],
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url: '/admin/v1/user/delete/' + id,
+                    type: 'DELETE',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (res) {
+                        swal(
+                            'Deleted!',
+                            'User has been deleted.',
+                            'success'
+                        );
+                        $('#user').DataTable().ajax.reload();
+                    },
+                    error: function (res) {
+                        swal({
+                            type: 'warning',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                        })
+                    }
+                })
+            }
+        });
+    }
+
     function Logout() {
         swal({
             title: 'Are you sure?',
             icon: 'warning',
-            buttons:['Cancel',true],
-        }).then(function(isConfirm) {
+            buttons: ['Cancel', true],
+        }).then(function (isConfirm) {
             if (isConfirm) {
                 $.ajax({
                     url: '/logout',
@@ -194,22 +233,12 @@
             }
         });
     }
-    $( "#form" ).submit(function( event ) {
+
+    $("#form").submit(function (event) {
         swal({
-                    title: 'Create Success',
-                    icon: 'success',
-                })
-        // if ($('#form').val() === '') {
-        //     swal({
-        //         title: 'Error',
-        //         icon: 'warning',
-        //     })
-        // }else{
-        //     swal({
-        //         title: 'Create Success',
-        //         icon: 'success',
-        //     })
-        // }
+            title: 'Create Success',
+            icon: 'success',
+        })
         event.preventDefault();
     });
 </script>

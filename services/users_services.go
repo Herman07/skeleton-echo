@@ -4,6 +4,7 @@ import (
 	"skeleton-echo/models"
 	"skeleton-echo/repository"
 	"skeleton-echo/request"
+	"strings"
 )
 
 type UsersDataService struct {
@@ -48,35 +49,96 @@ func (s *UsersDataService) CreateAkun(request request.UsersReq, name string,user
 	}
 	return data, err
 }
-//func (s *MasterDataService) UpdateById(id string, dto request.ProvinsiReq) (*models.MasterDataProvinsi, error) {
-//	entity := models.MasterDataProvinsi{
-//		ID:        id,
-//		Provinsi:  dto.Nama,
-//	}
-//
-//	data, err := s.MasterDataRepository.UpdateById(entity)
-//
-//	if err != nil {
-//		return nil, err
-//	}
-//	return data, err
-//}
-//func (s *MasterDataService) FindById(id string) (*models.MasterDataProvinsi, error) {
-//	data, err := s.MasterDataRepository.FindById(id)
-//	if err != nil {
-//		return nil, err
-//	}
-//	return data, err
-//}
-//
-//func (s *MasterDataService) Delete(id string) error {
-//	entity := models.MasterDataProvinsi{
-//		ID: id,
-//	}
-//	err := s.MasterDataRepository.Delete(entity)
-//	if err != nil {
-//		return err
-//	} else {
-//		return nil
-//	}
-//}
+
+func (s *UsersDataService) QueryDatatable(searchValue string,orderType string, orderBy string, limit int, offset int) (
+	recordTotal int64, recordFiltered int64, data []models.User, err error) {
+	recordTotal, err = s.UsersDataRepository.Count()
+	strings.ToLower(searchValue)
+	if searchValue != "" {
+		recordFiltered, err = s.UsersDataRepository.CountWhere("or", map[string]interface{}{
+
+			"nama LIKE ?": "%" + searchValue + "%" ,
+
+		})
+
+		data, err = s.UsersDataRepository.FindAllWhere("or", orderType, "nama", limit, offset, map[string]interface{}{
+			"nama LIKE ?": "%" + searchValue + "%",
+			"id_user LIKE ?": "%" + searchValue + "%",
+
+		})
+		return recordTotal, recordFiltered, data, err
+	}
+	recordFiltered, err = s.UsersDataRepository.CountWhere("or", map[string]interface{}{
+		"1 =?": 1,
+	})
+
+	data, err = s.UsersDataRepository.FindAllWhere("or", orderType, "id_user", limit, offset, map[string]interface{}{
+		"1= ?": 1,
+	})
+	return recordTotal, recordFiltered, data, err
+}
+
+func (s *UsersDataService) FindById(id string) (*models.UserUpdate, error) {
+	data, err := s.UsersDataRepository.FindById(id)
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}
+
+func (s *UsersDataService) Delete(id string) error {
+	entity := models.User{
+		ID: id,
+	}
+	err := s.UsersDataRepository.DeleteUser(entity)
+	if err != nil {
+		return err
+	} else {
+		return nil
+	}
+}
+
+func (s *UsersDataService) UpdateUser(id string, dto request.UsersReq) (*models.User, error) {
+	entity := models.User{
+		ID:        id,
+		Nama:  dto.Nama,
+		Alamat: dto.Alamat,
+		TglLahir: dto.TglLahir,
+		Email: dto.Email,
+		JenisKelamin: dto.JenisKelamin,
+		NoTlp: dto.NoTlp,
+	}
+
+	data, err := s.UsersDataRepository.UpdateUser(entity)
+
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}
+
+func (s *UsersDataService) UpdateAkun(id string, dto request.UsersReq, nama string) (*models.Akun, error) {
+
+	entity := models.Akun{
+		ID:        id,
+		Username: dto.Username,
+		Password: dto.Password,
+		TypeUser: dto.TypeUser,
+	}
+	if nama != ""{
+		entity = models.Akun{
+			ID:        id,
+			Username: dto.Username,
+			Password: dto.Password,
+			TypeUser: dto.TypeUser,
+			Foto: nama,
+		}
+	}
+
+	data, err := s.UsersDataRepository.UpdateAkun(entity)
+
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}

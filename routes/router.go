@@ -51,7 +51,7 @@ func Api(e *echo.Echo, db *gorm.DB) {
 	e.POST("/logout", authController.Logout)
 
 	{
-		invenGroup := g.Group("/inventaris",mv)
+		invenGroup := g.Group("/inventaris",mv,authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
 		dashboardController := config.InjectDashboardController(db)
 		invenGroup.GET("", dashboardController.Index)
 		invenGroup.GET("/add", dashboardController.Add)
@@ -99,7 +99,12 @@ func Api(e *echo.Echo, db *gorm.DB) {
 	e.DELETE("/kec/:id/delete",kecController.Delete)
 
 	userController := config.InjectUserController(db)
-	//u := g.Group("/users", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
-	g.GET("/users", userController.Index)
-	g.POST("/adduser",userController.AddData)
+	u := g.Group("/user", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
+	u.GET("/create", userController.Index)
+	u.POST("/adduser",userController.AddData)
+	u.GET("/table", userController.GetDetail)
+	u.GET("",userController.TableUser)
+	u.GET("/update/:id", userController.Update)
+	u.POST("/updateuser/:id", userController.DoUpdate)
+	u.DELETE("/delete/:id",userController.Delete)
 }
