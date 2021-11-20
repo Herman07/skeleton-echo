@@ -195,17 +195,21 @@
         });
     }
     $( "#form" ).submit(function( event ) {
-        if ($('#form').val() === '') {
-            swal({
-                title: 'Error',
-                icon: 'warning',
-            })
-        }else{
-            swal({
-                title: 'Create Success',
-                icon: 'success',
-            })
-        }
+        swal({
+                    title: 'Create Success',
+                    icon: 'success',
+                })
+        // if ($('#form').val() === '') {
+        //     swal({
+        //         title: 'Error',
+        //         icon: 'warning',
+        //     })
+        // }else{
+        //     swal({
+        //         title: 'Create Success',
+        //         icon: 'success',
+        //     })
+        // }
         event.preventDefault();
     });
 </script>

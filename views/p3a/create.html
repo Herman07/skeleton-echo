@@ -237,8 +237,8 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select class="form-control" name="no_sk_bupati" id="no_sk_bupati" onchange="showDiv(this)" required>
-                                                <option value="0">Ada</option>
-                                                <option value="1">Tidak Ada</option>
+                                                <option>Ada</option>
+                                                <option>Tidak Ada</option>
                                                 <div id="alert-14"></div>
                                             </select>
                                         </div>
@@ -260,8 +260,8 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select class="form-control" name="akte_notaris" id="akte_notaris" onchange="showDiv1(this)" required>
-                                                <option value="0">Ada</option>
-                                                <option value="1">Tidak Ada</option>
+                                                <option>Ada</option>
+                                                <option>Tidak Ada</option>
                                             </select>
                                             <div id="alert-16"></div>
                                         </div>
@@ -284,8 +284,8 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select class="form-control" name="no_pendaftaran" id="no_pendaftaran" onchange="showDiv2(this)"
                                                     required>
-                                                <option value="0">Ada</option>
-                                                <option value="1">Tidak Ada</option>
+                                                <option>Ada</option>
+                                                <option>Tidak Ada</option>
                                             </select>
                                             <div id="alert-18"></div>
                                         </div>
@@ -409,8 +409,8 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select class="form-control" name="sekretariat" id="sekretariat" onchange="showDiv3(this)" required>
-                                                <option value="0">Ada</option>
-                                                <option value="1">Tidak Ada</option>
+                                                <option>Ada</option>
+                                                <option>Tidak Ada</option>
                                             </select>
                                             <div id="alert-30"></div>
                                         </div>
@@ -592,33 +592,33 @@
         $('#id_kec_fk').val(id)
     }
 
-    function showDiv(select){
-        if(select.value==0){
-            document.getElementById('bupati').style.display = "block";
-        } else{
-            document.getElementById('bupati').style.display = "none";
-        }
-    }
-    function showDiv1(select){
-        if(select.value==0){
-            document.getElementById('notaris').style.display = "block";
-        } else{
-            document.getElementById('notaris').style.display = "none";
-        }
-    }
-    function showDiv2(select){
-        if(select.value==0){
-            document.getElementById('pendaftaran').style.display = "block";
-        } else{
-            document.getElementById('pendaftaran').style.display = "none";
-        }
-    }
-    function showDiv3(select){
-        if(select.value==0){
-            document.getElementById('seketariat').style.display = "block";
-        } else{
-            document.getElementById('seketariat').style.display = "none";
-        }
-    }
+    // function showDiv(select){
+    //     if(select.value==0){
+    //         document.getElementById('bupati').style.display = "block";
+    //     } else{
+    //         document.getElementById('bupati').style.display = "none";
+    //     }
+    // }
+    // function showDiv1(select){
+    //     if(select.value==0){
+    //         document.getElementById('notaris').style.display = "block";
+    //     } else{
+    //         document.getElementById('notaris').style.display = "none";
+    //     }
+    // }
+    // function showDiv2(select){
+    //     if(select.value==0){
+    //         document.getElementById('pendaftaran').style.display = "block";
+    //     } else{
+    //         document.getElementById('pendaftaran').style.display = "none";
+    //     }
+    // }
+    // function showDiv3(select){
+    //     if(select.value==0){
+    //         document.getElementById('seketariat').style.display = "block";
+    //     } else{
+    //         document.getElementById('seketariat').style.display = "none";
+    //     }
+    // }
 </script>
 {{end}}

@@ -50,6 +50,7 @@ func (c *FrontAuthController) Login(ctx echo.Context) error {
 	userInfo := session.UserInfo{
 		ID:       data.ID,
 		TypeUser: data.TypeUser,
+		Username: data.Username,
 	}
 	fmt.Println(userInfo)
 	if err := session.Manager.Set(ctx, session.SessionId, &userInfo)
