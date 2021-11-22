@@ -19,13 +19,13 @@ func NewUsersDataService(repository repository.UsersDataRepository) *UsersDataSe
 
 func (s *UsersDataService) Create(request request.UsersReq) (*models.User, error) {
 	entity := models.User{
-		ID: request.ID,
-		Nama: request.Nama,
+		ID:           request.ID,
+		Nama:         request.Nama,
 		JenisKelamin: request.JenisKelamin,
-		NoTlp: request.NoTlp,
-		Email: request.Email,
-		Alamat: request.Alamat,
-		TglLahir: request.TglLahir,
+		NoTlp:        request.NoTlp,
+		Email:        request.Email,
+		Alamat:       request.Alamat,
+		TglLahir:     request.TglLahir,
 	}
 	data, err := s.UsersDataRepository.Create(entity)
 
@@ -34,12 +34,12 @@ func (s *UsersDataService) Create(request request.UsersReq) (*models.User, error
 	}
 	return data, err
 }
-func (s *UsersDataService) CreateAkun(request request.UsersReq, name string,user string) (*models.Akun, error) {
+func (s *UsersDataService) CreateAkun(request request.UsersReq, name string, user string) (*models.Akun, error) {
 	entity := models.Akun{
-		ID: user,
+		ID:       user,
 		Username: request.Username,
 		Password: request.Password,
-		Foto: name,
+		Foto:     name,
 		TypeUser: request.TypeUser,
 	}
 	data, err := s.UsersDataRepository.CreateAkun(entity)
@@ -50,21 +50,19 @@ func (s *UsersDataService) CreateAkun(request request.UsersReq, name string,user
 	return data, err
 }
 
-func (s *UsersDataService) QueryDatatable(searchValue string,orderType string, orderBy string, limit int, offset int) (
+func (s *UsersDataService) QueryDatatable(searchValue string, orderType string, orderBy string, limit int, offset int) (
 	recordTotal int64, recordFiltered int64, data []models.User, err error) {
 	recordTotal, err = s.UsersDataRepository.Count()
 	strings.ToLower(searchValue)
 	if searchValue != "" {
 		recordFiltered, err = s.UsersDataRepository.CountWhere("or", map[string]interface{}{
 
-			"nama LIKE ?": "%" + searchValue + "%" ,
-
+			"nama LIKE ?": "%" + searchValue + "%",
 		})
 
 		data, err = s.UsersDataRepository.FindAllWhere("or", orderType, "nama", limit, offset, map[string]interface{}{
-			"nama LIKE ?": "%" + searchValue + "%",
+			"nama LIKE ?":    "%" + searchValue + "%",
 			"id_user LIKE ?": "%" + searchValue + "%",
-
 		})
 		return recordTotal, recordFiltered, data, err
 	}
@@ -100,13 +98,13 @@ func (s *UsersDataService) Delete(id string) error {
 
 func (s *UsersDataService) UpdateUser(id string, dto request.UsersReq) (*models.User, error) {
 	entity := models.User{
-		ID:        id,
-		Nama:  dto.Nama,
-		Alamat: dto.Alamat,
-		TglLahir: dto.TglLahir,
-		Email: dto.Email,
+		ID:           id,
+		Nama:         dto.Nama,
+		Alamat:       dto.Alamat,
+		TglLahir:     dto.TglLahir,
+		Email:        dto.Email,
 		JenisKelamin: dto.JenisKelamin,
-		NoTlp: dto.NoTlp,
+		NoTlp:        dto.NoTlp,
 	}
 
 	data, err := s.UsersDataRepository.UpdateUser(entity)
@@ -120,18 +118,18 @@ func (s *UsersDataService) UpdateUser(id string, dto request.UsersReq) (*models.
 func (s *UsersDataService) UpdateAkun(id string, dto request.UsersReq, nama string) (*models.Akun, error) {
 
 	entity := models.Akun{
-		ID:        id,
+		ID:       id,
 		Username: dto.Username,
 		Password: dto.Password,
 		TypeUser: dto.TypeUser,
 	}
-	if nama != ""{
+	if nama != "" {
 		entity = models.Akun{
-			ID:        id,
+			ID:       id,
 			Username: dto.Username,
 			Password: dto.Password,
 			TypeUser: dto.TypeUser,
-			Foto: nama,
+			Foto:     nama,
 		}
 	}
 

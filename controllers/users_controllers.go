@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
 	"io"
@@ -35,6 +36,33 @@ func (c *UsersDataController) Index(ctx echo.Context) error {
 	}
 	return Render(ctx, "Home", "users/create", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
 }
+func (c *UsersDataController) Profile(ctx echo.Context) error {
+	id := ctx.Param("id")
+	data, err := c.service.FindById(id)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+	breadCrumbs := map[string]interface{}{
+		"menu": "Users",
+		"link": "/admin/v1/users",
+	}
+	return Render(ctx, "Home", "users/profile", c.Menu, append(c.BreadCrumbs, breadCrumbs), data)
+}
+func (c *UsersDataController) UpdateProfile(ctx echo.Context) error {
+	id := ctx.Param("id")
+	data, err := c.service.FindById(id)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+	breadCrumbs := map[string]interface{}{
+		"menu": "Users",
+		"link": "/admin/v1/user/profile/update",
+	}
+	return Render(ctx, "Home", "users/update_profile", c.Menu, append(c.BreadCrumbs, breadCrumbs), data)
+}
+
+
+
 func (c *UsersDataController) TableUser(ctx echo.Context) error {
 	breadCrumbs := map[string]interface{}{
 		"menu": "Users",
@@ -197,4 +225,21 @@ func (c *UsersDataController) DoUpdate(ctx echo.Context) error {
 		return c.InternalServerError(ctx, err)
 	}
 	return ctx.Redirect(302, "/admin/v1/user")
+}
+
+func (c *UsersDataController) DoUpdateProfile(ctx echo.Context) error {
+	var entity request.UsersReq
+	id := ctx.Param("id")
+	fmt.Println("data id : ",id)
+	if err := ctx.Bind(&entity); err != nil {
+		return ctx.JSON(400, echo.Map{"message": "error binding data"})
+	}
+	fmt.Println("data : ", entity)
+	//Update User
+	_, err := c.service.UpdateUser(id, entity)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+
+	return ctx.Redirect(302, "/admin/v1/user/profile/"+entity.ID)
 }

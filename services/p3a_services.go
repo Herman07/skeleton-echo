@@ -18,30 +18,20 @@ func NewP3Service(repository repository.P3Repository) *P3Service {
 	}
 }
 func (s *P3Service) QueryDatatable(searchValue string, orderType string, orderBy string, limit int, offset int) (
-	recordTotal int64, recordFiltered int64, data []models.Inventaris, err error) {
+	recordTotal int64, recordFiltered int64, data []models.P3AModels, err error) {
 	recordTotal, err = s.P3Repository.Count()
 	strings.ToLower(searchValue)
 	if searchValue != "" {
 		recordFiltered, err = s.P3Repository.CountWhere("or", map[string]interface{}{
-			"ID LIKE ?":             "%" + searchValue + "%",
-			"NomorUrut LIKE ?":      "%" + searchValue + "%",
-			"NamaP3A LIKE ?":        "%" + searchValue + "%",
-			"JumlahP3A LIKE ?":      "%" + searchValue + "%",
-			"DaerahIrigasi LIKE ?":  "%" + searchValue + "%",
-			"LuasWilayah LIKE ?":    "%" + searchValue + "%",
-			"LuasLayananP3A LIKE ?": "%" + searchValue + "%",
-			"Keterangan LIKE ?":     "%" + searchValue + "%",
+			"nama_prov LIKE ?":     "%" + searchValue + "%",
+			"nama_kab LIKE ?":     "%" + searchValue + "%",
+			"nama_kecamatan LIKE ?":     "%" + searchValue + "%",
 		})
 
-		data, err = s.P3Repository.FindAllWhere("or", orderType, "NomorUrut", limit, offset, map[string]interface{}{
-			"ID LIKE ?":             "%" + searchValue + "%",
-			"NomorUrut LIKE ?":      "%" + searchValue + "%",
-			"NamaP3A LIKE ?":        "%" + searchValue + "%",
-			"JumlahP3A LIKE ?":      "%" + searchValue + "%",
-			"DaerahIrigasi LIKE ?":  "%" + searchValue + "%",
-			"LuasWilayah LIKE ?":    "%" + searchValue + "%",
-			"LuasLayananP3A LIKE ?": "%" + searchValue + "%",
-			"Keterangan LIKE ?":     "%" + searchValue + "%",
+		data, err = s.P3Repository.FindAllWhere("or", orderType, "nama_kecamatan", limit, offset, map[string]interface{}{
+			"nama_prov LIKE ?":     "%" + searchValue + "%",
+			"nama_kab LIKE ?":     "%" + searchValue + "%",
+			"nama_kecamatan LIKE ?":     "%" + searchValue + "%",
 		})
 		return recordTotal, recordFiltered, data, err
 	}
@@ -49,19 +39,11 @@ func (s *P3Service) QueryDatatable(searchValue string, orderType string, orderBy
 		"1 =?": 1,
 	})
 
-	data, err = s.P3Repository.FindAllWhere("or", orderType, "id_p3a", limit, offset, map[string]interface{}{
+	data, err = s.P3Repository.FindAllWhere("or", orderType, "nama_kecamatan", limit, offset, map[string]interface{}{
 		"1= ?": 1,
 	})
 	return recordTotal, recordFiltered, data, err
 }
-
-//func (s *P3Service) GetAll(dataReq models.Inventaris) (*models.Inventaris, error) {
-//	data, err := s.P3Repository.GetData(dataReq)
-//	if err != nil {
-//		return nil, err
-//	}
-//	return data, err
-//}
 
 func (s *P3Service) FindById(id string) (*models.P3AModels, error) {
 	data, err := s.P3Repository.FindById(id)
@@ -95,6 +77,7 @@ func (s *P3Service) CreateStatusLegal(request request.RequestInventaris, namaFil
 		TahunPembentukan:    request.TahunPembentukan,
 		LamTahunPembentukan: namaFile[0],
 		LamKplDesa:          namaFile[1],
+		DiketKplDaerah:      request.DiketKplDaerah,
 		SKBupati:            request.SKBupati,
 		LamSKBupati:         namaFile[2],
 		AkteNotaris:         request.AkteNotaris,
@@ -204,8 +187,6 @@ func (s *P3Service) Delete(id string) error {
 	// Delete Pertanian
 	err = s.P3Repository.DeletePertanian(data.IDTani)
 
-
-
 	entity := models.Inventaris{
 		ID: id,
 	}
@@ -223,6 +204,7 @@ func (s *P3Service) UpdateStatusLegal(id string, dto request.UpdateInventaris) (
 		TahunPembentukan:    dto.TahunPembentukan,
 		LamTahunPembentukan: *dto.LamTahunPembentukan,
 		LamKplDesa:          *dto.LamKplDesa,
+		DiketKplDaerah:      dto.DiketKplDaerah,
 		SKBupati:            dto.SKBupati,
 		LamSKBupati:         *dto.LamSKBupati,
 		AkteNotaris:         dto.AkteNotaris,

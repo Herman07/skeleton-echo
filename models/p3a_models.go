@@ -18,7 +18,8 @@ type P3AModels struct {
 	IDStatus               string `gorm:"column:id_status_legal" json:"id_status_legal" param:"id_status_legal"`
 	TahunPembentukan       string `gorm:"column:tahun_pembentukan" json:"tahun_pembentukan" form:"tahun_pembentukan" param:"tahun_pembentukan"`
 	LamTahunPembentukan    string `gorm:"column:lampiran_tahun_pembentukan" json:"lampiran_tahun_pembentukan" form:"lampiran_tahun_pembentukan" param:"lampiran_tahun_pembentukan"`
-	LamKplDesa             string `gorm:"column:diket_kep_dc" json:"diket_kep_dc" form:"diket_kep_dc" param:"diket_kep_dc"`
+	DiketKplDaerah         string `gorm:"column:diket_kep_dc" json:"diket_kep_dc" form:"diket_kep_dc" param:"diket_kep_dc"`
+	LamKplDesa             string `gorm:"column:lampiran_kep_dc" json:"lampiran_kep_dc" form:"lampiran_kep_dc" param:"lampiran_kep_dc"`
 	SKBupati               string `gorm:"column:no_sk_bupati" json:"no_sk_bupati" form:"no_sk_bupati" param:"no_sk_bupati"`
 	LamSKBupati            string `gorm:"column:lampiran_sk_bupati" json:"lampiran_sk_bupati" form:"lampiran_sk_bupati" param:"lampiran_sk_bupati"`
 	AkteNotaris            string `gorm:"column:akte_notaris" json:"akte_notaris" form:"akte_notaris" param:"akte_notaris"`

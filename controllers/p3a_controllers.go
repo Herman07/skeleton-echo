@@ -64,13 +64,13 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 	var action string
 	listOfData := make([]map[string]interface{}, len(data))
 	for k, v := range data {
-		action = `<a href="/admin/v1/inventaris/update/` + (v.ID) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-edit"></i></a>
-		<a href="/admin/v1/inventaris/detail/` + (v.ID) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-eye"></i></a>
-		<button onclick="Delete('` + v.ID + `')" class="btn btn-danger" title="Delete" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-trash"></i></button>`
+		action = `<a href="/admin/v1/inventaris/update/` + (v.IDP3A) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-edit"></i></a>
+		<a href="/admin/v1/inventaris/detail/` + (v.IDP3A) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-eye"></i></a>
+		<button onclick="Delete('` + v.IDP3A + `')" class="btn btn-danger" title="Delete" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-trash"></i></button>`
 		//time := v.CreatedAt
 		//createdAt = time.Format("2006-01-02")
 		listOfData[k] = map[string]interface{}{
-			"id_p3a":              v.ID,
+			"id_p3a":              v.IDP3A,
 			"no_urut":             v.NoUrut,
 			"nama_p3a":            v.NamaP3A,
 			"jumlah_p3a":          v.JumlahP3A,
@@ -78,8 +78,33 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 			"luas_wilayah":        v.LuasWilayah,
 			"luas_layanan_p3a":    v.LuasLayananP3A,
 			"keterangan":          v.Keterangan,
-			//"created_at":          createdAt,
-			"action": action,
+			"nama_prov":           v.NamaProv,
+			"nama_kab" : v.NamaKab,
+			"nama_kecamatan" : v.NamaKec,
+			"tahun_pembentukan" : v.TahunPembentukan,
+			"diket_kep_dc" : v.DiketKplDaerah,
+			"sk_bupati" :v.SKBupati,
+			"akte_notaris" : v.AkteNotaris,
+			"no_pendaftaran" : v.NoPendaftaran,
+			"ketua" : v.Ketua,
+			"wakil" : v.Wakil,
+			"sekretaris" : v.Sekretaris,
+			"bendahara" : v.Bendahara,
+			"sek_op" : v.SekOP,
+			"sek_bisnis" : v.SekBisnis,
+			"sek_teknik" : v.SekTeknik,
+			"jumlah_anggota" :v.JumlahAnggota,
+			"no_ad_art" : v.NoADRT,
+			"sekretariat" :v.Sekretariat,
+			"persentase_perempuan_p3a" : v.PresentasiPerempuanP3A,
+			"areal_tersier" : v.ArealTersier,
+			"pengisian_buku" : v.PengisianBuku,
+			"iuran" : v.Iuran,
+			"operasi" : v.Operasi,
+			"partisipatif" : v.Partisipatif,
+			"pola_tanam" : v.PolaTanam,
+			"usaha_tani" : v.UsahaTani,
+			"action":              action,
 		}
 	}
 	result := models.ResponseDatatable{
@@ -98,7 +123,7 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 		return ctx.JSON(500, echo.Map{"message": "error binding data"})
 	}
 
-	name := []string{"lampiran_tahun_pembentukan", "diket_kep_dc", "lampiran_sk_bupati", "lampiran_akte_notaris", "lampiran_pendaftaran", "lampiran_ad_art", "lampiran_sekretariat"}
+	name := []string{"lampiran_tahun_pembentukan", "lampiran_kep_dc", "lampiran_sk_bupati", "lampiran_akte_notaris", "lampiran_pendaftaran", "lampiran_ad_art", "lampiran_sekretariat"}
 
 	var namaFile []string
 	for i := range name {
@@ -164,7 +189,7 @@ func (c *P3Controller) GenerateExcel(ctx echo.Context) error {
 	}
 	f := excelize.NewFile()
 	_, _ = f.NewConditionalStyle("center")
-	center,_ := f.NewStyle(`{"alignment":{"horizontal":"center"},"font":{"italic":true},"border": [
+	center, _ := f.NewStyle(`{"alignment":{"horizontal":"center"},"font":{"italic":true},"border": [
 			{
 				"type": "left",
 				"color": "202020",
@@ -185,9 +210,9 @@ func (c *P3Controller) GenerateExcel(ctx echo.Context) error {
 				"color": "202020",
 				"style": 5
 			}]}`)
-	style, _ := f.NewStyle(`
+	columncolor, _ := f.NewStyle(`
 		{"alignment":{"horizontal":"center","vertical":"center"},"font":{"bold":true,"italic":true},
-		"fill":{"type":"pattern","color":["#6DF461"],"pattern":1},
+		"fill":{"type":"pattern","color":["#20FF00"],"pattern":1},
 		"border": [
 			{
 				"type": "left",
@@ -209,14 +234,65 @@ func (c *P3Controller) GenerateExcel(ctx echo.Context) error {
 				"color": "202020",
 				"style": 5
 			}]}`)
+	columncolor1, _ := f.NewStyle(`
+		{"alignment":{"horizontal":"center","vertical":"center"},"font":{"bold":true,"italic":true},
+		"fill":{"type":"pattern","color":["#FF0000"],"pattern":1},
+		"border": [
+			{
+				"type": "left",
+				"color": "202020",
+				"style": 5
+			},
+			{
+				"type": "top",
+				"color": "202020",
+				"style": 5
+			},
+			{
+				"type": "bottom",
+				"color": "202020",
+				"style": 5
+			},
+			{
+				"type": "right",
+				"color": "202020",
+				"style": 5
+			}]}`)
+	columncolor2, _ := f.NewStyle(`
+		{"alignment":{"horizontal":"center","vertical":"center"},"font":{"bold":true,"italic":true},
+		"fill":{"type":"pattern","color":["#0095FF"],"pattern":1},
+		"border": [
+			{
+				"type": "left",
+				"color": "202020",
+				"style": 5
+			},
+			{
+				"type": "top",
+				"color": "202020",
+				"style": 5
+			},
+			{
+				"type": "bottom",
+				"color": "202020",
+				"style": 5
+			},
+			{
+				"type": "right",
+				"color": "202020",
+				"style": 5
+			}]}`)
+	f.SetCellStyle("Sheet1", "A1", "H3", columncolor)
+	f.SetCellStyle("Sheet1", "I1", "M3", columncolor1)
+	f.SetCellStyle("Sheet1", "N1", "AA3", columncolor2)
+	f.SetCellStyle("Sheet1", "AB1", "AF3", columncolor)
 	f.SetColWidth("Sheet1", "A", "AF", 20)
-	f.SetCellStyle("Sheet1", "A1", "AF3", style)
 	in := 4
-	for range data{
+	for range data {
 		in++
 	}
 	number := strconv.Itoa(in)
-	column := fmt.Sprintf("AF%s",number)
+	column := fmt.Sprintf("AF%s", number)
 	_ = f.SetCellStyle("Sheet1", "A4", column, center)
 
 	// Create a new sheet.
@@ -303,7 +379,7 @@ func (c *P3Controller) GenerateExcel(ctx echo.Context) error {
 	for i, v := range data {
 		_ = f.SetCellValue("Sheet1", "A"+strconv.Itoa(i+4), i+1)
 		i = i + 4
-		_ = f.SetCellValue("Sheet1", "B"+strconv.Itoa(i), v.NamaProv +"/"+ v.NamaKab)
+		_ = f.SetCellValue("Sheet1", "B"+strconv.Itoa(i), v.NamaProv+"/"+v.NamaKab)
 		_ = f.SetCellValue("Sheet1", "C"+strconv.Itoa(i), v.NamaKec)
 		_ = f.SetCellValue("Sheet1", "D"+strconv.Itoa(i), v.DaerahIrigasi)
 		_ = f.SetCellValue("Sheet1", "E"+strconv.Itoa(i), v.LuasWilayah)
@@ -376,7 +452,7 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 		name = append(name, "lampiran_tahun_pembentukan")
 	}
 	if entity.LamKplDesa == nil {
-		name = append(name, "diket_kep_dc")
+		name = append(name, "lampiran_kep_dc")
 	}
 	if entity.LamSKBupati == nil {
 		name = append(name, "lampiran_sk_bupati")

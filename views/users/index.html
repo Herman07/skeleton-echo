@@ -41,7 +41,9 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#user").DataTable({
-            dom: 'Bfrtip',
+            scrollY:        300,
+            scrollX:        true,
+            scrollCollapse: true,
             processing: true,
             serverSide: true,
             fixedColumns: true,
@@ -52,9 +54,7 @@
                 "header": false,
                 "footer": false
             },
-            buttons: [
-                "copy", "csv", "excel", "pdf", "print"
-            ],
+            buttons: [],
             ajax: '/admin/v1/user/table',
             "columns": [
                 {data: 'id_user', name: 'id_user' ,"className": "text-center"} ,
