@@ -40,7 +40,7 @@
         console.log(kab)
         $.ajax({
             url: "/kec/addkec",
-            data: $("#form").serialize() + kab,
+            data: $("#form2").serialize() + kab,
             type: 'POST',
             // contentType: 'multipart/form-data',
             success: function (res) {

@@ -40,7 +40,7 @@
         console.log(kab)
         $.ajax({
             url: "/kab/addkab",
-            data: $("#form").serialize() + kab,
+            data: $("#form2").serialize() + kab,
             type: 'POST',
             success: function (res) {
                 swal({

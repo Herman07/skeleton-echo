@@ -28,6 +28,7 @@ func Api(e *echo.Echo, db *gorm.DB) {
 				userInfo := session.UserInfo{
 					ID: data.ID,
 					Username: data.Username,
+					TypeUser: data.TypeUser,
 				}
 
 				_ = json.Unmarshal(dataSes, &userInfo)
@@ -39,7 +40,7 @@ func Api(e *echo.Echo, db *gorm.DB) {
 	authorizationMiddleware := middleware.NewAuthorizationMiddleware(db)
 
 	adminGroup := e.Group("/admin",mv, middleware.SessionMiddleware(session.Manager))
-	g := adminGroup.Group("/v1",mv, authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
+	g := adminGroup.Group("/v1",mv, authorizationMiddleware.AuthorizationMiddleware([]string{"1","2"}))
 
 
 	e.GET("/", func(ctx echo.Context) error {
@@ -51,7 +52,7 @@ func Api(e *echo.Echo, db *gorm.DB) {
 	e.POST("/logout", authController.Logout)
 
 	{
-		invenGroup := g.Group("/inventaris",mv,authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
+		invenGroup := g.Group("/inventaris",mv,authorizationMiddleware.AuthorizationMiddleware([]string{"1","2"}))
 		dashboardController := config.InjectDashboardController(db)
 		invenGroup.GET("", dashboardController.Index)
 		invenGroup.GET("/add", dashboardController.Add)

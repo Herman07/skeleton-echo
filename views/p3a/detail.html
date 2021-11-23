@@ -17,58 +17,46 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Provinsi<span class="">*</span></label>
-                                <select class="form-control" disabled>
-                                    <option value="{{.data.NamaProv}}">{{.data.NamaProv}}</option>
-                                </select>
+                                <p class="form-control">{{.data.NamaProv}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Kabupaten<span class="">*</span></label>
-                                <select class="form-control" disabled>
-                                    <option value="{{.data.NamaKab}}">{{.data.NamaKab}}</option>
-                                </select>
+                                <p class="form-control">{{.data.NamaKab}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Kecamatan</label><span class="">*</span>
-                                <select class="form-control" disabled>
-                                    <option value="{{.data.NamaKec}}">{{.data.NamaKec}}</option>
-                                </select>
+                                <p class="form-control">{{.data.NamaKec}}</p>
                             </div>
                             <div class="form-group">
                                 <label>No Urut <span class="">*</span>
                                 </label>
-                                <input type="text" class="form-control"
-                                       value="{{.data.NoUrut}}" disabled>
+                                <p type="text" class="form-control">{{.data.NoUrut}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Nama P3A<span class="">*</span></label>
-                                <input type="text" class="form-control"
-                                       value="{{.data.NamaP3A}}" disabled>
+                                <p type="text" class="form-control">{{.data.NamaP3A}}</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Daerah Irigasi<span class="">*</span></label>
+                                <p type="text" class="form-control">{{.data.DaerahIrigasi}}</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Nama Daerah Irigasi<span class="">*</span></label>
-                                <input type="text" class="form-control"
-                                       value="{{.data.DaerahIrigasi}}" disabled>
-                            </div>
-                            <div class="form-group">
                                 <label>Luas Wilayah<span class="">*</span></label>
-                                <input type="text" class="form-control"
-                                       value="{{.data.LuasWilayah}}" disabled>
+                                <p type="text" class="form-control">{{.data.LuasWilayah}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Jumlah P3A<span class="">*</span></label>
-                                <input type="text" class="form-control"
-                                       value="{{.data.JumlahP3A}}" disabled>
+                                <p class="form-control">{{.data.JumlahP3A}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Luas Layanan P3A<span class="">*</span></label>
-                                <input type="text" class="form-control"
-                                       value="{{.data.LuasLayananP3A}}" disabled>
+                                <p class="form-control">{{.data.LuasLayananP3A}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Keterangan<span class="">*</span></label>
-                                <textarea type="text" class="form-control" disabled>{{.data.Keterangan}}</textarea>
+                                <p class="form-control" style="height: 100px">{{.data.Keterangan}}</p>
                             </div>
                         </div>
                     </div>
@@ -90,25 +78,25 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Tahun Pembentukan<span class="">*</span></label>
-                                <input type="text" class="form-control" value="{{.data.TahunPembentukan}}" disabled>
+                                <p class="form-control">{{.data.TahunPembentukan}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Diket Kepala Daerah<span class="">*</span></label>
-                                <input type="text" class="form-control" value="{{.data.DiketKplDaerah}}" disabled>
+                                <p class="form-control">{{.data.DiketKplDaerah}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Nomor SK Bupati<span class="">*</span></label>
-                                <input type="text" class="form-control" value="{{.data.SKBupati}}" disabled>
+                                <p class="form-control">{{.data.SKBupati}}</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Akte Notaris<span class="">*</span></label>
-                                <input type="text" class="form-control" value="{{.data.AkteNotaris}}" disabled>
+                                <p class="form-control">{{.data.AkteNotaris}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Nomor Pendaftaran<span class="">*</span></label>
-                                <input type="text" class="form-control" value="{{.data.NoPendaftaran}}" disabled>
+                                <p class="form-control">{{.data.NoPendaftaran}}</p>
                             </div>
                         </div>
                     </div>
@@ -245,38 +233,33 @@
                             </div>
                             <div class="form-group">
                                 <label>Jumlah Anggota<span class="">*</span></label>
-                                <input type="text" class="form-control" value="{{.data.JumlahAnggota}}" disabled>
+                                <p class="form-control">{{.data.JumlahAnggota}}</p>
                             </div>
                             <div class="form-group">
                                 <label>No ADRT<span class="">*</span></label>
-                                <select class="form-control" disabled>
-                                    <option value="{{.data.NoADRT}}">{{.data.NoADRT}}</option>
-                                </select>
+                                <p class="form-control">{{.data.NoADRT}}</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Sekretariat<span class="">*</span></label>
-                                <select class="form-control" disabled>
-                                    <option value="{{.data.Sekretariat}}">{{.data.Sekretariat}}</option>
-                                </select>
+                                <p class="form-control">{{.data.Sekretariat}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Presentase Perempuan P3A<span class="">*</span></label>
-                                <input type="text" class="form-control" value="{{.data.PresentasiPerempuanP3A}}"
-                                       disabled>
+                                <p class="form-control">{{.data.PresentasiPerempuanP3A}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Areal Tersier<span class="">*</span></label>
-                                <input type="text" class="form-control" value="{{.data.ArealTersier}}" disabled>
+                                <p class="form-control">{{.data.ArealTersier}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Pengisian Buku<span class="">*</span></label>
-                                <input type="text" class="form-control" value="{{.data.PengisianBuku}}" disabled>
+                                <p class="form-control">{{.data.PengisianBuku}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Iuran<span class="">*</span></label>
-                                <input type="text" class="form-control" value="{{.data.Iuran}}" disabled>
+                                <p class="form-control">{{.data.Iuran}}</p>
                             </div>
                         </div>
                     </div>
@@ -298,21 +281,21 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Operasi<span class="">*</span></label>
-                                <input type="text" class="form-control" value="{{.data.Operasi}}" disabled>
+                                <p class="form-control">{{.data.Operasi}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Partisipatif<span class="">*</span></label>
-                                <input type="text" class="form-control" value="{{.data.Partisipatif}}" disabled>
+                                <p class="form-control">{{.data.Partisipatif}}</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Pola Tanam<span class="">*</span></label>
-                                <input type="text" class="form-control" value="{{.data.PolaTanam}}" disabled>
+                                <p class="form-control">{{.data.PolaTanam}}</p>
                             </div>
                             <div class="form-group">
                                 <label>Usaha Tani<span class="">*</span></label>
-                                <input type="text" class="form-control" value="{{.data.UsahaTani}}" disabled>
+                                <p class="form-control">{{.data.UsahaTani}}</p>
                             </div>
                         </div>
                     </div>

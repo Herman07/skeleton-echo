@@ -1,5 +1,5 @@
 {{define "content"}}
-
+{{with session .ctx}}
 <div class="right_col" role="main">
     <div class="">
         <div class="page-title">
@@ -7,12 +7,23 @@
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>Inventarisasi P3A</h2>
+
+                        {{if eq .TypeUser "2"}}
+                        <ul class="nav navbar-right panel_toolbox" style="display:none;">
+                            <a class="btn btn-success" href="/admin/v1/inventaris/generate" download="Data-Export.xlsx"><i class="fa fa-save"> Export</i></a>
+                            <a class="btn btn-primary" href="/admin/v1/inventaris/add"><i class="fa fa-plus"> Tambah</i></a>
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        {{else}}
                         <ul class="nav navbar-right panel_toolbox">
                             <a class="btn btn-success" href="/admin/v1/inventaris/generate" download="Data-Export.xlsx"><i class="fa fa-save"> Export</i></a>
                             <a class="btn btn-primary" href="/admin/v1/inventaris/add"><i class="fa fa-plus"> Tambah</i></a>
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
                         </ul>
+                        {{end}}
+
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
@@ -63,6 +74,7 @@
         </div>
     </div>
 </div>
+{{end}}
 <!-- /page content -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 

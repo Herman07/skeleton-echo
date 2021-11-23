@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
@@ -11,6 +12,7 @@ import (
 	"skeleton-echo/models"
 	"skeleton-echo/request"
 	"skeleton-echo/services"
+	"skeleton-echo/utils/session"
 	"strconv"
 	"time"
 )
@@ -35,7 +37,15 @@ func (c *P3Controller) Index(ctx echo.Context) error {
 		"menu": "Home",
 		"link": "/admin/v1/inventaris",
 	}
-	return Render(ctx, "Home", "p3a/index", c.Menu, append(c.BreadCrumbs, breadCrumbs), nil)
+	ses,_ := session.Manager.Get(ctx,session.SessionId)
+	dataSes,_ := json.Marshal(ses)
+	var data session.UserInfo
+	userInfo := session.UserInfo{
+		ID:       data.ID,
+		TypeUser: data.TypeUser,
+	}
+	_ = json.Unmarshal(dataSes, &userInfo)
+	return Render(ctx, "Home", "p3a/index", c.Menu, append(c.BreadCrumbs, breadCrumbs), userInfo)
 }
 
 func (c *P3Controller) Add(ctx echo.Context) error {
@@ -47,6 +57,14 @@ func (c *P3Controller) Add(ctx echo.Context) error {
 }
 
 func (c *P3Controller) GetDetail(ctx echo.Context) error {
+	ses,_ := session.Manager.Get(ctx,session.SessionId)
+	dataSes,_ := json.Marshal(ses)
+	var data1 session.UserInfo
+	userInfo := session.UserInfo{
+		ID:       data1.ID,
+		TypeUser: data1.TypeUser,
+	}
+	_ = json.Unmarshal(dataSes, &userInfo)
 
 	draw, err := strconv.Atoi(ctx.Request().URL.Query().Get("draw"))
 	start, err := strconv.Atoi(ctx.Request().URL.Query().Get("start"))
@@ -64,11 +82,14 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 	var action string
 	listOfData := make([]map[string]interface{}, len(data))
 	for k, v := range data {
-		action = `<a href="/admin/v1/inventaris/update/` + (v.IDP3A) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-edit"></i></a>
+		if userInfo.TypeUser != "2"{
+		action =`
+		<a href="/admin/v1/inventaris/update/` + (v.IDP3A) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-edit"></i></a>
 		<a href="/admin/v1/inventaris/detail/` + (v.IDP3A) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-eye"></i></a>
 		<button onclick="Delete('` + v.IDP3A + `')" class="btn btn-danger" title="Delete" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-trash"></i></button>`
-		//time := v.CreatedAt
-		//createdAt = time.Format("2006-01-02")
+		}else{
+		action =`<a href="/admin/v1/inventaris/detail/` + (v.IDP3A) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-eye"></i></a>`
+		}
 		listOfData[k] = map[string]interface{}{
 			"id_p3a":              v.IDP3A,
 			"no_urut":             v.NoUrut,
@@ -123,39 +144,38 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 		return ctx.JSON(500, echo.Map{"message": "error binding data"})
 	}
 
-	name := []string{"lampiran_tahun_pembentukan", "lampiran_kep_dc", "lampiran_sk_bupati", "lampiran_akte_notaris", "lampiran_pendaftaran", "lampiran_ad_art", "lampiran_sekretariat"}
-
-	var namaFile []string
-	for i := range name {
-		file, _ := ctx.FormFile(name[i])
-
-		src, _ := file.Open()
-		defer src.Close()
-
-		// Destination
-		t := time.Now().UnixNano()
-		nf := name[i] + "_" + strconv.FormatInt(t, 10) + "_" + file.Filename
-		nama := "static/image/" + nf
-		dst, _ := os.Create(nama)
-		defer dst.Close()
-
-		// Copy
-		_, err := io.Copy(dst, src)
-		if err != nil {
-			log.Error("[Error] ", err)
-			return c.InternalServerError(ctx, err)
-		}
-		i++
-		namaFile = append(namaFile, nf)
-	}
+	//name := []string{"lampiran_tahun_pembentukan", "lampiran_kep_dc", "lampiran_sk_bupati", "lampiran_akte_notaris", "lampiran_pendaftaran", "lampiran_ad_art", "lampiran_sekretariat"}
+	//	var namaFile []string
+	//	for i := range name {
+	//		file, _ := ctx.FormFile(name[i])
+	//
+	//		src, _ := file.Open()
+	//		defer src.Close()
+	//
+	//		// Destination
+	//		t := time.Now().UnixNano()
+	//		nf := name[i] + "_" + strconv.FormatInt(t, 10) + "_" + file.Filename
+	//		nama := "static/image/" + nf
+	//		dst, _ := os.Create(nama)
+	//		defer dst.Close()
+	//
+	//		// Copy
+	//		_, err := io.Copy(dst, src)
+	//		if err != nil {
+	//			log.Error("[Error] ", err)
+	//			return c.InternalServerError(ctx, err)
+	//		}
+	//		i++
+	//		namaFile = append(namaFile, nf)
+	//	}
 	//Store Data Status Legal
-	statusLegal, err := c.service.CreateStatusLegal(entity, namaFile)
+	statusLegal, err := c.service.CreateStatusLegal(entity)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
 
 	// Store Data Kepengurusan
-	pengurus, err := c.service.CreatePengurus(entity, namaFile)
+	pengurus, err := c.service.CreatePengurus(entity)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}

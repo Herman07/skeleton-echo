@@ -103,7 +103,8 @@ func (c *KabDataController) AddData(ctx echo.Context) error {
 		return ctx.JSON(400, echo.Map{"message": "error binding data"})
 	}
 	_, err := c.service.Create(entity)
-	//entity.CreatedAt = time.Now()
+
+	fmt.Println("data : ", entity)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
