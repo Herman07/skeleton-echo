@@ -468,25 +468,25 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 		return ctx.JSON(400, echo.Map{"message": "error binding data"})
 	}
 	var name []string
-	if entity.LamTahunPembentukan == nil {
+	if entity.LamTahunPembentukan != nil {
 		name = append(name, "lampiran_tahun_pembentukan")
 	}
-	if entity.LamKplDesa == nil {
+	if entity.LamKplDesa != nil {
 		name = append(name, "lampiran_kep_dc")
 	}
-	if entity.LamSKBupati == nil {
+	if entity.LamSKBupati != nil {
 		name = append(name, "lampiran_sk_bupati")
 	}
-	if entity.LamAkteNotaris == nil {
+	if entity.LamAkteNotaris != nil {
 		name = append(name, "lampiran_akte_notaris")
 	}
-	if entity.LamPendaftaran == nil {
+	if entity.LamPendaftaran != nil {
 		name = append(name, "lampiran_pendaftaran")
 	}
-	if entity.LampiranADRT == nil {
+	if entity.LampiranADRT != nil {
 		name = append(name, "lampiran_ad_art")
 	}
-	if entity.LampiranSekretariat == nil {
+	if entity.LampiranSekretariat != nil {
 		name = append(name, "lampiran_sekretariat")
 	}
 	fmt.Println("List Files : ", name)
