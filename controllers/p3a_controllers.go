@@ -9,10 +9,10 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"skeleton-echo/models"
-	"skeleton-echo/request"
-	"skeleton-echo/services"
-	"skeleton-echo/utils/session"
+	"Inventarisasi-P3A/models"
+	"Inventarisasi-P3A/request"
+	"Inventarisasi-P3A/services"
+	"Inventarisasi-P3A/utils/session"
 	"strconv"
 	"time"
 )
@@ -37,8 +37,8 @@ func (c *P3Controller) Index(ctx echo.Context) error {
 		"menu": "Home",
 		"link": "/admin/v1/inventaris",
 	}
-	ses,_ := session.Manager.Get(ctx,session.SessionId)
-	dataSes,_ := json.Marshal(ses)
+	ses, _ := session.Manager.Get(ctx, session.SessionId)
+	dataSes, _ := json.Marshal(ses)
 	var data session.UserInfo
 	userInfo := session.UserInfo{
 		ID:       data.ID,
@@ -57,8 +57,8 @@ func (c *P3Controller) Add(ctx echo.Context) error {
 }
 
 func (c *P3Controller) GetDetail(ctx echo.Context) error {
-	ses,_ := session.Manager.Get(ctx,session.SessionId)
-	dataSes,_ := json.Marshal(ses)
+	ses, _ := session.Manager.Get(ctx, session.SessionId)
+	dataSes, _ := json.Marshal(ses)
 	var data1 session.UserInfo
 	userInfo := session.UserInfo{
 		ID:       data1.ID,
@@ -72,9 +72,9 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 	length, err := strconv.Atoi(ctx.Request().URL.Query().Get("length"))
 	order, err := strconv.Atoi(ctx.Request().URL.Query().Get("order[0][column]"))
 	orderName := ctx.Request().URL.Query().Get("columns[" + strconv.Itoa(order) + "][name]")
-	orderAscDesc := ctx.Request().URL.Query().Get("order[0][dir]")
+	//orderAscDesc := ctx.Request().URL.Query().Get("order[0][dir]")
 
-	recordTotal, recordFiltered, data, err := c.service.QueryDatatable(search, orderAscDesc, orderName, length, start)
+	recordTotal, recordFiltered, data, err := c.service.QueryDatatable(search, "DESC", orderName, length, start)
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, err.Error())
 	}
@@ -82,50 +82,50 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 	var action string
 	listOfData := make([]map[string]interface{}, len(data))
 	for k, v := range data {
-		if userInfo.TypeUser != "2"{
-		action =`
+		if userInfo.TypeUser != "2" {
+			action = `
 		<a href="/admin/v1/inventaris/update/` + (v.IDP3A) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-edit"></i></a>
 		<a href="/admin/v1/inventaris/detail/` + (v.IDP3A) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-eye"></i></a>
 		<button onclick="Delete('` + v.IDP3A + `')" class="btn btn-danger" title="Delete" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-trash"></i></button>`
-		}else{
-		action =`<a href="/admin/v1/inventaris/detail/` + (v.IDP3A) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-eye"></i></a>`
+		} else {
+			action = `<a href="/admin/v1/inventaris/detail/` + (v.IDP3A) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-eye"></i></a>`
 		}
 		listOfData[k] = map[string]interface{}{
-			"id_p3a":              v.IDP3A,
-			"no_urut":             v.NoUrut,
-			"nama_p3a":            v.NamaP3A,
-			"jumlah_p3a":          v.JumlahP3A,
-			"nama_daerah_irigasi": v.DaerahIrigasi,
-			"luas_wilayah":        v.LuasWilayah,
-			"luas_layanan_p3a":    v.LuasLayananP3A,
-			"keterangan":          v.Keterangan,
-			"nama_prov":           v.NamaProv,
-			"nama_kab" : v.NamaKab,
-			"nama_kecamatan" : v.NamaKec,
-			"tahun_pembentukan" : v.TahunPembentukan,
-			"diket_kep_dc" : v.DiketKplDaerah,
-			"sk_bupati" :v.SKBupati,
-			"akte_notaris" : v.AkteNotaris,
-			"no_pendaftaran" : v.NoPendaftaran,
-			"ketua" : v.Ketua,
-			"wakil" : v.Wakil,
-			"sekretaris" : v.Sekretaris,
-			"bendahara" : v.Bendahara,
-			"sek_op" : v.SekOP,
-			"sek_bisnis" : v.SekBisnis,
-			"sek_teknik" : v.SekTeknik,
-			"jumlah_anggota" :v.JumlahAnggota,
-			"no_ad_art" : v.NoADRT,
-			"sekretariat" :v.Sekretariat,
-			"persentase_perempuan_p3a" : v.PresentasiPerempuanP3A,
-			"areal_tersier" : v.ArealTersier,
-			"pengisian_buku" : v.PengisianBuku,
-			"iuran" : v.Iuran,
-			"operasi" : v.Operasi,
-			"partisipatif" : v.Partisipatif,
-			"pola_tanam" : v.PolaTanam,
-			"usaha_tani" : v.UsahaTani,
-			"action":              action,
+			"id_p3a":                   v.IDP3A,
+			"no_urut":                  v.NoUrut,
+			"nama_p3a":                 v.NamaP3A,
+			"jumlah_p3a":               v.JumlahP3A,
+			"nama_daerah_irigasi":      v.DaerahIrigasi,
+			"luas_wilayah":             v.LuasWilayah,
+			"luas_layanan_p3a":         v.LuasLayananP3A,
+			"keterangan":               v.Keterangan,
+			"nama_prov":                v.NamaProv,
+			"nama_kab":                 v.NamaKab,
+			"nama_kecamatan":           v.NamaKec,
+			"tahun_pembentukan":        v.TahunPembentukan,
+			"diket_kep_dc":             v.DiketKplDaerah,
+			"sk_bupati":                v.SKBupati,
+			"akte_notaris":             v.AkteNotaris,
+			"no_pendaftaran":           v.NoPendaftaran,
+			"ketua":                    v.Ketua,
+			"wakil":                    v.Wakil,
+			"sekretaris":               v.Sekretaris,
+			"bendahara":                v.Bendahara,
+			"sek_op":                   v.SekOP,
+			"sek_bisnis":               v.SekBisnis,
+			"sek_teknik":               v.SekTeknik,
+			"jumlah_anggota":           v.JumlahAnggota,
+			"no_ad_art":                v.NoADRT,
+			"sekretariat":              v.Sekretariat,
+			"persentase_perempuan_p3a": v.PresentasiPerempuanP3A,
+			"areal_tersier":            v.ArealTersier,
+			"pengisian_buku":           v.PengisianBuku,
+			"iuran":                    v.Iuran,
+			"operasi":                  v.Operasi,
+			"partisipatif":             v.Partisipatif,
+			"pola_tanam":               v.PolaTanam,
+			"usaha_tani":               v.UsahaTani,
+			"action":                   action,
 		}
 	}
 	result := models.ResponseDatatable{
@@ -144,38 +144,44 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 		return ctx.JSON(500, echo.Map{"message": "error binding data"})
 	}
 
-	//name := []string{"lampiran_tahun_pembentukan", "lampiran_kep_dc", "lampiran_sk_bupati", "lampiran_akte_notaris", "lampiran_pendaftaran", "lampiran_ad_art", "lampiran_sekretariat"}
-	//	var namaFile []string
-	//	for i := range name {
-	//		file, _ := ctx.FormFile(name[i])
-	//
-	//		src, _ := file.Open()
-	//		defer src.Close()
-	//
-	//		// Destination
-	//		t := time.Now().UnixNano()
-	//		nf := name[i] + "_" + strconv.FormatInt(t, 10) + "_" + file.Filename
-	//		nama := "static/image/" + nf
-	//		dst, _ := os.Create(nama)
-	//		defer dst.Close()
-	//
-	//		// Copy
-	//		_, err := io.Copy(dst, src)
-	//		if err != nil {
-	//			log.Error("[Error] ", err)
-	//			return c.InternalServerError(ctx, err)
-	//		}
-	//		i++
-	//		namaFile = append(namaFile, nf)
-	//	}
+	name := []string{"lampiran_tahun_pembentukan", "lampiran_kep_dc", "lampiran_sk_bupati", "lampiran_akte_notaris", "lampiran_pendaftaran", "lampiran_ad_art", "lampiran_sekretariat"}
+	var namaFile []string
+	var prefixFile []string
+	fmt.Println("Nama File : ", name)
+	if name != nil {
+		for i := range name {
+			file, err := ctx.FormFile(name[i])
+			if err == nil {
+				src, _ := file.Open()
+				defer src.Close()
+
+				// Destination
+				t := time.Now().UnixNano()
+				nf := name[i] + "_" + strconv.FormatInt(t, 10) + "_" + file.Filename
+				nama := "static/image/" + nf
+				dst, _ := os.Create(nama)
+				defer dst.Close()
+
+				// Copy
+				_, err = io.Copy(dst, src)
+				if err != nil {
+					log.Error("[Error] ", err)
+					return c.InternalServerError(ctx, err)
+				}
+				prefixFile = append(prefixFile, name[i])
+				i++
+				namaFile = append(namaFile, nf)			}
+		}
+	}
+
 	//Store Data Status Legal
-	statusLegal, err := c.service.CreateStatusLegal(entity)
+	statusLegal, err := c.service.CreateStatusLegal(entity, namaFile, prefixFile)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
 
 	// Store Data Kepengurusan
-	pengurus, err := c.service.CreatePengurus(entity)
+	pengurus, err := c.service.CreatePengurus(entity, namaFile, prefixFile)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
@@ -197,7 +203,7 @@ func (c *P3Controller) AddData(ctx echo.Context) error {
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
-	time.Sleep(3 * time.Second)
+	time.Sleep(1 * time.Second)
 	return ctx.Redirect(http.StatusFound, "/admin/v1/inventaris")
 }
 
@@ -467,69 +473,43 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 	if err := ctx.Bind(&entity); err != nil {
 		return ctx.JSON(400, echo.Map{"message": "error binding data"})
 	}
-	var name []string
-	if entity.LamTahunPembentukan != nil {
-		name = append(name, "lampiran_tahun_pembentukan")
-	}
-	if entity.LamKplDesa != nil {
-		name = append(name, "lampiran_kep_dc")
-	}
-	if entity.LamSKBupati != nil {
-		name = append(name, "lampiran_sk_bupati")
-	}
-	if entity.LamAkteNotaris != nil {
-		name = append(name, "lampiran_akte_notaris")
-	}
-	if entity.LamPendaftaran != nil {
-		name = append(name, "lampiran_pendaftaran")
-	}
-	if entity.LampiranADRT != nil {
-		name = append(name, "lampiran_ad_art")
-	}
-	if entity.LampiranSekretariat != nil {
-		name = append(name, "lampiran_sekretariat")
-	}
-	fmt.Println("List Files : ", name)
+	name := []string{"lampiran_tahun_pembentukan", "lampiran_kep_dc", "lampiran_sk_bupati", "lampiran_akte_notaris", "lampiran_pendaftaran", "lampiran_ad_art", "lampiran_sekretariat"}
 	var namaFile []string
+	var prefixFile []string
+	fmt.Println("Nama File : ", name)
 	if name != nil {
 		for i := range name {
-			file, _ := ctx.FormFile(name[i])
+			file, err := ctx.FormFile(name[i])
+			if err == nil {
+				src, _ := file.Open()
+				defer src.Close()
 
-			src, _ := file.Open()
-			defer src.Close()
+				// Destination
+				t := time.Now().UnixNano()
+				nf := name[i] + "_" + strconv.FormatInt(t, 10) + "_" + file.Filename
+				nama := "static/image/" + nf
+				dst, _ := os.Create(nama)
+				defer dst.Close()
 
-			// Destination
-			t := time.Now().UnixNano()
-			nf := name[i] + "_" + strconv.FormatInt(t, 10) + "_" + file.Filename
-			nama := "static/image/" + nf
-			dst, _ := os.Create(nama)
-			defer dst.Close()
-
-			// Copy
-			_, err := io.Copy(dst, src)
-			if err != nil {
-				log.Error("[Error] ", err)
-				return c.InternalServerError(ctx, err)
-			}
-			i++
-			namaFile = append(namaFile, nf)
+				// Copy
+				_, err = io.Copy(dst, src)
+				if err != nil {
+					log.Error("[Error] ", err)
+					return c.InternalServerError(ctx, err)
+				}
+				prefixFile = append(prefixFile, name[i])
+				i++
+				namaFile = append(namaFile, nf)			}
 		}
-		entity.LamTahunPembentukan = &namaFile[0]
-		entity.LamKplDesa = &namaFile[1]
-		entity.LamSKBupati = &namaFile[2]
-		entity.LamAkteNotaris = &namaFile[3]
-		entity.LamPendaftaran = &namaFile[4]
-		entity.LampiranADRT = &namaFile[5]
-		entity.LampiranSekretariat = &namaFile[6]
 	}
 	// Update Data Status Legal
-	_, err := c.service.UpdateStatusLegal(entity.IDStatus, entity)
+	_, err := c.service.UpdateStatusLegal(entity.IDStatus, entity, namaFile,prefixFile)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
 
 	// Update Data Kepengurusan
-	_, err = c.service.UpdatePengurus(entity.IDPengurusan, entity)
+	_, err = c.service.UpdatePengurus(entity.IDPengurusan, entity,namaFile, prefixFile)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
@@ -552,7 +532,7 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 		return c.InternalServerError(ctx, err)
 	}
 
-	time.Sleep(3 * time.Second)
+	time.Sleep(1 * time.Second)
 	return ctx.Redirect(http.StatusFound, "/admin/v1/inventaris")
 }
 

@@ -2,9 +2,9 @@ package config
 
 import (
 	"gorm.io/gorm"
-	"skeleton-echo/controllers"
-	"skeleton-echo/repository"
-	"skeleton-echo/services"
+	"Inventarisasi-P3A/controllers"
+	"Inventarisasi-P3A/repository"
+	"Inventarisasi-P3A/services"
 )
 
 func InjectAuthController(db *gorm.DB) controllers.FrontAuthController {

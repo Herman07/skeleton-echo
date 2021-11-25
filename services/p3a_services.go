@@ -2,10 +2,11 @@ package services
 
 import (
 	"fmt"
-	"skeleton-echo/models"
-	"skeleton-echo/repository"
-	"skeleton-echo/request"
+	"Inventarisasi-P3A/models"
+	"Inventarisasi-P3A/repository"
+	"Inventarisasi-P3A/request"
 	"strings"
+	"time"
 )
 
 type P3Service struct {
@@ -23,15 +24,15 @@ func (s *P3Service) QueryDatatable(searchValue string, orderType string, orderBy
 	strings.ToLower(searchValue)
 	if searchValue != "" {
 		recordFiltered, err = s.P3Repository.CountWhere("or", map[string]interface{}{
-			"nama_prov LIKE ?":     "%" + searchValue + "%",
-			"nama_kab LIKE ?":     "%" + searchValue + "%",
-			"nama_kecamatan LIKE ?":     "%" + searchValue + "%",
+			"nama_prov LIKE ?":      "%" + searchValue + "%",
+			"nama_kab LIKE ?":       "%" + searchValue + "%",
+			"nama_kecamatan LIKE ?": "%" + searchValue + "%",
 		})
 
-		data, err = s.P3Repository.FindAllWhere("or", orderType, "nama_kecamatan", limit, offset, map[string]interface{}{
-			"nama_prov LIKE ?":     "%" + searchValue + "%",
-			"nama_kab LIKE ?":     "%" + searchValue + "%",
-			"nama_kecamatan LIKE ?":     "%" + searchValue + "%",
+		data, err = s.P3Repository.FindAllWhere("or", orderType, "created_at", limit, offset, map[string]interface{}{
+			"nama_prov LIKE ?":      "%" + searchValue + "%",
+			"nama_kab LIKE ?":       "%" + searchValue + "%",
+			"nama_kecamatan LIKE ?": "%" + searchValue + "%",
 		})
 		return recordTotal, recordFiltered, data, err
 	}
@@ -39,7 +40,7 @@ func (s *P3Service) QueryDatatable(searchValue string, orderType string, orderBy
 		"1 =?": 1,
 	})
 
-	data, err = s.P3Repository.FindAllWhere("or", orderType, "nama_kecamatan", limit, offset, map[string]interface{}{
+	data, err = s.P3Repository.FindAllWhere("or", orderType, "created_at", limit, offset, map[string]interface{}{
 		"1= ?": 1,
 	})
 	return recordTotal, recordFiltered, data, err
@@ -72,18 +73,42 @@ func (s *P3Service) UpdateById(id string, dto request.UpdateInventaris) (*models
 	return data, err
 }
 
-func (s *P3Service) CreateStatusLegal(request request.RequestInventaris) (*models.StatusLegal, error) {
+func (s *P3Service) CreateStatusLegal(request request.RequestInventaris, namaFile []string, prefixFile []string) (*models.StatusLegal, error) {
+	var lamThnPem string
+	var lamKplDsa string
+	var lamSKBupati string
+	var lamAkteNotaris string
+	var lamPendaftaran string
+
+	if namaFile != nil {
+		for i := range prefixFile {
+			switch prefixFile[i] {
+			case "lampiran_tahun_pembentukan":
+				lamThnPem = namaFile[i]
+			case "lampiran_kep_dc":
+				lamKplDsa = namaFile[i]
+			case "lampiran_sk_bupati":
+				lamSKBupati = namaFile[i]
+			case "lampiran_akte_notaris":
+				lamAkteNotaris = namaFile[i]
+			case "lampiran_pendaftaran":
+				lamPendaftaran = namaFile[i]
+			}
+		}
+
+	}
+
 	entity := models.StatusLegal{
 		TahunPembentukan:    request.TahunPembentukan,
-		//LamTahunPembentukan: namaFile[0],
-		//LamKplDesa:          namaFile[1],
+		LamTahunPembentukan: lamThnPem,
+		LamKplDesa:          lamKplDsa,
 		DiketKplDaerah:      request.DiketKplDaerah,
 		SKBupati:            request.SKBupati,
-		//LamSKBupati:         namaFile[2],
+		LamSKBupati:         lamSKBupati,
 		AkteNotaris:         request.AkteNotaris,
-		//LamAkteNotaris:      namaFile[3],
+		LamAkteNotaris:      lamAkteNotaris,
 		NoPendaftaran:       request.NoPendaftaran,
-		//LamPendaftaran:      namaFile[4],
+		LamPendaftaran:      lamPendaftaran,
 	}
 	data, err := s.P3Repository.CreateStatusLegal(entity)
 
@@ -93,7 +118,22 @@ func (s *P3Service) CreateStatusLegal(request request.RequestInventaris) (*model
 	return data, err
 }
 
-func (s *P3Service) CreatePengurus(request request.RequestInventaris) (*models.Pengurus, error) {
+func (s *P3Service) CreatePengurus(request request.RequestInventaris, namaFile []string, prefixFile []string) (*models.Pengurus, error) {
+	var lamAdArt string
+	var lamSek string
+
+	if namaFile != nil {
+		for i := range prefixFile {
+			switch prefixFile[i] {
+			case "lampiran_ad_art":
+				lamAdArt = namaFile[i]
+			case "lampiran_sekretariat":
+				lamSek = namaFile[i]
+			}
+		}
+
+	}
+
 	entity := models.Pengurus{
 		Ketua:                  request.Ketua,
 		Wakil:                  request.Wakil,
@@ -104,9 +144,9 @@ func (s *P3Service) CreatePengurus(request request.RequestInventaris) (*models.P
 		SekBisnis:              request.SekBisnis,
 		JumlahAnggota:          request.JumlahAnggota,
 		NoADRT:                 request.NoADRT,
-		//LampiranADRT:           namaFile[5],
+		LampiranADRT:           lamAdArt,
 		Sekretariat:            request.Sekretariat,
-		//LampiranSekretariat:    namaFile[6],
+		LampiranSekretariat:    lamSek,
 		PresentasiPerempuanP3A: request.PresentasiPerempuanP3A,
 		ArealTersier:           request.ArealTersier,
 		PengisianBuku:          request.PengisianBuku,
@@ -164,6 +204,7 @@ func (s *P3Service) CreateDataP3a(request request.RequestInventaris, idStatusLeg
 		LuasWilayah:    request.LuasWilayah,
 		LuasLayananP3A: request.LuasLayananP3A,
 		Keterangan:     request.Keterangan,
+		CreatedAt:      time.Now(),
 	}
 	data, err := s.P3Repository.Create(entity)
 	if err != nil {
@@ -198,7 +239,25 @@ func (s *P3Service) Delete(id string) error {
 	}
 }
 
-func (s *P3Service) UpdateStatusLegal(id string, dto request.UpdateInventaris) (*models.StatusLegal, error) {
+func (s *P3Service) UpdateStatusLegal(id string, dto request.UpdateInventaris,namaFile []string, prefixFile []string) (*models.StatusLegal, error) {
+	if prefixFile != nil {
+		for i := range prefixFile {
+			switch prefixFile[i] {
+			case "lampiran_tahun_pembentukan":
+				dto.LamTahunPembentukan = &namaFile[i]
+			case "lampiran_kep_dc":
+				dto.LamKplDesa = &namaFile[i]
+			case "lampiran_sk_bupati":
+				dto.LamSKBupati = &namaFile[i]
+			case "lampiran_akte_notaris":
+				dto.LamAkteNotaris = &namaFile[i]
+			case "lampiran_pendaftaran":
+				dto.LamPendaftaran = &namaFile[i]
+			}
+		}
+
+	}
+
 	entity := models.StatusLegal{
 		ID:                  id,
 		TahunPembentukan:    dto.TahunPembentukan,
@@ -221,7 +280,18 @@ func (s *P3Service) UpdateStatusLegal(id string, dto request.UpdateInventaris) (
 	return data, err
 }
 
-func (s *P3Service) UpdatePengurus(id string, dto request.UpdateInventaris) (*models.Pengurus, error) {
+func (s *P3Service) UpdatePengurus(id string, dto request.UpdateInventaris,namaFile []string, prefixFile []string) (*models.Pengurus, error) {
+	if namaFile != nil {
+		for i := range prefixFile {
+			switch prefixFile[i] {
+			case "lampiran_ad_art":
+				dto.LampiranADRT = &namaFile[i]
+			case "lampiran_sekretariat":
+				dto.LampiranSekretariat = &namaFile[i]
+			}
+		}
+
+	}
 	entity := models.Pengurus{
 		ID:                     id,
 		Ketua:                  dto.Ketua,

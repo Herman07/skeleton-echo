@@ -9,9 +9,9 @@ import (
 	"gorm.io/gorm"
 	"html/template"
 	"net/http"
-	"skeleton-echo/config"
-	"skeleton-echo/middleware"
-	"skeleton-echo/utils/session"
+	"Inventarisasi-P3A/config"
+	"Inventarisasi-P3A/middleware"
+	"Inventarisasi-P3A/utils/session"
 )
 
 func Api(e *echo.Echo, db *gorm.DB) {

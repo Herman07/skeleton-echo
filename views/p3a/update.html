@@ -213,11 +213,16 @@
                                         <input type="radio" class="flat" value="L" name="ketua" checked/>
                                         P:
                                         <input type="radio" class="flat" value="P" name="ketua"/>
-                                        {{else}}
+                                        {{else if eq .data.Ketua "P"}}
                                         L:
                                         <input type="radio" class="flat" value="L" name="ketua"/>
                                         P:
                                         <input type="radio" class="flat" value="P" name="ketua" checked/>
+                                        {{else}}
+                                        L:
+                                        <input type="radio" class="flat" value="L" name="ketua"/>
+                                        P:
+                                        <input type="radio" class="flat" value="P" name="ketua" />
                                         {{end}}
                                     </div>
                                     <br>
@@ -229,11 +234,16 @@
                                         <input type="radio" class="flat" value="L" name="wakil" checked/>
                                         P:
                                         <input type="radio" class="flat" value="P" name="wakil"/>
-                                        {{else}}
+                                        {{else if eq .data.Wakil "P"}}
                                         L:
                                         <input type="radio" class="flat" value="L" name="wakil"/>
                                         P:
                                         <input type="radio" class="flat" value="P" name="wakil" checked/>
+                                        {{else}}
+                                        L:
+                                        <input type="radio" class="flat" value="L" name="wakil"/>
+                                        P:
+                                        <input type="radio" class="flat" value="P" name="wakil" />
                                         {{end}}
                                     </div>
                                     <br>
@@ -245,11 +255,16 @@
                                         <input type="radio" class="flat" value="L" name="sekretaris" checked/>
                                         P:
                                         <input type="radio" class="flat" value="P" name="sekretaris"/>
-                                        {{else}}
+                                        {{else if eq .data.Sekretaris "P"}}
                                         L:
                                         <input type="radio" class="flat" value="L" name="sekretaris"/>
                                         P:
                                         <input type="radio" class="flat" value="P" name="sekretaris" checked/>
+                                        {{else}}
+                                        L:
+                                        <input type="radio" class="flat" value="L" name="sekretaris"/>
+                                        P:
+                                        <input type="radio" class="flat" value="P" name="sekretaris" />
                                         {{end}}
                                     </div>
                                     <br>
@@ -261,11 +276,16 @@
                                         <input type="radio" class="flat" value="L" name="bendahara" checked/>
                                         P:
                                         <input type="radio" class="flat" value="P" name="bendahara"/>
-                                        {{else}}
+                                        {{else if eq .data.Bendahara "P"}}
                                         L:
                                         <input type="radio" class="flat" value="L" name="bendahara"/>
                                         P:
                                         <input type="radio" class="flat" value="P" name="bendahara" checked/>
+                                        {{else}}
+                                        L:
+                                        <input type="radio" class="flat" value="L" name="bendahara"/>
+                                        P:
+                                        <input type="radio" class="flat" value="P" name="bendahara" />
                                         {{end}}
                                     </div>
                                 </div>
@@ -278,11 +298,16 @@
                                         <input type="radio" class="flat" value="L" name="sek_teknik" checked/>
                                         P:
                                         <input type="radio" class="flat" value="P" name="sek_teknik"/>
-                                        {{else}}
+                                        {{else if eq .data.SekTeknik "P"}}
                                         L:
                                         <input type="radio" class="flat" value="L" name="sek_teknik"/>
                                         P:
                                         <input type="radio" class="flat" value="P" name="sek_teknik" checked/>
+                                        {{else}}
+                                        L:
+                                        <input type="radio" class="flat" value="L" name="sek_teknik"/>
+                                        P:
+                                        <input type="radio" class="flat" value="P" name="sek_teknik"/>
                                         {{end}}
                                     </div>
                                     <br>
@@ -294,11 +319,16 @@
                                         <input type="radio" class="flat" value="L" name="sek_op" checked/>
                                         P:
                                         <input type="radio" class="flat" value="P" name="sek_op"/>
-                                        {{else}}
+                                        {{else if eq .data.SekOP "P"}}
                                         L:
                                         <input type="radio" class="flat" value="L" name="sek_op"/>
                                         P:
                                         <input type="radio" class="flat" value="P" name="sek_op" checked/>
+                                        {{else}}
+                                        L:
+                                        <input type="radio" class="flat" value="L" name="sek_op"/>
+                                        P:
+                                        <input type="radio" class="flat" value="P" name="sek_op"/>
                                         {{end}}
                                     </div>
                                     <br>
@@ -310,11 +340,16 @@
                                         <input type="radio" class="flat" value="L" name="sek_bisnis" checked/>
                                         P:
                                         <input type="radio" class="flat" value="P" name="sek_bisnis"/>
-                                        {{else}}
+                                        {{else if eq .data.SekBisnis "P"}}
                                         L:
                                         <input type="radio" class="flat" value="L" name="sek_bisnis"/>
                                         P:
                                         <input type="radio" class="flat" value="P" name="sek_bisnis" checked/>
+                                        {{else}}
+                                        L:
+                                        <input type="radio" class="flat" value="L" name="sek_bisnis"/>
+                                        P:
+                                        <input type="radio" class="flat" value="P" name="sek_bisnis"/>
                                         {{end}}
                                     </div>
                                 </div>

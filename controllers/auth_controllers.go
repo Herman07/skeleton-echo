@@ -5,9 +5,9 @@ import (
 	"github.com/foolin/goview/supports/echoview-v4"
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"skeleton-echo/request"
-	"skeleton-echo/services"
-	"skeleton-echo/utils/session"
+	"Inventarisasi-P3A/request"
+	"Inventarisasi-P3A/services"
+	"Inventarisasi-P3A/utils/session"
 )
 
 type FrontAuthController struct {

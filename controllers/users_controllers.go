@@ -7,9 +7,9 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"skeleton-echo/models"
-	"skeleton-echo/request"
-	"skeleton-echo/services"
+	"Inventarisasi-P3A/models"
+	"Inventarisasi-P3A/request"
+	"Inventarisasi-P3A/services"
 	"strconv"
 	"time"
 )

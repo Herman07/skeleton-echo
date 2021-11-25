@@ -9,11 +9,11 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"skeleton-echo/config"
-	middlewareFunc "skeleton-echo/middleware"
-	"skeleton-echo/models"
-	"skeleton-echo/routes"
-	"skeleton-echo/utils/session"
+	"Inventarisasi-P3A/config"
+	middlewareFunc "Inventarisasi-P3A/middleware"
+	"Inventarisasi-P3A/models"
+	"Inventarisasi-P3A/routes"
+	"Inventarisasi-P3A/utils/session"
 )
 
 func main() {

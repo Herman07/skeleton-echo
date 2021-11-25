@@ -2,7 +2,7 @@ package repository
 
 import (
 	"gorm.io/gorm"
-	"skeleton-echo/models"
+	"Inventarisasi-P3A/models"
 )
 
 type P3Repository interface {
@@ -142,12 +142,12 @@ func (r p3Repository) CreatePertanian(entity models.TeknikPertanian) (*models.Te
 }
 
 func (r p3Repository) UpdateStatusLegal(entity models.StatusLegal)(*models.StatusLegal, error){
-	err := r.DB.Model(&models.StatusLegal{ID: entity.ID}).Updates(&entity).Error
+	err := r.DB.Model(&models.StatusLegal{ID: entity.ID}).UpdateColumns(&entity).Error
 	return &entity, err
 }
 
 func (r p3Repository) UpdatePengurus(entity models.Pengurus)(*models.Pengurus, error){
-	err := r.DB.Model(&models.Pengurus{ID: entity.ID}).Updates(&entity).Error
+	err := r.DB.Model(&models.Pengurus{ID: entity.ID}).UpdateColumns(&entity).Error
 	return &entity, err
 }
 

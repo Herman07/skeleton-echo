@@ -17,15 +17,15 @@ type RequestInventaris struct {
 	Keterangan             string `json:"keterangan" form:"keterangan"`
 	IDStatus               string `json:"id_status_legal"`
 	TahunPembentukan       string `json:"tahun_pembentukan" form:"tahun_pembentukan"`
-	LamTahunPembentukan    *string `json:"lampiran_tahun_pembentukan" form:"lampiran_tahun_pembentukan"`
+	LamTahunPembentukan    string `json:"lampiran_tahun_pembentukan" form:"lampiran_tahun_pembentukan"`
 	DiketKplDaerah         string `json:"diket_kep_dc" form:"diket_kep_dc"`
-	LamKplDesa             *string `json:"lampiran_kep_dc" form:"lampiran_kep_dc"`
+	LamKplDesa             string `json:"lampiran_kep_dc" form:"lampiran_kep_dc"`
 	SKBupati               string `json:"no_sk_bupati" form:"no_sk_bupati"`
-	LamSKBupati            *string `json:"lampiran_sk_bupati" form:"lampiran_sk_bupati"`
+	LamSKBupati            string `json:"lampiran_sk_bupati" form:"lampiran_sk_bupati"`
 	AkteNotaris            string `json:"akte_notaris" form:"akte_notaris"`
-	LamAkteNotaris         *string `json:"lampiran_akte_notaris" form:"lampiran_akte_notaris"`
+	LamAkteNotaris         string `json:"lampiran_akte_notaris" form:"lampiran_akte_notaris"`
 	NoPendaftaran          string `json:"no_pendaftaran" form:"no_pendaftaran"`
-	LamPendaftaran         *string `json:"lampiran_pendaftaran" form:"lampiran_pendaftaran"`
+	LamPendaftaran         string `json:"lampiran_pendaftaran" form:"lampiran_pendaftaran"`
 	IDPengurusan           string `json:"id_kepengurusan"`
 	Ketua                  string `json:"ketua" form:"ketua"`
 	Wakil                  string `json:"wakil" form:"wakil"`
@@ -36,9 +36,9 @@ type RequestInventaris struct {
 	SekBisnis              string `json:"sek_bisnis" form:"sek_bisnis"`
 	JumlahAnggota          string `json:"jumlah_anggota" form:"jumlah_anggota"`
 	NoADRT                 string `json:"no_ad_art" form:"no_ad_art"`
-	LampiranADRT           *string `json:"lampiran_ad_art" form:"lampiran_ad_art"`
+	LampiranADRT           string `json:"lampiran_ad_art" form:"lampiran_ad_art"`
 	Sekretariat            string `json:"sekretariat" form:"sekretariat"`
-	LampiranSekretariat    *string `json:"lampiran_sekretariat" form:"lampiran_sekretariat"`
+	LampiranSekretariat    string `json:"lampiran_sekretariat" form:"lampiran_sekretariat"`
 	PresentasiPerempuanP3A string `json:"persentase_perempuan_p3a" form:"persentase_perempuan_p3a"`
 	ArealTersier           string `json:"areal_tersier" form:"areal_tersier"`
 	PengisianBuku          string `json:"pengisian_buku" form:"pengisian_buku"`

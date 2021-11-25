@@ -5,8 +5,8 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"reflect"
-	"skeleton-echo/models"
-	"skeleton-echo/utils/session"
+	"Inventarisasi-P3A/models"
+	"Inventarisasi-P3A/utils/session"
 	"time"
 )
 

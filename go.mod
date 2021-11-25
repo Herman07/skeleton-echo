@@ -1,4 +1,4 @@
-module skeleton-echo
+module Inventarisasi-P3A
 
 go 1.16
 

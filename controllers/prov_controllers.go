@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"skeleton-echo/models"
-	"skeleton-echo/request"
-	"skeleton-echo/services"
+	"Inventarisasi-P3A/models"
+	"Inventarisasi-P3A/request"
+	"Inventarisasi-P3A/services"
 	"strconv"
 )
 
