@@ -1,15 +1,14 @@
 package controllers
 
 import (
-	"fmt"
+	"Inventarisasi-P3A/models"
+	"Inventarisasi-P3A/request"
+	"Inventarisasi-P3A/services"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
 	"io"
 	"net/http"
 	"os"
-	"Inventarisasi-P3A/models"
-	"Inventarisasi-P3A/request"
-	"Inventarisasi-P3A/services"
 	"strconv"
 	"time"
 )
@@ -133,25 +132,7 @@ func (c *UsersDataController) AddData(ctx echo.Context) error {
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
-	file, _ := ctx.FormFile("foto")
-
-	src, _ := file.Open()
-	defer src.Close()
-
-	// Destination
-	t := time.Now().UnixNano()
-	nf := entity.Nama + "_" + strconv.FormatInt(t, 10) + "_" + file.Filename
-	nama := "static/image/" + nf
-	dst, _ := os.Create(nama)
-	defer dst.Close()
-
-	// Copy
-	_, err = io.Copy(dst, src)
-	if err != nil {
-		log.Error("[Error] ", err)
-		return c.InternalServerError(ctx, err)
-	}
-	_, err = c.service.CreateAkun(entity, nf, user.ID)
+	_, err = c.service.CreateAkun(entity, user.ID)
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
@@ -192,9 +173,29 @@ func (c *UsersDataController) DoUpdate(ctx echo.Context) error {
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}
+
+	//Update Akun
+	_, err = c.service.UpdateAkun(entity.ID, entity)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
+	return ctx.Redirect(302, "/admin/v1/user")
+}
+
+func (c *UsersDataController) DoUpdateProfile(ctx echo.Context) error {
+	var entity request.UsersReq
+	id := ctx.Param("id")
+	if err := ctx.Bind(&entity); err != nil {
+		return ctx.JSON(400, echo.Map{"message": "error binding data"})
+	}
+	//Update User
+	_, err := c.service.UpdateUser(id, entity)
+	if err != nil {
+		return c.InternalServerError(ctx, err)
+	}
 	//Update Foto
 	file, _ := ctx.FormFile("foto")
-	if file != nil{
+	if file != nil {
 		src, _ := file.Open()
 		defer src.Close()
 
@@ -206,37 +207,19 @@ func (c *UsersDataController) DoUpdate(ctx echo.Context) error {
 		defer dst.Close()
 
 		// Copy
-		_, err = io.Copy(dst, src)
+		_, err := io.Copy(dst, src)
 		if err != nil {
 			log.Error("[Error] ", err)
 			return c.InternalServerError(ctx, err)
 		}
 		//Update Akun
-		_, err = c.service.UpdateAkun(entity.ID, entity,nf)
+		_, err = c.service.UpdateFoto(entity.ID,nf)
 		if err != nil {
 			return c.InternalServerError(ctx, err)
 		}
-		return ctx.Redirect(302, "/admin/v1/user")
 	}
-
 	//Update Akun
-	_, err = c.service.UpdateAkun(entity.ID, entity, "")
-	if err != nil {
-		return c.InternalServerError(ctx, err)
-	}
-	return ctx.Redirect(302, "/admin/v1/user")
-}
-
-func (c *UsersDataController) DoUpdateProfile(ctx echo.Context) error {
-	var entity request.UsersReq
-	id := ctx.Param("id")
-	fmt.Println("data id : ",id)
-	if err := ctx.Bind(&entity); err != nil {
-		return ctx.JSON(400, echo.Map{"message": "error binding data"})
-	}
-	fmt.Println("data : ", entity)
-	//Update User
-	_, err := c.service.UpdateUser(id, entity)
+	_, err = c.service.UpdateFoto(entity.ID,"")
 	if err != nil {
 		return c.InternalServerError(ctx, err)
 	}

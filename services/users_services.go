@@ -34,12 +34,11 @@ func (s *UsersDataService) Create(request request.UsersReq) (*models.User, error
 	}
 	return data, err
 }
-func (s *UsersDataService) CreateAkun(request request.UsersReq, name string, user string) (*models.Akun, error) {
+func (s *UsersDataService) CreateAkun(request request.UsersReq, user string) (*models.Akun, error) {
 	entity := models.Akun{
 		ID:       user,
 		Username: request.Username,
 		Password: request.Password,
-		Foto:     name,
 		TypeUser: request.TypeUser,
 	}
 	data, err := s.UsersDataRepository.CreateAkun(entity)
@@ -115,7 +114,7 @@ func (s *UsersDataService) UpdateUser(id string, dto request.UsersReq) (*models.
 	return data, err
 }
 
-func (s *UsersDataService) UpdateAkun(id string, dto request.UsersReq, nama string) (*models.Akun, error) {
+func (s *UsersDataService) UpdateAkun(id string, dto request.UsersReq) (*models.Akun, error) {
 
 	entity := models.Akun{
 		ID:       id,
@@ -123,17 +122,26 @@ func (s *UsersDataService) UpdateAkun(id string, dto request.UsersReq, nama stri
 		Password: dto.Password,
 		TypeUser: dto.TypeUser,
 	}
+
+	data, err := s.UsersDataRepository.UpdateAkun(entity)
+
+	if err != nil {
+		return nil, err
+	}
+	return data, err
+}
+func (s *UsersDataService) UpdateFoto(id string,nama string) (*models.Akun, error) {
+	entity := models.Akun{
+		ID:       id,
+	}
 	if nama != "" {
 		entity = models.Akun{
-			ID:       id,
-			Username: dto.Username,
-			Password: dto.Password,
-			TypeUser: dto.TypeUser,
+			ID: id,
 			Foto:     nama,
 		}
 	}
 
-	data, err := s.UsersDataRepository.UpdateAkun(entity)
+	data, err := s.UsersDataRepository.UpdateFoto(entity)
 
 	if err != nil {
 		return nil, err

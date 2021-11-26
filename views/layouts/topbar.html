@@ -10,7 +10,12 @@
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 
+                        {{if eq .Foto ""}}
                         <img src="/style/build/images/users.png" alt="">{{.Username}}
+                        {{else}}
+                        <img src="/static/image/{{.Foto}}" alt="">{{.Username}}
+                        {{end}}
+
 
                         <span class=" fa fa-angle-down"></span>
                     </a>

@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"gorm.io/gorm"
 	"Inventarisasi-P3A/models"
+	"gorm.io/gorm"
 )
 
 type UsersDataRepository interface {
@@ -15,6 +15,7 @@ type UsersDataRepository interface {
 	DeleteUser(entity models.User) error
 	UpdateUser(entity models.User)(*models.User, error)
 	UpdateAkun(entity models.Akun)(*models.Akun, error)
+	UpdateFoto(entity models.Akun)(*models.Akun, error)
 	DbInstance() *gorm.DB
 }
 
@@ -91,6 +92,11 @@ func (r usersdataRepository) UpdateUser(entity models.User)(*models.User, error)
 }
 
 func (r usersdataRepository) UpdateAkun(entity models.Akun)(*models.Akun, error){
+	err := r.DB.Table("user_group").Where("id_usergroup = ?",entity.ID).Updates(&entity).Error
+	return &entity, err
+}
+
+func (r usersdataRepository) UpdateFoto(entity models.Akun)(*models.Akun, error){
 	err := r.DB.Table("user_group").Where("id_usergroup = ?",entity.ID).Updates(&entity).Error
 	return &entity, err
 }

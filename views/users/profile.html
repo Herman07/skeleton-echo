@@ -11,13 +11,23 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
+                        {{if eq .data.Foto ""}}
                         <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
                             <div class="profile_img">
                                 <div id="crop-avatar">
-                                    <img class="img-responsive avatar-view" style="border-radius: 100%; width: 200px;height: 200px" src="/style/build/images/user.jpg" alt="Avatar" title="Change the avatar">
+                                    <img class="img-responsive avatar-view" style="border-radius: 100%; width: 200px;height: 200px" src="/style/build/images/user-background.png" alt="Avatar" title="Change the avatar">
                                 </div>
                             </div>
                         </div>
+                        {{else}}
+                        <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+                            <div class="profile_img">
+                                <div id="crop-avatar">
+                                    <img class="img-responsive avatar-view" style="border-radius: 100%; width: 200px;height: 200px" src="/static/image/{{.data.Foto}}" alt="Avatar" title="Change the avatar">
+                                </div>
+                            </div>
+                        </div>
+                        {{end}}
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <div class="form-group">
                                 <label>Nama</label>

@@ -11,7 +11,7 @@
                     </div>
                     <div class="x_content">
                         <br />
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" action="/admin/v1/user/update_profile/{{.data.ID}}">
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" action="/admin/v1/user/update_profile/{{.data.ID}}" enctype="multipart/form-data">
                             <input type="text" name="id_user" value="{{.data.ID}}" hidden>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama<span class="required">*</span>
@@ -25,6 +25,13 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" name="no_telepon" value="{{.data.NoTlp}}" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">No Telepon<span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="file" name="foto" value="{{.data.Foto}}" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">

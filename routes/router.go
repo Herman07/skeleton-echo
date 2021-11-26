@@ -1,17 +1,16 @@
 package routes
 
 import (
+	"Inventarisasi-P3A/config"
+	"Inventarisasi-P3A/middleware"
+	"Inventarisasi-P3A/utils/session"
 	"encoding/json"
-	"fmt"
 	"github.com/foolin/goview"
 	echotemplate "github.com/foolin/goview/supports/echoview-v4"
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
 	"html/template"
 	"net/http"
-	"Inventarisasi-P3A/config"
-	"Inventarisasi-P3A/middleware"
-	"Inventarisasi-P3A/utils/session"
 )
 
 func Api(e *echo.Echo, db *gorm.DB) {
@@ -29,10 +28,9 @@ func Api(e *echo.Echo, db *gorm.DB) {
 					ID: data.ID,
 					Username: data.Username,
 					TypeUser: data.TypeUser,
+					Foto : data.Foto,
 				}
-
 				_ = json.Unmarshal(dataSes, &userInfo)
-				fmt.Println("session data : ",userInfo)
 				return userInfo
 			},
 		},
@@ -100,7 +98,7 @@ func Api(e *echo.Echo, db *gorm.DB) {
 	e.DELETE("/kec/:id/delete",kecController.Delete)
 
 	userController := config.InjectUserController(db)
-	u := g.Group("/user", authorizationMiddleware.AuthorizationMiddleware([]string{"1"}))
+	u := g.Group("/user", authorizationMiddleware.AuthorizationMiddleware([]string{"1","2"}))
 	u.GET("/create", userController.Index)
 	u.GET("/profile/:id",userController.Profile)
 	u.GET("/profile/update/:id",userController.UpdateProfile)
