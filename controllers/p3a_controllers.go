@@ -1,6 +1,10 @@
 package controllers
 
 import (
+	"Inventarisasi-P3A/models"
+	"Inventarisasi-P3A/request"
+	"Inventarisasi-P3A/services"
+	"Inventarisasi-P3A/utils/session"
 	"encoding/json"
 	"fmt"
 	"github.com/labstack/echo/v4"
@@ -9,10 +13,6 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"Inventarisasi-P3A/models"
-	"Inventarisasi-P3A/request"
-	"Inventarisasi-P3A/services"
-	"Inventarisasi-P3A/utils/session"
 	"strconv"
 	"time"
 )
@@ -214,6 +214,8 @@ func (c *P3Controller) GenerateExcel(ctx echo.Context) error {
 		return c.InternalServerError(ctx, err)
 	}
 	f := excelize.NewFile()
+	// Create a new sheet.
+	index := f.NewSheet("Data Export")
 	_, _ = f.NewConditionalStyle("center")
 	center, _ := f.NewStyle(`{"alignment":{"horizontal":"center"},"font":{"italic":true},"border": [
 			{
@@ -308,134 +310,133 @@ func (c *P3Controller) GenerateExcel(ctx echo.Context) error {
 				"color": "202020",
 				"style": 5
 			}]}`)
-	f.SetCellStyle("Sheet1", "A1", "H3", columncolor)
-	f.SetCellStyle("Sheet1", "I1", "M3", columncolor1)
-	f.SetCellStyle("Sheet1", "N1", "AA3", columncolor2)
-	f.SetCellStyle("Sheet1", "AB1", "AF3", columncolor)
-	f.SetColWidth("Sheet1", "A", "AF", 20)
+	f.SetCellStyle("Data Export", "A1", "H3", columncolor)
+	f.SetCellStyle("Data Export", "I1", "M3", columncolor1)
+	f.SetCellStyle("Data Export", "N1", "AA3", columncolor2)
+	f.SetCellStyle("Data Export", "AB1", "AF3", columncolor)
+	f.SetColWidth("Data Export", "A", "AF", 20)
 	in := 4
 	for range data {
 		in++
 	}
 	number := strconv.Itoa(in)
 	column := fmt.Sprintf("AF%s", number)
-	_ = f.SetCellStyle("Sheet1", "A4", column, center)
+	_ = f.SetCellStyle("Data Export", "A4", column, center)
 
-	// Create a new sheet.
-	index := f.NewSheet("Data Export")
+
 	// Set value of a cell.
-	_ = f.SetCellValue("Sheet1", "A1", "No")
-	_ = f.SetCellValue("Sheet1", "B1", "Provinsi/Kabupaten")
-	_ = f.SetCellValue("Sheet1", "C1", "Kecamatan")
-	_ = f.SetCellValue("Sheet1", "D1", "Nama Daerah Imigrasi")
-	_ = f.SetCellValue("Sheet1", "E1", "Luas Wilayah (Ha)")
-	_ = f.SetCellValue("Sheet1", "F1", "Jumlah P3A")
-	_ = f.SetCellValue("Sheet1", "G1", "Nama P3A")
-	_ = f.SetCellValue("Sheet1", "H1", "Luas Layanan P3A (Ha)")
+	_ = f.SetCellValue("Data Export", "A1", "No")
+	_ = f.SetCellValue("Data Export", "B1", "Provinsi/Kabupaten")
+	_ = f.SetCellValue("Data Export", "C1", "Kecamatan")
+	_ = f.SetCellValue("Data Export", "D1", "Nama Daerah Imigrasi")
+	_ = f.SetCellValue("Data Export", "E1", "Luas Wilayah (Ha)")
+	_ = f.SetCellValue("Data Export", "F1", "Jumlah P3A")
+	_ = f.SetCellValue("Data Export", "G1", "Nama P3A")
+	_ = f.SetCellValue("Data Export", "H1", "Luas Layanan P3A (Ha)")
 
 	// Status Legal
-	_ = f.SetCellValue("Sheet1", "I1", "Status Legal P3A")
-	_ = f.SetCellValue("Sheet1", "I2", "Tahun Pembentukan")
-	_ = f.SetCellValue("Sheet1", "J2", "Diketahui Kepala Desa / Camat")
-	_ = f.SetCellValue("Sheet1", "K2", "SK Bupati")
-	_ = f.SetCellValue("Sheet1", "L2", "Akte Notaris")
-	_ = f.SetCellValue("Sheet1", "M2", "Terdaftar di Pengadilan Negeri / Kemenkum HAM")
-	_ = f.MergeCell("Sheet1", "I1", "M1")
+	_ = f.SetCellValue("Data Export", "I1", "Status Legal P3A")
+	_ = f.SetCellValue("Data Export", "I2", "Tahun Pembentukan")
+	_ = f.SetCellValue("Data Export", "J2", "Diketahui Kepala Desa / Camat")
+	_ = f.SetCellValue("Data Export", "K2", "SK Bupati")
+	_ = f.SetCellValue("Data Export", "L2", "Akte Notaris")
+	_ = f.SetCellValue("Data Export", "M2", "Terdaftar di Pengadilan Negeri / Kemenkum HAM")
+	_ = f.MergeCell("Data Export", "I1", "M1")
 
 	// Kepengurusan
-	_ = f.SetCellValue("Sheet1", "N1", "Kepengurusan")
-	_ = f.SetCellValue("Sheet1", "N2", "Ketua")
-	_ = f.SetCellValue("Sheet1", "O2", "Wakil Ketua")
-	_ = f.SetCellValue("Sheet1", "P2", "Sekertaris")
-	_ = f.SetCellValue("Sheet1", "Q2", "Bendahara")
-	_ = f.SetCellValue("Sheet1", "R2", "Seksi (L/P)")
-	_ = f.SetCellValue("Sheet1", "U2", "Jumlah Anggota")
-	_ = f.SetCellValue("Sheet1", "N3", "L/P")
-	_ = f.SetCellValue("Sheet1", "O3", "L/P")
-	_ = f.SetCellValue("Sheet1", "P3", "L/P")
-	_ = f.SetCellValue("Sheet1", "Q3", "L/P")
-	_ = f.SetCellValue("Sheet1", "R3", "Teknik")
-	_ = f.SetCellValue("Sheet1", "S3", "O & P")
-	_ = f.SetCellValue("Sheet1", "T3", "Bisnis")
-	_ = f.MergeCell("Sheet1", "N1", "U1")
-	_ = f.MergeCell("Sheet1", "R2", "T2")
-	_ = f.MergeCell("Sheet1", "U2", "U3")
+	_ = f.SetCellValue("Data Export", "N1", "Kepengurusan")
+	_ = f.SetCellValue("Data Export", "N2", "Ketua")
+	_ = f.SetCellValue("Data Export", "O2", "Wakil Ketua")
+	_ = f.SetCellValue("Data Export", "P2", "Sekertaris")
+	_ = f.SetCellValue("Data Export", "Q2", "Bendahara")
+	_ = f.SetCellValue("Data Export", "R2", "Seksi (L/P)")
+	_ = f.SetCellValue("Data Export", "U2", "Jumlah Anggota")
+	_ = f.SetCellValue("Data Export", "N3", "L/P")
+	_ = f.SetCellValue("Data Export", "O3", "L/P")
+	_ = f.SetCellValue("Data Export", "P3", "L/P")
+	_ = f.SetCellValue("Data Export", "Q3", "L/P")
+	_ = f.SetCellValue("Data Export", "R3", "Teknik")
+	_ = f.SetCellValue("Data Export", "S3", "O & P")
+	_ = f.SetCellValue("Data Export", "T3", "Bisnis")
+	_ = f.MergeCell("Data Export", "N1", "U1")
+	_ = f.MergeCell("Data Export", "R2", "T2")
+	_ = f.MergeCell("Data Export", "U2", "U3")
 
-	_ = f.SetCellValue("Sheet1", "V1", "AD/ART")
-	_ = f.SetCellValue("Sheet1", "W1", "Sekertariat")
-	_ = f.SetCellValue("Sheet1", "X1", "Persentase (%) perempuan")
-	_ = f.SetCellValue("Sheet1", "Y1", "areal tersier (ha)")
-	_ = f.SetCellValue("Sheet1", "Z1", "Pengisian Buku")
-	_ = f.SetCellValue("Sheet1", "AA1", "Iuran")
+	_ = f.SetCellValue("Data Export", "V1", "AD/ART")
+	_ = f.SetCellValue("Data Export", "W1", "Sekertariat")
+	_ = f.SetCellValue("Data Export", "X1", "Persentase (%) perempuan")
+	_ = f.SetCellValue("Data Export", "Y1", "areal tersier (ha)")
+	_ = f.SetCellValue("Data Export", "Z1", "Pengisian Buku")
+	_ = f.SetCellValue("Data Export", "AA1", "Iuran")
 
 	//Teknik irigasi
-	_ = f.SetCellValue("Sheet1", "AB1", "Teknik Irigasi")
-	_ = f.SetCellValue("Sheet1", "AB2", "Operasi")
-	_ = f.SetCellValue("Sheet1", "AC2", "Partisipatif")
-	_ = f.MergeCell("Sheet1", "AB1", "AC1")
-	_ = f.MergeCell("Sheet1", "AB2", "AB3")
-	_ = f.MergeCell("Sheet1", "AC2", "AC3")
+	_ = f.SetCellValue("Data Export", "AB1", "Teknik Irigasi")
+	_ = f.SetCellValue("Data Export", "AB2", "Operasi")
+	_ = f.SetCellValue("Data Export", "AC2", "Partisipatif")
+	_ = f.MergeCell("Data Export", "AB1", "AC1")
+	_ = f.MergeCell("Data Export", "AB2", "AB3")
+	_ = f.MergeCell("Data Export", "AC2", "AC3")
 
 	//Teknik Pertanian
-	_ = f.SetCellValue("Sheet1", "AD1", "Teknik Pertanian")
-	_ = f.SetCellValue("Sheet1", "AD2", "Pola Tanam")
-	_ = f.SetCellValue("Sheet1", "AE2", "Usaha Tani")
-	_ = f.MergeCell("Sheet1", "AD1", "AE1")
-	_ = f.MergeCell("Sheet1", "AD2", "AD3")
-	_ = f.MergeCell("Sheet1", "AE2", "AE3")
+	_ = f.SetCellValue("Data Export", "AD1", "Teknik Pertanian")
+	_ = f.SetCellValue("Data Export", "AD2", "Pola Tanam")
+	_ = f.SetCellValue("Data Export", "AE2", "Usaha Tani")
+	_ = f.MergeCell("Data Export", "AD1", "AE1")
+	_ = f.MergeCell("Data Export", "AD2", "AD3")
+	_ = f.MergeCell("Data Export", "AE2", "AE3")
 
 	// Keterangan
-	_ = f.SetCellValue("Sheet1", "AF1", "Keterangan")
-	_ = f.MergeCell("Sheet1", "AF1", "AF3")
+	_ = f.SetCellValue("Data Export", "AF1", "Keterangan")
+	_ = f.MergeCell("Data Export", "AF1", "AF3")
 
 	// ROW MERGE
 	for i := 0; i < 9; i++ {
-		_ = f.MergeCell("Sheet1", string(rune('A'-1+i))+"1", string(rune('A'-1+i))+"3")
+		_ = f.MergeCell("Data Export", string(rune('A'-1+i))+"1", string(rune('A'-1+i))+"3")
 	}
 
 	for i := 0; i < 6; i++ {
-		_ = f.MergeCell("Sheet1", string(rune('I'-1+i))+"2", string(rune('I'-1+i))+"3")
+		_ = f.MergeCell("Data Export", string(rune('I'-1+i))+"2", string(rune('I'-1+i))+"3")
 	}
 
 	for i := 0; i < 5; i++ {
-		_ = f.MergeCell("Sheet1", string(rune('W'-1+i))+"1", string(rune('W'-1+i))+"3")
+		_ = f.MergeCell("Data Export", string(rune('W'-1+i))+"1", string(rune('W'-1+i))+"3")
 	}
-	_ = f.MergeCell("Sheet1", "AA1", "AA3")
+	_ = f.MergeCell("Data Export", "AA1", "AA3")
 
 	for i, v := range data {
-		_ = f.SetCellValue("Sheet1", "A"+strconv.Itoa(i+4), i+1)
+		_ = f.SetCellValue("Data Export", "A"+strconv.Itoa(i+4), i+1)
 		i = i + 4
-		_ = f.SetCellValue("Sheet1", "B"+strconv.Itoa(i), v.NamaProv+"/"+v.NamaKab)
-		_ = f.SetCellValue("Sheet1", "C"+strconv.Itoa(i), v.NamaKec)
-		_ = f.SetCellValue("Sheet1", "D"+strconv.Itoa(i), v.DaerahIrigasi)
-		_ = f.SetCellValue("Sheet1", "E"+strconv.Itoa(i), v.LuasWilayah)
-		_ = f.SetCellValue("Sheet1", "F"+strconv.Itoa(i), v.JumlahP3A)
-		_ = f.SetCellValue("Sheet1", "G"+strconv.Itoa(i), v.NamaP3A)
-		_ = f.SetCellValue("Sheet1", "H"+strconv.Itoa(i), v.LuasLayananP3A)
-		_ = f.SetCellValue("Sheet1", "I"+strconv.Itoa(i), v.TahunPembentukan)
-		_ = f.SetCellValue("Sheet1", "J"+strconv.Itoa(i), v.LamKplDesa)
-		_ = f.SetCellValue("Sheet1", "K"+strconv.Itoa(i), v.SKBupati)
-		_ = f.SetCellValue("Sheet1", "L"+strconv.Itoa(i), v.AkteNotaris)
-		_ = f.SetCellValue("Sheet1", "M"+strconv.Itoa(i), v.NoPendaftaran)
-		_ = f.SetCellValue("Sheet1", "N"+strconv.Itoa(i), v.Ketua)
-		_ = f.SetCellValue("Sheet1", "O"+strconv.Itoa(i), v.Wakil)
-		_ = f.SetCellValue("Sheet1", "P"+strconv.Itoa(i), v.Sekretaris)
-		_ = f.SetCellValue("Sheet1", "Q"+strconv.Itoa(i), v.Bendahara)
-		_ = f.SetCellValue("Sheet1", "R"+strconv.Itoa(i), v.SekTeknik)
-		_ = f.SetCellValue("Sheet1", "S"+strconv.Itoa(i), v.SekOP)
-		_ = f.SetCellValue("Sheet1", "T"+strconv.Itoa(i), v.SekBisnis)
-		_ = f.SetCellValue("Sheet1", "U"+strconv.Itoa(i), v.JumlahAnggota)
-		_ = f.SetCellValue("Sheet1", "V"+strconv.Itoa(i), v.NoADRT)
-		_ = f.SetCellValue("Sheet1", "W"+strconv.Itoa(i), v.Sekretariat)
-		_ = f.SetCellValue("Sheet1", "X"+strconv.Itoa(i), v.PresentasiPerempuanP3A)
-		_ = f.SetCellValue("Sheet1", "Y"+strconv.Itoa(i), v.ArealTersier)
-		_ = f.SetCellValue("Sheet1", "Z"+strconv.Itoa(i), v.PengisianBuku)
-		_ = f.SetCellValue("Sheet1", "AA"+strconv.Itoa(i), v.Iuran)
-		_ = f.SetCellValue("Sheet1", "AB"+strconv.Itoa(i), v.Operasi)
-		_ = f.SetCellValue("Sheet1", "AC"+strconv.Itoa(i), v.Partisipatif)
-		_ = f.SetCellValue("Sheet1", "AD"+strconv.Itoa(i), v.PolaTanam)
-		_ = f.SetCellValue("Sheet1", "AE"+strconv.Itoa(i), v.UsahaTani)
-		_ = f.SetCellValue("Sheet1", "AF"+strconv.Itoa(i), v.Keterangan)
+		_ = f.SetCellValue("Data Export", "B"+strconv.Itoa(i), v.NamaProv+"/"+v.NamaKab)
+		_ = f.SetCellValue("Data Export", "C"+strconv.Itoa(i), v.NamaKec)
+		_ = f.SetCellValue("Data Export", "D"+strconv.Itoa(i), v.DaerahIrigasi)
+		_ = f.SetCellValue("Data Export", "E"+strconv.Itoa(i), v.LuasWilayah)
+		_ = f.SetCellValue("Data Export", "F"+strconv.Itoa(i), v.JumlahP3A)
+		_ = f.SetCellValue("Data Export", "G"+strconv.Itoa(i), v.NamaP3A)
+		_ = f.SetCellValue("Data Export", "H"+strconv.Itoa(i), v.LuasLayananP3A)
+		_ = f.SetCellValue("Data Export", "I"+strconv.Itoa(i), v.TahunPembentukan)
+		_ = f.SetCellValue("Data Export", "J"+strconv.Itoa(i), v.LamKplDesa)
+		_ = f.SetCellValue("Data Export", "K"+strconv.Itoa(i), v.SKBupati)
+		_ = f.SetCellValue("Data Export", "L"+strconv.Itoa(i), v.AkteNotaris)
+		_ = f.SetCellValue("Data Export", "M"+strconv.Itoa(i), v.NoPendaftaran)
+		_ = f.SetCellValue("Data Export", "N"+strconv.Itoa(i), v.Ketua)
+		_ = f.SetCellValue("Data Export", "O"+strconv.Itoa(i), v.Wakil)
+		_ = f.SetCellValue("Data Export", "P"+strconv.Itoa(i), v.Sekretaris)
+		_ = f.SetCellValue("Data Export", "Q"+strconv.Itoa(i), v.Bendahara)
+		_ = f.SetCellValue("Data Export", "R"+strconv.Itoa(i), v.SekTeknik)
+		_ = f.SetCellValue("Data Export", "S"+strconv.Itoa(i), v.SekOP)
+		_ = f.SetCellValue("Data Export", "T"+strconv.Itoa(i), v.SekBisnis)
+		_ = f.SetCellValue("Data Export", "U"+strconv.Itoa(i), v.JumlahAnggota)
+		_ = f.SetCellValue("Data Export", "V"+strconv.Itoa(i), v.NoADRT)
+		_ = f.SetCellValue("Data Export", "W"+strconv.Itoa(i), v.Sekretariat)
+		_ = f.SetCellValue("Data Export", "X"+strconv.Itoa(i), v.PresentasiPerempuanP3A)
+		_ = f.SetCellValue("Data Export", "Y"+strconv.Itoa(i), v.ArealTersier)
+		_ = f.SetCellValue("Data Export", "Z"+strconv.Itoa(i), v.PengisianBuku)
+		_ = f.SetCellValue("Data Export", "AA"+strconv.Itoa(i), v.Iuran)
+		_ = f.SetCellValue("Data Export", "AB"+strconv.Itoa(i), v.Operasi)
+		_ = f.SetCellValue("Data Export", "AC"+strconv.Itoa(i), v.Partisipatif)
+		_ = f.SetCellValue("Data Export", "AD"+strconv.Itoa(i), v.PolaTanam)
+		_ = f.SetCellValue("Data Export", "AE"+strconv.Itoa(i), v.UsahaTani)
+		_ = f.SetCellValue("Data Export", "AF"+strconv.Itoa(i), v.Keterangan)
 
 	}
 	// Set active sheet of the workbook.
