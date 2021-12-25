@@ -585,12 +585,11 @@
 
     function GetValue(id) {
         id = $('#kab').val();
-        pip = [];
-        console.log("pip 2 : ", pip)
         $.ajax({
             url: '/kec/' + id,
             type: 'POST',
             success: function (res) {
+                $('#kec').empty();
                 val = res.data
                 pip = [];
                 $.each(val, function (id, text) {
@@ -598,6 +597,7 @@
                         id: text.id_kec,
                         text: text.nama_kecamatan,
                     })
+
                     $('#kec').select2({
                         data: pip
                     })
