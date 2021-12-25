@@ -25,8 +25,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Kabupaten<span class="">*</span></label>
-                                    <select id="kab" class="form-control" name="kab" onchange="GetValue()"
-                                    >
+                                    <select id="kab" class="form-control" name="nama_kab" onchange="GetValue()">
                                         <option value="{{.data.NamaKab}}">{{.data.NamaKab}}</option>
                                     </select>
                                     <input type="text" name="id_kab_fk" id="id_kab_fk" value="{{.data.IDKab}}" hidden>
@@ -34,7 +33,7 @@
                                 <div class="form-group">
                                     <label>Kecamatan</label><span class="">*</span>
                                     <select id="kec" class="form-control"
-                                            name="kec" onchange="GetVal()">
+                                            name="nama_kecamatan" onchange="GetVal()">
                                         <option value="{{.data.NamaKec}}">{{.data.NamaKec}}</option>
                                     </select>
                                     <input type="text" name="id_kec_fk" id="id_kec_fk" value="{{.data.IDKec}}" hidden>
@@ -109,29 +108,22 @@
                             </div>
                             <div class="form-group">
                                 <label>Lampiran Tahun Pembentukan<span class="">*</span></label>
-                                <div class="avatar-preview">
-                                    <div id="imagePreview1"
-                                         style="background-image: url(/static/image/{{.data.LamTahunPembentukan}});">
-                                    </div>
-                                </div>
+                                <iframe src="/static/image/{{.data.LamTahunPembentukan}}" width="100%" height="100px">
+                                </iframe>
                                 <br>
                                 <div class=" avatar-upload avatar-edit">
-                                    <input type="file" name="lampiran_tahun_pembentukan" accept=".png, .jpg, .jpeg"
-                                           value="{{.data.LamTahunPembentukan}}"
+                                    <input type="file" name="lampiran_tahun_pembentukan"
+                                           accept="application/pdf" value="{{.data.LamTahunPembentukan}}"
                                     />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Lampiran Kepala Daerah<span class="">*</span></label>
-                                <div class="avatar-preview">
-                                    <div id="imagePreview2"
-                                         style="background-image: url(/static/image/{{.data.LamKplDesa}});">
-                                    </div>
-                                </div>
+                                <iframe src="/static/image/{{.data.LamKplDesa}}" width="100%" height="100px"></iframe>
                                 <br>
                                 <div class=" avatar-upload avatar-edit">
                                     <input type="file" name="lampiran_kep_dc"
-                                           accept=".png, .jpg, .jpeg" value="{{.data.LamKplDesa}}"
+                                           accept="application/pdf" value="{{.data.LamKplDesa}}"
                                     />
                                 </div>
                             </div>
@@ -143,49 +135,37 @@
                                        value="{{.data.AkteNotaris}}">
                             </div>
                             <div class="form-group">
-                                <label>Nomor Pendaftaran<span class="">*</span></label>
+                                <label>Terdaftar di Pengadilan Negeri / Kemenkum HAM<span class="">*</span></label>
                                 <input type="text" class="form-control" name="no_pendaftaran"
                                        value="{{.data.NoPendaftaran}}">
                             </div>
                             <div class="form-group">
                                 <label>Lampiran Akte Notaris<span class="">*</span></label>
-                                <div class="avatar-preview">
-                                    <div id="imagePreview4"
-                                         style="background-image: url(/static/image/{{.data.LamAkteNotaris}});">
-                                    </div>
-                                </div>
+                                <iframe src="/static/image/{{.data.LamAkteNotaris}}" width="100%" height="100px"></iframe>
                                 <br>
                                 <div class=" avatar-upload avatar-edit">
                                     <input type="file" name="lampiran_akte_notaris"
-                                           accept=".png, .jpg, .jpeg" value="{{.data.LamAkteNotaris}}"
+                                           accept="application/pdf" value="{{.data.LamAkteNotaris}}"
                                     />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Lampiran SK Bupati<span class="">*</span></label>
-                                <div class="avatar-preview">
-                                    <div id="imagePreview3"
-                                         style="background-image: url(/static/image/{{.data.LamSKBupati}});">
-                                    </div>
-                                </div>
+                                <iframe src="/static/image/{{.data.LamSKBupati}}" width="100%" height="100px"></iframe>
                                 <br>
                                 <div class=" avatar-upload avatar-edit">
                                     <input type="file" name="lampiran_sk_bupati"
-                                           accept=".png, .jpg, .jpeg" value="{{.data.LamSKBupati}}"
+                                           accept="application/pdf" value="{{.data.LamSKBupati}}"
                                     />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Lampiran No Pendaftaran<span class="">*</span></label>
-                                <div class="avatar-preview">
-                                    <div id="imagePreview5"
-                                         style="background-image: url(/static/image/{{.data.LamPendaftaran}});">
-                                    </div>
-                                </div>
+                                <label>Lampiran Terdaftar di Pengadilan Negeri / Kemenkum HAM<span class="">*</span></label>
+                                <iframe src="/static/image/{{.data.LamPendaftaran}}" width="100%" height="100px"></iframe>
                                 <br>
                                 <div class=" avatar-upload avatar-edit">
                                     <input type="file" name="lampiran_pendaftaran"
-                                           accept=".png, .jpg, .jpeg" value="{{.data.LamPendaftaran}}"
+                                           accept="application/pdf" value="{{.data.LamPendaftaran}}"
                                     />
                                 </div>
                             </div>
@@ -369,15 +349,11 @@
                             </div>
                             <div class="form-group">
                                 <label> Lampiran ADRT <span class="">*</span></label>
-                                <div class="avatar-preview">
-                                    <div id="imagePreview6"
-                                         style="background-image: url(/static/image/{{.data.LampiranADRT}});">
-                                    </div>
-                                </div>
+                                <iframe src="/static/image/{{.data.LampiranADRT}}" width="100%" height="100px"></iframe>
                                 <br>
                                 <div class=" avatar-upload avatar-edit">
                                     <input type="file" name="lampiran_ad_art"
-                                           accept=".png, .jpg, .jpeg " value="{{.data.LampiranADRT}}"
+                                           accept="application/pdf" value="{{.data.LampiranADRT}}"
                                     />
                                 </div>
                             </div>
@@ -393,15 +369,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Lampiran Sekretariat<span class="">*</span></label>
-                                <div class="avatar-preview">
-                                    <div id="imagePreview7"
-                                         style="background-image: url(/static/image/{{.data.LampiranSekretariat}});">
-                                    </div>
-                                </div>
+                                <iframe src="/static/image/{{.data.LampiranSekretariat}}" width="100%" height="100px"></iframe>
                                 <br>
                                 <div class=" avatar-upload avatar-edit">
                                     <input type="file" name="lampiran_sekretariat"
-                                           accept=".png, .jpg, .jpeg" value="{{.data.LampiranSekretariat}}"/>
+                                           accept="application/pdf" value="{{.data.LampiranSekretariat}}"/>
                                 </div>
                             </div>
                             <div class="form-group">

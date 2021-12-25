@@ -28,20 +28,20 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">No Telepon<span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Foto Profile<span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="file" name="foto" value="{{.data.Foto}}" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input class="form-control col-md-7 col-xs-12" value="{{.data.Email}}" type="email" name="email">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div id="gender" class="btn-group" data-toggle="buttons">
                                         {{if eq .data.JenisKelamin "L"}}
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Alamat</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Alamat<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input class="form-control col-md-7 col-xs-12" type="text" value="{{.data.Alamat}}" name="alamat">
                                 </div>

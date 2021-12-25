@@ -95,7 +95,7 @@
                                 <p class="form-control">{{.data.AkteNotaris}}</p>
                             </div>
                             <div class="form-group">
-                                <label>Nomor Pendaftaran<span class="">*</span></label>
+                                <label>Terdaftar di Pengadilan Negeri / Kemenkum HAM<span class="">*</span></label>
                                 <p class="form-control">{{.data.NoPendaftaran}}</p>
                             </div>
                         </div>
@@ -318,15 +318,15 @@
                             <div class="form-group">
                                 <label>Lampiran Tahun Pembentukan</label>
                                 <div class="image view view-first">
-                                    <img style="width: 100%; display: block" id="img1"
-                                         src="/static/image/{{.data.LamTahunPembentukan}}">
+                                    <iframe style="width: 100%; display: block" id="img1"
+                                         src="/static/image/{{.data.LamTahunPembentukan}}" onclick="Download()"></iframe>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Lampiran Kepala Daerah</label>
                                 <div class="image view view-first">
-                                    <img style="width: 100%; display: block" id="img2"
-                                         src="/static/image/{{.data.LamKplDesa}}">
+                                    <iframe style="width: 100%; display: block" id="img2"
+                                         src="/static/image/{{.data.LamKplDesa}}" onclick="Download()"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -334,31 +334,31 @@
                             <div class="form-group">
                                 <label>Lampiran SK Bupati</label>
                                 <div class="image view view-first">
-                                    <img style="width: 100%; display: block" id="img3"
-                                         src="/static/image/{{.data.LamSKBupati}}">
+                                    <iframe style="width: 100%; display: block" id="img3"
+                                         src="/static/image/{{.data.LamSKBupati}}" onclick="Download()"></iframe>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Lampiran Akte Notaris</label>
                                 <div class="image view view-first">
-                                    <img style="width: 100%; display: block" id="img4"
-                                         src="/static/image/{{.data.LamAkteNotaris}}">
+                                    <iframe style="width: 100%; display: block" id="img4"
+                                         src="/static/image/{{.data.LamAkteNotaris}}" onclick="Download()"></iframe>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Lampiran Pendaftaran</label>
+                                <label>Lampiran Terdaftar di Pengadilan Negeri / Kemenkum HAM</label>
                                 <div class="image view view-first">
-                                    <img style="width: 100%; display: block" id="img5"
-                                         src="/static/image/{{.data.LamPendaftaran}}">
+                                    <iframe style="width: 100%; display: block" id="img5"
+                                         src="/static/image/{{.data.LamPendaftaran}}" onclick="Download()"></iframe>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Lampiran ADART</label>
                                 <div class="image view view-first">
-                                    <img style="width: 100%; display: block" id="img6"
-                                         src="/static/image/{{.data.LampiranADRT}}">
+                                    <iframe style="width: 100%; display: block" id="img6"
+                                         src="/static/image/{{.data.LampiranADRT}}" onclick="Download()"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -366,8 +366,8 @@
                             <div class="form-group">
                                 <label>Lampiran Seketariat</label>
                                 <div class="image view view-first">
-                                    <img style="width: 100%; display: block" id="img7"
-                                         src="/static/image/{{.data.LampiranSekretariat}}">
+                                    <iframe style="width: 100%; display: block" id="img7"
+                                         src="/static/image/{{.data.LampiranSekretariat}}" onclick="Download()"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -398,7 +398,7 @@
                 <h4 class="modal-title" id="myModalLabel">Preview Img</h4>
             </div>
             <div class="modal-body">
-                <img src="" id="content" style="width: 800px; height:auto;">
+                <iframe src="" id="content" style="width: 800px; height:800px;"></iframe>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
