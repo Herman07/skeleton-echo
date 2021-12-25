@@ -1,10 +1,10 @@
 package services
 
 import (
-	"fmt"
 	"Inventarisasi-P3A/models"
 	"Inventarisasi-P3A/repository"
 	"Inventarisasi-P3A/request"
+	"fmt"
 	"strings"
 	"time"
 )
@@ -57,6 +57,9 @@ func (s *P3Service) FindById(id string) (*models.P3AModels, error) {
 func (s *P3Service) UpdateById(id string, dto request.UpdateInventaris) (*models.Inventaris, error) {
 	entity := models.Inventaris{
 		ID:             id,
+		IDProv:         dto.IDProv,
+		IDKab:          dto.IDKab,
+		IDKec:          dto.IDKec,
 		NoUrut:         dto.NoUrut,
 		NamaP3A:        dto.NamaP3A,
 		JumlahP3A:      dto.JumlahP3A,
@@ -239,7 +242,7 @@ func (s *P3Service) Delete(id string) error {
 	}
 }
 
-func (s *P3Service) UpdateStatusLegal(id string, dto request.UpdateInventaris,namaFile []string, prefixFile []string) (*models.StatusLegal, error) {
+func (s *P3Service) UpdateStatusLegal(id string, dto request.UpdateInventaris, namaFile []string, prefixFile []string) (*models.StatusLegal, error) {
 	if prefixFile != nil {
 		for i := range prefixFile {
 			switch prefixFile[i] {
@@ -280,7 +283,7 @@ func (s *P3Service) UpdateStatusLegal(id string, dto request.UpdateInventaris,na
 	return data, err
 }
 
-func (s *P3Service) UpdatePengurus(id string, dto request.UpdateInventaris,namaFile []string, prefixFile []string) (*models.Pengurus, error) {
+func (s *P3Service) UpdatePengurus(id string, dto request.UpdateInventaris, namaFile []string, prefixFile []string) (*models.Pengurus, error) {
 	if namaFile != nil {
 		for i := range prefixFile {
 			switch prefixFile[i] {

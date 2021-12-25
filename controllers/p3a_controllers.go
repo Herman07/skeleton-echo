@@ -72,14 +72,17 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 	length, err := strconv.Atoi(ctx.Request().URL.Query().Get("length"))
 	order, err := strconv.Atoi(ctx.Request().URL.Query().Get("order[0][column]"))
 	orderName := ctx.Request().URL.Query().Get("columns[" + strconv.Itoa(order) + "][name]")
-	//orderAscDesc := ctx.Request().URL.Query().Get("order[0][dir]")
+	orderAscDesc := ctx.Request().URL.Query().Get("order[0][dir]")
 
-	recordTotal, recordFiltered, data, err := c.service.QueryDatatable(search, "DESC", orderName, length, start)
+	recordTotal, recordFiltered, data, err := c.service.QueryDatatable(search, orderAscDesc, orderName, length, start)
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, err.Error())
 	}
 	//var createdAt string
 	var action string
+	var luasWilayah string
+	var luasWilayahP3A string
+	var ArealTersier string
 	listOfData := make([]map[string]interface{}, len(data))
 	for k, v := range data {
 		if userInfo.TypeUser != "2" {
@@ -90,14 +93,24 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 		} else {
 			action = `<a href="/admin/v1/inventaris/detail/` + (v.IDP3A) + `" class="btn btn-primary" style="text-decoration: none;font-weight: 100;color: white;/* width: 80px; */"><i class="fa fa-eye"></i></a>`
 		}
+
+		if v.LuasWilayah != ""{
+			luasWilayah = v.LuasWilayah + " Ha"
+		}
+		if v.LuasLayananP3A != ""{
+			luasWilayahP3A = v.LuasLayananP3A + " Ha"
+		}
+		if v.ArealTersier != ""{
+			ArealTersier = v.ArealTersier + " Ha"
+		}
 		listOfData[k] = map[string]interface{}{
 			"id_p3a":                   v.IDP3A,
 			"no_urut":                  v.NoUrut,
 			"nama_p3a":                 v.NamaP3A,
 			"jumlah_p3a":               v.JumlahP3A,
 			"nama_daerah_irigasi":      v.DaerahIrigasi,
-			"luas_wilayah":             v.LuasWilayah,
-			"luas_layanan_p3a":         v.LuasLayananP3A,
+			"luas_wilayah":             luasWilayah,
+			"luas_layanan_p3a":         luasWilayahP3A,
 			"keterangan":               v.Keterangan,
 			"nama_prov":                v.NamaProv,
 			"nama_kab":                 v.NamaKab,
@@ -118,7 +131,7 @@ func (c *P3Controller) GetDetail(ctx echo.Context) error {
 			"no_ad_art":                v.NoADRT,
 			"sekretariat":              v.Sekretariat,
 			"persentase_perempuan_p3a": v.PresentasiPerempuanP3A,
-			"areal_tersier":            v.ArealTersier,
+			"areal_tersier":            ArealTersier,
 			"pengisian_buku":           v.PengisianBuku,
 			"iuran":                    v.Iuran,
 			"operasi":                  v.Operasi,
@@ -474,6 +487,7 @@ func (c *P3Controller) DoUpdate(ctx echo.Context) error {
 	if err := ctx.Bind(&entity); err != nil {
 		return ctx.JSON(400, echo.Map{"message": "error binding data"})
 	}
+	fmt.Println("Data Update : ",entity)
 	name := []string{"lampiran_tahun_pembentukan", "lampiran_kep_dc", "lampiran_sk_bupati", "lampiran_akte_notaris", "lampiran_pendaftaran", "lampiran_ad_art", "lampiran_sekretariat"}
 	var namaFile []string
 	var prefixFile []string
